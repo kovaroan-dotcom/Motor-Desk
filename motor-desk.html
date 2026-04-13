@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MOTOR DESK — March 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#111714;--bg2:#17201c;--bg3:#1c2820;--bdr:#253020;--bdr2:#2e3d2a;--acc:#34d9b5;--grn:#4ade80;--mut:#94b8a8;--dim:#6a8e7c;--wh:#e8f0eb;--txt:#c2d4ca;--head:#0b0f0d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;min-height:100vh}
+
+/* ── MASTHEAD ── */
+.masthead{background:var(--head);padding:0 48px;border-bottom:2px solid var(--acc)}
+.mast-top{display:flex;align-items:center;justify-content:space-between;padding:16px 0 12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;letter-spacing:.1em;color:var(--wh);text-transform:uppercase}
+.brand span{color:var(--acc)}
+.brand-sub{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--bdr2);padding-left:14px;margin-left:14px}
+.mast-date{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);text-align:right;line-height:1.7}
+.mast-date strong{display:block;font-size:12px;color:var(--txt)}
+
+/* ── NAV TABS ── */
+.rnav{display:flex;border-bottom:1px solid var(--bdr)}
+.rb{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);padding:10px 20px;cursor:pointer;transition:all .15s;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.rb:hover{color:var(--txt)}.rb.on{color:var(--acc);border-bottom-color:var(--acc)}
+.tnav{display:flex;flex-wrap:wrap;gap:6px;padding:9px 0 11px}
+.tb{padding:4px 13px;background:transparent;border:1px solid var(--bdr2);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
+.tb:hover{border-color:var(--mut);color:var(--txt)}.tb.on{background:var(--acc);color:var(--head);border-color:var(--acc)}
+
+/* ── TOOLBAR ── */
+.toolbar{background:var(--head);border-bottom:1px solid var(--bdr);padding:10px 48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 4px 24px rgba(0,0,0,.5)}
+.note{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;color:var(--dim)}
+.cnt{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);background:rgba(52,217,181,.08);border:1px solid rgba(52,217,181,.2);padding:5px 12px;border-radius:3px;margin-left:auto}
+
+/* ── PAGE ── */
+.page{max-width:1280px;margin:0 auto;padding:0 48px 80px}
+.ed-head{padding:26px 0 16px;border-bottom:1px solid var(--acc);margin-bottom:32px;display:flex;align-items:flex-end;justify-content:space-between}
+.ed-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+.ed-t{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--wh);line-height:1}
+.ed-m{text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--mut);letter-spacing:.12em;text-transform:uppercase;line-height:1.8}
+.ed-m strong{color:var(--txt)}
+
+/* ── SECTIONS ── */
+.rsec{margin-bottom:52px}
+.rh{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:10px;border-bottom:2px solid var(--bdr2)}
+.rh-t{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--wh)}
+.rh-c{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-left:auto}
+
+/* ── GRID & CARDS ── */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px}
+.card{background:var(--bg2);position:relative;display:flex;flex-direction:column;transition:background .14s;overflow:hidden;animation:fi .3s ease backwards}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card.s8{grid-column:span 8}.card.s6{grid-column:span 6}.card.s4{grid-column:span 4}
+.card:hover{background:var(--bg3)}
+
+/* image */
+.iw{width:100%;overflow:hidden;background:var(--bdr);position:relative}
+.card.s8 .iw,.card.s6 .iw{aspect-ratio:16/9}
+.card.s4 .iw{aspect-ratio:3/2}
+.ci{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.card:hover .ci{transform:scale(1.03)}
+.cfb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:36px;opacity:.2;background:var(--bdr)}
+.ie .cfb{display:flex}.ie .ci{display:none}
+
+/* card body */
+.cb{padding:18px 18px 15px;flex:1;display:flex;flex-direction:column}
+.ccat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block}
+.ct{font-family:'Playfair Display',serif;font-weight:700;line-height:1.28;margin-bottom:8px;color:var(--wh);flex:1}
+.card.s8 .ct{font-size:19px}.card.s6 .ct{font-size:16px}.card.s4 .ct{font-size:14px}
+.cd{font-size:13px;color:var(--txt);line-height:1.62;margin-bottom:12px;font-weight:300}
+.card.s4 .cd{display:none}
+.cf{display:flex;align-items:center;gap:8px;margin-top:auto;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.cs{font-weight:700;color:var(--txt)}.ca{margin-left:auto}
+.cl{color:var(--acc);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.cl:hover{text-decoration:underline}
+
+/* hidden cards (filtered out) */
+.card.hidden{display:none}
+
+/* ── SOURCES ACCORDION ── */
+.src-acc{border-top:1px solid var(--bdr)}
+.stog{width:100%;background:none;border:none;padding:11px 48px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.stog:hover{background:var(--bg2)}.stog .hl{color:var(--acc);margin-left:8px}
+.sch{font-size:9px;transition:transform .2s}.src-open .sch{transform:rotate(180deg)}
+.sbody{display:none;padding:22px 48px;background:var(--bg2);border-top:1px solid var(--bdr)}
+.src-open .sbody{display:block}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.sgh{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;margin-bottom:8px}
+.sgr{display:flex;gap:6px;padding:4px 0;border-bottom:1px solid var(--bdr)}
+.sgr:last-child{border-bottom:none}
+.sn{font-weight:600;color:var(--wh);display:block;font-size:11px}.sd{font-size:10px;color:var(--dim);display:block}
+
+footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
+
+@media(max-width:900px){
+  .masthead,.toolbar,.page,.stog,.sbody,footer{padding-left:20px;padding-right:20px}
+  .card,.card.s8,.card.s6,.card.s4{grid-column:span 12}
+  .card.s4 .cd{display:block}
+  .iw{aspect-ratio:16/9!important}
+}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="mast-top">
+    <div style="display:flex;align-items:baseline">
+      <span class="brand">MOTOR<span>·</span>DESK</span>
+      <span class="brand-sub">Automotive & Mobility Intelligence</span>
+    </div>
+    <div class="mast-date">
+      <strong>13 APRIL 2026</strong>
+      March 2026 Edition
+    </div>
+  </div>
+
+  <div class="rnav">
+    <button class="rb on" data-r="all"   onclick="sR('all')">📋 All</button>
+    <button class="rb"    data-r="world" onclick="sR('world')">🌍 World</button>
+    <button class="rb"    data-r="cz"    onclick="sR('cz')">🇨🇿 Czech Republic</button>
+  </div>
+
+  <div class="tnav">
+    <button class="tb on" data-t="all"      onclick="sT('all')">All Topics</button>
+    <button class="tb"    data-t="ev"       onclick="sT('ev')">⚡ BEV / PHEV</button>
+    <button class="tb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+    <button class="tb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+    <button class="tb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+    <button class="tb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+    <button class="tb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
+  </div>
+</div>
+
+<div class="toolbar">
+  <span class="note">📅 March 2026 · Auto-updated 1st of each month</span>
+  <span class="cnt" id="cnt">0 articles</span>
+</div>
+
+<div class="page">
+  <div class="ed-head">
+    <div>
+      <div class="ed-lbl">Automotive & Mobility Intelligence</div>
+      <div class="ed-t">March 2026 Edition</div>
+    </div>
+    <div class="ed-m"><strong id="visCount">0 articles</strong> from 18 sources</div>
+  </div>
+
+  <div id="main">
+    <p style="text-align:center;padding:80px;color:#6a8e7c">No articles found for this period.</p>
+  </div>
+</div>
+
+<div class="src-acc" id="sA">
+  <button class="stog" onclick="document.getElementById('sA').classList.toggle('src-open')">
+    <span>📰 Sources<span class="hl"> — Electrek · InsideEVs · CleanTechnica · Electrive · Motor1 · The Drive · Autocar · Automotive News · Reuters · TechCrunch · The Verge · Hybrid.cz · Auto.cz · AutoRevue · iDnes Auto · Autoforum · EV Magazin CZ · Green Car Reports</span></span>
+    <span class="sch">▼</span>
+  </button>
+  <div class="sbody">
+    <div class="sgrid">
+      <div>
+        <div class="sgh" style="color:var(--acc)">🌍 Global — EV</div>
+        <div class="sgr"><div><span class="sn">Electrek</span><span class="sd">electrek.co</span></div></div>
+        <div class="sgr"><div><span class="sn">InsideEVs</span><span class="sd">insideevs.com</span></div></div>
+        <div class="sgr"><div><span class="sn">CleanTechnica</span><span class="sd">cleantechnica.com</span></div></div>
+        <div class="sgr"><div><span class="sn">Electrive</span><span class="sd">electrive.com</span></div></div>
+        <div class="sgr"><div><span class="sn">Green Car Reports</span><span class="sd">greencarreports.com</span></div></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--acc)">🌍 Global — Automotive</div>
+        <div class="sgr"><div><span class="sn">Motor1</span><span class="sd">motor1.com</span></div></div>
+        <div class="sgr"><div><span class="sn">The Drive</span><span class="sd">thedrive.com</span></div></div>
+        <div class="sgr"><div><span class="sn">Autocar</span><span class="sd">autocar.co.uk</span></div></div>
+        <div class="sgr"><div><span class="sn">Automotive News</span><span class="sd">autonews.com</span></div></div>
+        <div class="sgr"><div><span class="sn">Reuters Autos</span><span class="sd">reuters.com</span></div></div>
+        <div class="sgr"><div><span class="sn">TechCrunch Transport</span><span class="sd">techcrunch.com</span></div></div>
+        <div class="sgr"><div><span class="sn">The Verge</span><span class="sd">theverge.com</span></div></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--mut)">🇨🇿 Czech Republic</div>
+        <div class="sgr"><div><span class="sn">Hybrid.cz</span><span class="sd">hybrid.cz</span></div></div>
+        <div class="sgr"><div><span class="sn">Auto.cz</span><span class="sd">auto.cz</span></div></div>
+        <div class="sgr"><div><span class="sn">AutoRevue.cz</span><span class="sd">autorevue.cz</span></div></div>
+        <div class="sgr"><div><span class="sn">iDnes Auto</span><span class="sd">idnes.cz/auto</span></div></div>
+        <div class="sgr"><div><span class="sn">Autoforum.cz</span><span class="sd">autoforum.cz</span></div></div>
+        <div class="sgr"><div><span class="sn">EV Magazin CZ</span><span class="sd">evmagazin.cz</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>MOTOR DESK · Automotive & Mobility Intelligence · March 2026</span>
+  <span>18 sources · Auto-updated monthly</span>
+</footer>
+
+<script>
+let aR = "all", aT = "all";
+
+function sR(r) {
+  aR = r;
+  document.querySelectorAll(".rb").forEach(b => b.classList.toggle("on", b.dataset.r === r));
+  applyFilters();
+}
+
+function sT(t) {
+  aT = t;
+  document.querySelectorAll(".tb").forEach(b => b.classList.toggle("on", b.dataset.t === t));
+  applyFilters();
+}
+
+function applyFilters() {
+  let visible = 0;
+  document.querySelectorAll(".card").forEach(card => {
+    const rOk = aR === "all" || card.dataset.region === aR;
+    const tOk = aT === "all" || card.dataset.cat    === aT;
+    const show = rOk && tOk;
+    card.classList.toggle("hidden", !show);
+    if (show) visible++;
+  });
+  document.getElementById("visCount").textContent = visible + " article" + (visible !== 1 ? "s" : "");
+
+  // Hide section headers if all cards in them are hidden
+  document.querySelectorAll(".rsec").forEach(sec => {
+    const anyVisible = [...sec.querySelectorAll(".card")].some(c => !c.classList.contains("hidden"));
+    sec.style.display = anyVisible ? "" : "none";
+  });
+}
+</script>
+</body>
+</html>
