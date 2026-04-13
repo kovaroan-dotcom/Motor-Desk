@@ -1,0 +1,35 @@
+name: Update Motor Desk
+
+on:
+  schedule:
+    # 1st of every month at 06:00 UTC
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+    # Allow manual run from GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No extra packages needed – generate.py uses only stdlib
+
+      - name: Run generator
+        run: python generate.py
+
+      - name: Commit updated HTML
+        run: |
+          git config user.name  "Motor Desk Bot"
+          git config user.email "bot@motor-desk"
+          git add motor-desk.html
+          # Only commit if there are actual changes
+          git diff --cached --quiet || git commit -m "Motor Desk: $(date +'%B %Y') update"
+          git push
