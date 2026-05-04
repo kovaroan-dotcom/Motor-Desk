@@ -1,103 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MOTOR DESK — April 2026</title>
+<title>MOTOR DESK — May 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#111714;--bg2:#17201c;--bg3:#1c2820;--bdr:#253020;--bdr2:#2e3d2a;--acc:#34d9b5;--grn:#4ade80;--mut:#94b8a8;--dim:#6a8e7c;--wh:#e8f0eb;--txt:#c2d4ca;--head:#0b0f0d}
+[data-theme="dark"]{--bg:#111714;--bg2:#17201c;--bg3:#1c2820;--bdr:#253020;--bdr2:#2e3d2a;--acc:#34d9b5;--grn:#4ade80;--mut:#94b8a8;--dim:#6a8e7c;--wh:#e8f0eb;--txt:#c2d4ca;--head:#0b0f0d;--sbg:#1c2820;--sbdr:#2e3d2a;--stxt:#c2d4ca}
+[data-theme="light"]{--bg:#f4f6f4;--bg2:#ffffff;--bg3:#eef1ee;--bdr:#d4ddd4;--bdr2:#c8d4c8;--acc:#1a9e85;--grn:#2a9e50;--mut:#4a6e5a;--dim:#7a9a8a;--wh:#111714;--txt:#2a3a2a;--head:#e4ece4;--sbg:#ffffff;--sbdr:#c8d4c8;--stxt:#2a3a2a}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;min-height:100vh}
-
-/* ── MASTHEAD ── */
-.masthead{background:var(--head);padding:0 48px;border-bottom:2px solid var(--acc)}
-.mast-top{display:flex;align-items:center;justify-content:space-between;padding:16px 0 12px;border-bottom:1px solid rgba(255,255,255,.05)}
-.brand{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;letter-spacing:.1em;color:var(--wh);text-transform:uppercase}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;min-height:100vh;transition:background .2s,color .2s}
+.masthead{background:var(--head);padding:0 48px;border-bottom:2px solid var(--acc);transition:background .2s}
+.mast-top{display:flex;align-items:center;justify-content:space-between;padding:14px 0 11px;border-bottom:1px solid var(--bdr);gap:12px;flex-wrap:wrap}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:700;letter-spacing:.1em;color:var(--wh);text-transform:uppercase}
 .brand span{color:var(--acc)}
-.brand-sub{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--bdr2);padding-left:14px;margin-left:14px}
-.mast-date{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);text-align:right;line-height:1.7}
+.brand-sub{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--bdr2);padding-left:14px;margin-left:14px}
+.mast-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.mast-date{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-align:right;line-height:1.7}
 .mast-date strong{display:block;font-size:12px;color:var(--txt)}
-
-/* ── NAV TABS ── */
-.rnav{display:flex;border-bottom:1px solid var(--bdr)}
-.rb{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);padding:10px 20px;cursor:pointer;transition:all .15s;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tbtn{display:flex;align-items:center;gap:5px;padding:5px 11px;background:transparent;border:1px solid var(--bdr2);border-radius:20px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s;white-space:nowrap}
+.tbtn:hover{border-color:var(--acc);color:var(--acc)}
+.tbtn.on{border-color:var(--acc);color:var(--acc);background:rgba(52,217,181,.08)}
+.rnav{display:flex;border-bottom:1px solid var(--bdr);overflow-x:auto}
+.rb{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);padding:9px 18px;cursor:pointer;transition:all .15s;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
 .rb:hover{color:var(--txt)}.rb.on{color:var(--acc);border-bottom-color:var(--acc)}
-.tnav{display:flex;flex-wrap:wrap;gap:6px;padding:9px 0 11px}
-.tb{padding:4px 13px;background:transparent;border:1px solid var(--bdr2);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
-.tb:hover{border-color:var(--mut);color:var(--txt)}.tb.on{background:var(--acc);color:var(--head);border-color:var(--acc)}
-
-/* ── TOOLBAR ── */
-.toolbar{background:var(--head);border-bottom:1px solid var(--bdr);padding:10px 48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 4px 24px rgba(0,0,0,.5)}
+.tnav{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0 10px}
+.fb{padding:4px 13px;background:transparent;border:1px solid var(--bdr2);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
+.fb:hover{border-color:var(--mut);color:var(--txt)}.fb.on{background:var(--acc);color:var(--head);border-color:var(--acc)}
+.toolbar{background:var(--head);border-bottom:1px solid var(--bdr);padding:9px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 4px 24px rgba(0,0,0,.3);transition:background .2s}
+.sw{flex:1;min-width:180px;max-width:360px;position:relative}
+.si{width:100%;background:var(--sbg);border:1px solid var(--sbdr);border-radius:3px;padding:7px 30px 7px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--stxt);outline:none;transition:border-color .15s}
+.si:focus{border-color:var(--acc)}.si::placeholder{color:var(--dim)}
+.sc{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px;display:none}
+.sc.on{display:block}
 .note{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;color:var(--dim)}
 .cnt{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);background:rgba(52,217,181,.08);border:1px solid rgba(52,217,181,.2);padding:5px 12px;border-radius:3px;margin-left:auto}
-
-/* ── PAGE ── */
 .page{max-width:1280px;margin:0 auto;padding:0 48px 80px}
-.ed-head{padding:26px 0 16px;border-bottom:1px solid var(--acc);margin-bottom:32px;display:flex;align-items:flex-end;justify-content:space-between}
+.ed-head{padding:24px 0 14px;border-bottom:1px solid var(--acc);margin-bottom:28px;display:flex;align-items:flex-end;justify-content:space-between}
 .ed-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
-.ed-t{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--wh);line-height:1}
+.ed-t{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--wh);line-height:1}
 .ed-m{text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--mut);letter-spacing:.12em;text-transform:uppercase;line-height:1.8}
 .ed-m strong{color:var(--txt)}
-
-/* ── SECTIONS ── */
-.rsec{margin-bottom:52px}
-.rh{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:10px;border-bottom:2px solid var(--bdr2)}
-.rh-t{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--wh)}
+.rsec{margin-bottom:48px}
+.rh{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--bdr2)}
+.rh-t{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--wh)}
 .rh-c{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-left:auto}
-
-/* ── GRID & CARDS ── */
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px}
 .card{background:var(--bg2);position:relative;display:flex;flex-direction:column;transition:background .14s;overflow:hidden;animation:fi .3s ease backwards}
-@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.card:nth-child(1){animation-delay:.03s}.card:nth-child(2){animation-delay:.07s}
+.card:nth-child(3){animation-delay:.11s}.card:nth-child(4){animation-delay:.15s}
+.card:nth-child(5){animation-delay:.19s}.card:nth-child(6){animation-delay:.23s}
 .card.s8{grid-column:span 8}.card.s6{grid-column:span 6}.card.s4{grid-column:span 4}
-.card:hover{background:var(--bg3)}
-
-/* image */
-.iw{width:100%;overflow:hidden;background:var(--bdr);position:relative}
-.card.s8 .iw,.card.s6 .iw{aspect-ratio:16/9}
-.card.s4 .iw{aspect-ratio:3/2}
+.card:hover{background:var(--bg3)}.card.hidden{display:none!important}
+.iw{width:100%;overflow:hidden;background:var(--bdr);position:relative;flex-shrink:0}
+.card.s8 .iw,.card.s6 .iw{aspect-ratio:16/9}.card.s4 .iw{aspect-ratio:3/2}
 .ci{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
 .card:hover .ci{transform:scale(1.03)}
 .cfb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:36px;opacity:.2;background:var(--bdr)}
 .ie .cfb{display:flex}.ie .ci{display:none}
-
-/* card body */
-.cb{padding:18px 18px 15px;flex:1;display:flex;flex-direction:column}
-.ccat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+body.no-images .iw{display:none}
+.cb{padding:16px 16px 14px;flex:1;display:flex;flex-direction:column}
+.ccat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block}
-.ct{font-family:'Playfair Display',serif;font-weight:700;line-height:1.28;margin-bottom:8px;color:var(--wh);flex:1}
+.ct{font-family:'Playfair Display',serif;font-weight:700;line-height:1.28;margin-bottom:7px;color:var(--wh)}
 .card.s8 .ct{font-size:19px}.card.s6 .ct{font-size:16px}.card.s4 .ct{font-size:14px}
-.cd{font-size:13px;color:var(--txt);line-height:1.62;margin-bottom:12px;font-weight:300}
-.card.s4 .cd{display:none}
-.cf{display:flex;align-items:center;gap:8px;margin-top:auto;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.cd{font-size:13px;color:var(--txt);line-height:1.62;font-weight:300;max-height:0;overflow:hidden;transition:max-height .25s ease,margin .2s ease;margin-bottom:0}
+.card.s8 .cd,.card.s6 .cd{max-height:200px;margin-bottom:10px}
+.card.s4.exp .cd{max-height:300px;margin-bottom:10px}
+.cf{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
 .cs{font-weight:700;color:var(--txt)}.ca{margin-left:auto}
 .cl{color:var(--acc);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .cl:hover{text-decoration:underline}
-
-/* hidden cards (filtered out) */
-.card.hidden{display:none}
-
-/* ── SOURCES ACCORDION ── */
+.xhint{font-size:9px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;user-select:none}
+.card.s8 .xhint,.card.s6 .xhint{display:none}
 .src-acc{border-top:1px solid var(--bdr)}
 .stog{width:100%;background:none;border:none;padding:11px 48px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
 .stog:hover{background:var(--bg2)}.stog .hl{color:var(--acc);margin-left:8px}
 .sch{font-size:9px;transition:transform .2s}.src-open .sch{transform:rotate(180deg)}
 .sbody{display:none;padding:22px 48px;background:var(--bg2);border-top:1px solid var(--bdr)}
 .src-open .sbody{display:block}
-.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:20px}
 .sgh{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;margin-bottom:8px}
-.sgr{display:flex;gap:6px;padding:4px 0;border-bottom:1px solid var(--bdr)}
-.sgr:last-child{border-bottom:none}
+.sgr{display:flex;gap:6px;padding:4px 0;border-bottom:1px solid var(--bdr)}.sgr:last-child{border-bottom:none}
 .sn{font-weight:600;color:var(--wh);display:block;font-size:11px}.sd{font-size:10px;color:var(--dim);display:block}
-
-footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
-
+footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;transition:background .2s}
 @media(max-width:900px){
   .masthead,.toolbar,.page,.stog,.sbody,footer{padding-left:20px;padding-right:20px}
   .card,.card.s8,.card.s6,.card.s4{grid-column:span 12}
-  .card.s4 .cd{display:block}
+  .card.s4 .cd{max-height:200px;margin-bottom:10px}
   .iw{aspect-ratio:16/9!important}
+  .brand-sub{display:none}
 }
 </style>
 </head>
@@ -109,53 +102,146 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
       <span class="brand">MOTOR<span>·</span>DESK</span>
       <span class="brand-sub">Automotive & Mobility Intelligence</span>
     </div>
-    <div class="mast-date">
-      <strong>4 MAY 2026</strong>
-      April 2026 Edition
+    <div class="mast-right">
+      <button class="tbtn on" id="imgBtn" onclick="toggleImg()">🖼 Images</button>
+      <button class="tbtn" id="themeBtn" onclick="toggleTheme()">☀️ Light</button>
+      <div class="mast-date"><strong>4 MAY 2026</strong>May 2026 Edition</div>
     </div>
   </div>
-
   <div class="rnav">
-    <button class="rb on" data-r="all"   onclick="sR('all')">📋 All</button>
-    <button class="rb"    data-r="world" onclick="sR('world')">🌍 World</button>
-    <button class="rb"    data-r="cz"    onclick="sR('cz')">🇨🇿 Czech Republic</button>
+    <button class="rb on" data-r="all"    onclick="sR('all')">📋 All</button>
+    <button class="rb"    data-r="world"  onclick="sR('world')">🌍 World</button>
+    <button class="rb"    data-r="europe" onclick="sR('europe')">🇪🇺 Europe</button>
+    <button class="rb"    data-r="china"  onclick="sR('china')">🇨🇳 China</button>
+    <button class="rb"    data-r="cz"     onclick="sR('cz')">🇨🇿 Czech Republic</button>
   </div>
-
   <div class="tnav">
-    <button class="tb on" data-t="all"      onclick="sT('all')">All Topics</button>
-    <button class="tb"    data-t="ev"       onclick="sT('ev')">⚡ BEV / PHEV</button>
-    <button class="tb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
-    <button class="tb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
-    <button class="tb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
-    <button class="tb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
-    <button class="tb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
+    <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+    <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV / PHEV</button>
+    <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+    <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+    <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+    <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+    <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
   </div>
 </div>
 
 <div class="toolbar">
-  <span class="note">📅 April 2026 · Auto-updated 1st of each month</span>
-  <span class="cnt" id="cnt">65 articles</span>
+  <div class="sw">
+    <input class="si" id="si" type="text" placeholder="🔍  Filter: brand, model, keyword…" oninput="onSearch(this.value)">
+    <button class="sc" id="sc" onclick="clearS()">✕</button>
+  </div>
+  <span class="note">📅 May 2026 · Auto-updated 1st of each month</span>
+  <span class="cnt" id="cnt">85 articles</span>
 </div>
 
 <div class="page">
   <div class="ed-head">
     <div>
       <div class="ed-lbl">Automotive & Mobility Intelligence</div>
-      <div class="ed-t">April 2026 Edition</div>
+      <div class="ed-t">May 2026 Edition</div>
     </div>
-    <div class="ed-m"><strong id="visCount">65 articles</strong> from 18 sources</div>
+    <div class="ed-m"><strong id="vc">85 articles</strong> from 20+ sources</div>
   </div>
-
   <div id="main">
-    
       <div class="rsec">
         <div class="rh">
           <span class="rh-t">🌍 World</span>
-          <span class="rh-c">50 articles</span>
+          <span class="rh-c">45 articles</span>
         </div>
         <div class="grid">
-        <div class="card s8" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954332098816"><img class="ci" src="https://www.electrive.com/media/2024/03/rivian-r3-2024-02-min-400x267.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332098816').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s8" data-region="world" data-cat="industry" data-search="tesla undercuts all but cheapest evs in canada with rear-drive model 3, presumably built in china the model is likely built at the company’s assembly plant in shanghai and imported to canada under the quota system for china-made evs introduced as part of ottawa’s tariff deal with beijing in january. automotive news">
+          <div class="iw" id="iw_139904107431296"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/iiZfbzVB11iPYenregJW0Jz86X8=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/4NLDH4VR6NAF3F3XRRJ27SVIGQ.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107431296').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">Tesla undercuts all but cheapest EVs in Canada with rear-drive Model 3, presumably built in China</div>
+            <div class="cd">The model is likely built at the company’s assembly plant in Shanghai and imported to Canada under the quota system for China-made EVs introduced as part of Ottawa’s tariff deal with Beijing in January.…</div>
+            <div class="cf">
+              <span class="cs">Automotive News</span>
+              
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autonews.com/ev/anc-tesla-model3-china-price-cut-0502/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s6" data-region="world" data-cat="industry" data-search="former daimler ceo dieter zetsche joins factorial board as battery startup scales industry veteran dieter zetsche says his experience will help factorial, which develops next-generation solid-state batteries, move from innovation to large-scale production. automotive news">
+          <div class="iw" id="iw_139904108649664"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/oFr5cVmHZM3q-Oor7JBwCzKA9Ws=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/EG54WCHP4ZHD5G2ZVIXYERJTEE.png" alt="" loading="lazy" onerror="document.getElementById('iw_139904108649664').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">Former Daimler CEO Dieter Zetsche joins Factorial board as battery startup scales</div>
+            <div class="cd">Industry veteran Dieter Zetsche says his experience will help Factorial, which develops next-generation solid-state batteries, move from innovation to large-scale production.…</div>
+            <div class="cf">
+              <span class="cs">Automotive News</span>
+              
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autonews.com/manufacturing/suppliers/ane-factorial-dieter-zetsche-joins-board-0504/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="world" data-cat="industry" data-search="factorial bets solid-state batteries can help western automakers leapfrog chinese u.s. startup factorial says solid-state batteries can help western automakers surpass chinese competitors. stellantis will test the technology in dodge charger daytona high performance cars. automotive news">
+          <div class="iw" id="iw_139904107325696"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/86rxncpiI7xTFDOd3IhyV1p4k7I=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/7XERJJ2CORB4BJ4PN5HHG37UVA.png" alt="" loading="lazy" onerror="document.getElementById('iw_139904107325696').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">Factorial bets solid-state batteries can help Western automakers leapfrog Chinese</div>
+            <div class="cd">U.S. startup Factorial says solid-state batteries can help Western automakers surpass Chinese competitors. Stellantis will test the technology in Dodge Charger Daytona high performance cars.…</div>
+            <div class="cf">
+              <span class="cs">Automotive News</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autonews.com/ev/ane-factorial-solid-state-mercedes-stellantis-0504/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="world" data-cat="ev" data-search="autonomous bus without safety driver hits road in norway for some time now, there have been trials with autonomous buses in europe—though until now, a safety driver has always been on board. this is set to change soon in stavanger, norway. following regulatory approval, europe&#x27;s first autonomous bus without a supervisor on board will be deployed in regula electrive">
+          <div class="iw" id="iw_139904107387520"><img class="ci" src="https://www.electrive.com/media/2026/05/karsan-e-atak-autonomer-bus-stavanger-400x267.jpeg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107387520').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#34d9b5"></span>
+              <span style="color:#34d9b5">BEV / PHEV</span>
+            </div>
+            <div class="ct">Autonomous bus without safety driver hits road in Norway</div>
+            <div class="cd">For some time now, there have been trials with autonomous buses in Europe—though until now, a safety driver has always been on board. This is set to change soon in Stavanger, Norway. Following regulatory approval, Europe&#x27;s first autonomous bus without a supervisor on board will be deployed in regula…</div>
+            <div class="cf">
+              <span class="cs">Electrive</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.electrive.com/2026/05/04/autonomous-bus-without-safety-driver-hits-road-in-norway/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="world" data-cat="auto" data-search="the new mclaren track car has 720 horsepower from a pure v6 engine it&#x27;s based on the new hypercar endurance racer but loses the hybrid setup to shave weight. motor1">
+          <div class="iw" id="iw_139904107389056"><img class="ci" src="https://cdn.motor1.com/images/mgl/g4OGKP/s3/mclaren-mcl-hy-gtr-fia-hypercar-2026.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107389056').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">The New McLaren Track Car Has 720 Horsepower From A Pure V6 Engine</div>
+            <div class="cd">It&#x27;s based on the new Hypercar endurance racer but loses the hybrid setup to shave weight.…</div>
+            <div class="cf">
+              <span class="cs">Motor1</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.motor1.com/news/794766/mclaren-track-car-revealed-specs-details-photos/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="world" data-cat="ev" data-search="rivian plans georgia plant 50% larger us electric vehicle manufacturer rivian plans to expand its second vehicle plant, currently under construction, beyond its initially planned capacity: the facility in georgia is set to have an annual production capacity of 300,000 vehicles instead of the previously planned 200,000. meanwhile, volksw electrive">
+          <div class="iw" id="iw_139904107386176"><img class="ci" src="https://www.electrive.com/media/2024/03/rivian-r3-2024-02-min-400x267.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107386176').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -165,14 +251,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">US electric vehicle manufacturer Rivian plans to expand its second vehicle plant, currently under construction, beyond its initially planned capacity: The facility in Georgia is set to have an annual production capacity of 300,000 vehicles instead of the previously planned 200,000. Meanwhile, Volksw…</div>
             <div class="cf">
               <span class="cs">Electrive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.electrive.com/2026/05/04/rivian-plans-georgia-plant-50-larger/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s6" data-region="world" data-cat="industry">
-          <div class="iw" id="iw_139954332061824"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/Y0KDmfUaOsFqk0aRKnExrTJ9dcw=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/QTDIQWXEWFC5PDWWD4G7HB6JA4.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332061824').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="industry" data-search="toyota’s top 5 risks as new ceo kenta kon reports first earnings amid mounting tariff, war and supply disruption a look at the top five risks facing toyota as new ceo kenta kon delivers his first earnings report may 7. despite record global sales and hybrid demand, the japanese automaker is grappling with mounting challenges from tariffs, war in iran and supply chain disruptions. automotive news">
+          <div class="iw" id="iw_139904107322944"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/U-0JiHORZCUYAJ4MxcnQ8B16Jm8=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/SICKVNAUHBFYFACIBOKZNGG7ZM.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107322944').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#818cf8"></span>
@@ -182,14 +269,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">A look at the top five risks facing Toyota as new CEO Kenta Kon delivers his first earnings report May 7. Despite record global sales and hybrid demand, the Japanese automaker is grappling with mounting challenges from tariffs, war in Iran and supply chain disruptions.…</div>
             <div class="cf">
               <span class="cs">Automotive News</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.autonews.com/toyota/an-toyota-4q-earnings-financials-preview-five-top-risks-to-watch-kenta-kon-0504/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954332097472"><img class="ci" src="https://www.electrive.com/media/2026/04/volvo-trucks-fm-electric-my-2026-e-lkw-electric-truck-ladestation-charging-station-01-min-400x267.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332097472').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="german federal ministry of transport commits €1 billion to heavy-duty charging infrastructure the german federal ministry of transport is funding the expansion of charging infrastructure for battery-electric heavy-duty commercial vehicles. the new funding guideline targets both companies installing charging infrastructure at their own depots and operators of publicly accessible charging poin electrive">
+          <div class="iw" id="iw_139904107190592"><img class="ci" src="https://www.electrive.com/media/2026/04/volvo-trucks-fm-electric-my-2026-e-lkw-electric-truck-ladestation-charging-station-01-min-400x267.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107190592').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -199,14 +287,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">The German Federal Ministry of Transport is funding the expansion of charging infrastructure for battery-electric heavy-duty commercial vehicles. The new funding guideline targets both companies installing charging infrastructure at their own depots and operators of publicly accessible charging poin…</div>
             <div class="cf">
               <span class="cs">Electrive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.electrive.com/2026/05/04/german-federal-ministry-of-transport-commits-e1-billion-to-heavy-duty-charging-infrastructure/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="industry">
-          <div class="iw" id="iw_139954332063232"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/82TPppdE48TUzXmRAEYJpnuUDnM=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/KOEMVH3FZNCELH24B3S2MUBFIY.webp" alt="" loading="lazy" onerror="document.getElementById('iw_139954332063232').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="industry" data-search="incentive to broker? how the pressure for sales, profits created a niche for 3rd-party players vehicle brokers exploit dealer pressure to hit monthly sales targets. automakers and new jersey crack down, but enforcement remains inconsistent across regions. automotive news">
+          <div class="iw" id="iw_139904107322816"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/82TPppdE48TUzXmRAEYJpnuUDnM=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/KOEMVH3FZNCELH24B3S2MUBFIY.webp" alt="" loading="lazy" onerror="document.getElementById('iw_139904107322816').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#818cf8"></span>
@@ -216,65 +305,33 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Vehicle brokers exploit dealer pressure to hit monthly sales targets. Automakers and New Jersey crack down, but enforcement remains inconsistent across regions.…</div>
             <div class="cf">
               <span class="cs">Automotive News</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.autonews.com/retail/an-retail-crackdown-on-brokers-0504/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="industry">
-          <div class="iw" id="iw_139954332155072"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/3VCxY4_fldXcD8oe2N3vn1dj0G0=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/UKXRZCDL2BEQVAUPQST4P6VTLI.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332155072').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="autonomy" data-search="ouster’s new color lidar is coming to replace cameras a sensor that can simultaneously capture depth and image data has long been a &quot;holy grail,&quot; ouster ceo angus pacala told techcrunch. techcrunch transport">
+          <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
-              <span class="pip" style="background:#818cf8"></span>
-              <span style="color:#818cf8">Industry</span>
+              <span class="pip" style="background:#fb923c"></span>
+              <span style="color:#fb923c">Autonomous</span>
             </div>
-            <div class="ct">4 dealerships change hands in B.C., Ontario and Quebec; Go Auto sells $287M in real estate</div>
-            <div class="cd">Buy-sell activity in Canada continues at a steady clip through April. Go Auto and Groupe Olivier were among the groups making moves.…</div>
+            <div class="ct">Ouster’s new color lidar is coming to replace cameras</div>
+            <div class="cd">A sensor that can simultaneously capture depth and image data has long been a &quot;holy grail,&quot; Ouster CEO Angus Pacala told TechCrunch.…</div>
             <div class="cf">
-              <span class="cs">Automotive News</span>
+              <span class="cs">TechCrunch Transport</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
-              <a class="cl" href="https://www.autonews.com/retail/anc-buy-sell-april-go-auto-real-estate-deal-0501/" target="_blank" rel="noopener">Read →</a>
+              <a class="cl" href="https://techcrunch.com/2026/05/04/ousters-new-color-lidar-is-coming-to-replace-cameras/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="industry">
-          <div class="iw" id="iw_139954332149568"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/IlLUx-pjpUZzRdN8lV8bR6WLCsg=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/QC47UCZSJVAG7KCWDXTQMCERRA.JPG" alt="" loading="lazy" onerror="document.getElementById('iw_139954332149568').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#818cf8"></span>
-              <span style="color:#818cf8">Industry</span>
-            </div>
-            <div class="ct">Inside the broker economy: How brokers carve out their niche</div>
-            <div class="cd">Brokers get their inventory from dealerships and often make money from a &quot;referral fee.&quot;…</div>
-            <div class="cf">
-              <span class="cs">Automotive News</span>
-              <span class="ca">4 May 2026</span>
-              <a class="cl" href="https://www.autonews.com/retail/an-retail-brokers-perspective-0504/" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="industry">
-          <div class="iw" id="iw_139954332147968"><img class="ci" src="https://crain-crain-prod.web.arc-cdn.net/resizer/zb1zX6YjZTCSMFqqxU1us7UUdW4=/0x800/cloudfront-us-east-1.images.arcpublishing.com/crain/4DFRRNSOBNEQDJRLEUAIIM5Q2Y.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332147968').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#818cf8"></span>
-              <span style="color:#818cf8">Industry</span>
-            </div>
-            <div class="ct">New U.S. tariff threat puts European automakers at risk of billions in lost profits</div>
-            <div class="cd">President Donald Trump&#x27;s threat to increase European car tariffs could cost automakers €3.5 billion in 2026 and €5.7 billion in 2027, with Porsche and Audi among the most exposed, analysts warn.…</div>
-            <div class="cf">
-              <span class="cs">Automotive News</span>
-              <span class="ca">4 May 2026</span>
-              <a class="cl" href="https://www.autonews.com/manufacturing/automakers/ane-tariffs-impact-europe-0504/" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332100352"><img class="ci" src="https://cdn.motor1.com/images/mgl/7ZE06q/s3/2026-vw-id.-polo.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332100352').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="vw sounds the alarm: &#x27;we must fundamentally transform our business model&#x27; more cost-cutting is on the way. motor1">
+          <div class="iw" id="iw_139904107383232"><img class="ci" src="https://cdn.motor1.com/images/mgl/7ZE06q/s3/2026-vw-id.-polo.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107383232').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -284,14 +341,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">More cost-cutting is on the way.…</div>
             <div class="cf">
               <span class="cs">Motor1</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.motor1.com/news/794739/vw-fundamentally-transform-business-model/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954331980480"><img class="ci" src="https://www.electrive.com/media/2024/09/volkswagen-wolfsburg-2019-01-400x267.jpeg" alt="" loading="lazy" onerror="document.getElementById('iw_139954331980480').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="volkswagen reportedly developing new production system according to a report, volkswagen group is working on a new production process dubbed &#x27;gamechanger.&#x27; the german company aims to use it to significantly boost its competitiveness in electric mobility. however, the full scope of the changes remains unclear. electrive">
+          <div class="iw" id="iw_139904107192128"><img class="ci" src="https://www.electrive.com/media/2024/09/volkswagen-wolfsburg-2019-01-400x267.jpeg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107192128').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -301,13 +359,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">According to a report, Volkswagen Group is working on a new production process dubbed &#x27;Gamechanger.&#x27; The German company aims to use it to significantly boost its competitiveness in electric mobility. However, the full scope of the changes remains unclear.…</div>
             <div class="cf">
               <span class="cs">Electrive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.electrive.com/2026/05/04/volkswagen-reportedly-developing-new-production-system/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
+        <div class="card s4" data-region="world" data-cat="ev" data-search="understanding anti-ev myths &amp; misinformation researchers have determined that about a third of people believe ev myths that are not true. the question is why? the post understanding anti-ev myths &amp;#038; misinformation appeared first on cleantechnica . cleantechnica">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -318,14 +377,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Researchers have determined that about a third of people believe EV myths that are not true. The question is why? The post Understanding Anti-EV Myths &amp;#038; Misinformation appeared first on CleanTechnica .…</div>
             <div class="cf">
               <span class="cs">CleanTechnica</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://cleantechnica.com/2026/05/04/understanding-anti-ev-myths-misinformation/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954332145408"><img class="ci" src="https://cdn.motor1.com/images/mgl/nAl1Ex/s3/rivian-service-center.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332145408').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="rivian hits 100 service centers ahead of r2 rollout hundreds more mobile service vans are also fixing cars on owners’ driveways. will it be enough, though? insideevs">
+          <div class="iw" id="iw_139904107434112"><img class="ci" src="https://cdn.motor1.com/images/mgl/nAl1Ex/s3/rivian-service-center.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107434112').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -335,14 +395,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Hundreds more mobile service vans are also fixing cars on owners’ driveways. Will it be enough, though?…</div>
             <div class="cf">
               <span class="cs">InsideEVs</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://insideevs.com/news/794748/rivian-service-center-milestone/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954331982016"><img class="ci" src="https://www.electrive.com/media/2026/04/denza-z9gt-frankreich-france-2026-01-min-400x267.jpeg" alt="" loading="lazy" onerror="document.getElementById('iw_139954331982016').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="byd sales continue to decline byd delivered 321,123 new energy vehicles in april—up from march but again below the figure from the same month last year. the decline mainly reflects weaker demand in the chinese market, while the company’s overseas business reached a new record high. electrive">
+          <div class="iw" id="iw_139904107193792"><img class="ci" src="https://www.electrive.com/media/2026/04/denza-z9gt-frankreich-france-2026-01-min-400x267.jpeg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107193792').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -352,48 +413,33 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">BYD delivered 321,123 new energy vehicles in April—up from March but again below the figure from the same month last year. The decline mainly reflects weaker demand in the Chinese market, while the company’s overseas business reached a new record high.…</div>
             <div class="cf">
               <span class="cs">Electrive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.electrive.com/2026/05/04/byd-sales-continue-to-decline/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954331983680"><img class="ci" src="https://www.electrive.com/media/2026/05/volkswagen-glaeserne-manufaktur-dresden-2025-400x267.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954331983680').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#34d9b5"></span>
-              <span style="color:#34d9b5">BEV / PHEV</span>
-            </div>
-            <div class="ct">VW denies BYD’s interest in Gläserne Manufaktur</div>
-            <div class="cd">The Gläserne Manufaktur in Dresden once served as a flagship site for the Volkswagen Group in Germany, but it has not produced cars for some time. Recent rumours from China suggested that BYD was interested in acquiring the plant. Volkswagen, however, has rejected these claims.…</div>
-            <div class="cf">
-              <span class="cs">Electrive</span>
-              <span class="ca">4 May 2026</span>
-              <a class="cl" href="https://www.electrive.com/2026/05/04/vw-denies-byds-interest-in-glaserne-manufaktur/" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332094528"><img class="ci" src="https://cdn.motor1.com/images/mgl/g4OGVP/s3/new-spyker-teaser.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332094528').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="spyker previews its new supercar: twin-turbo v8 with 800 horsepower the reborn dutch brand is working on a 217-mph machine. motor1">
+          <div class="iw" id="iw_139904107326592"><img class="ci" src="https://cdn.motor1.com/images/mgl/g4OGVP/s3/new-spyker-teaser.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107326592').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
               <span style="color:#60a5fa">Automotive</span>
             </div>
-            <div class="ct">The New Spyker Supercar Will Have A Twin-Turbo V8 With 800 Horsepower</div>
+            <div class="ct">Spyker Previews Its New Supercar: Twin-Turbo V8 With 800 Horsepower</div>
             <div class="cd">The reborn Dutch brand is working on a 217-mph machine.…</div>
             <div class="cf">
               <span class="cs">Motor1</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.motor1.com/news/794729/spyker-new-supercar-teaser/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954332144000"><img class="ci" src="https://cdn.motor1.com/images/mgl/nAl1Vo/s3/tesla-basecharger.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332144000').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="tesla’s new ev charger looks familiar, but it’s nothing like its predecessors the $20,000 basecharger looks like a regular v4 supercharger, but it hides a serious upgrade inside. insideevs">
+          <div class="iw" id="iw_139904107432704"><img class="ci" src="https://cdn.motor1.com/images/mgl/nAl1Vo/s3/tesla-basecharger.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107432704').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -403,47 +449,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">The $20,000 Basecharger looks like a regular V4 Supercharger, but it hides a serious upgrade inside.…</div>
             <div class="cf">
               <span class="cs">InsideEVs</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://insideevs.com/news/794730/tesla-basecharger-new-ev-charger-specs-truck/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332142592"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/1-c-class_c220d_estate_2018_314.jpg?itok=ERqOnDGm" alt="" loading="lazy" onerror="document.getElementById('iw_139954332142592').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#60a5fa"></span>
-              <span style="color:#60a5fa">Automotive</span>
-            </div>
-            <div class="ct">Better than a BMW? How to score a Mercedes C-Class for £10k</div>
-            <div class="cd">The used Mercedes compact exec saloon or estate makes a fine (and reliable) all-rounder The Mercedes C-Class has always been up against stiff competition, not least the BMW 3 Series and Audi A4 . But this generation, the &#x27; W205 C-Class &#x27;, produced from 2014 to 2021 is more than capable of holding it…</div>
-            <div class="cf">
-              <span class="cs">Autocar</span>
-              <span class="ca">4 May 2026</span>
-              <a class="cl" href="https://www.autocar.co.uk/car-news/used-cars/better-bmw-how-score-mercedes-c-class-%C2%A310k" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954333329856"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/bmw_im3_render_2026-web_0.jpg?itok=PSW0hhXx" alt="" loading="lazy" onerror="document.getElementById('iw_139954333329856').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#60a5fa"></span>
-              <span style="color:#60a5fa">Automotive</span>
-            </div>
-            <div class="ct">1000bhp BMW M3 EV to be priced &#x27;in same ballpark&#x27; as petrol twin</div>
-            <div class="cd">Autocar rendering shows how BMW may make the electric M3 distinct from the i3 on which it is based Hallowed super-saloon will return as both quad-motor EV and next-generation ICE car, offering buyers &quot;the choice&quot; The forthcoming electric BMW M3 due in 2027 and the next-generation petrol M3 will be “…</div>
-            <div class="cf">
-              <span class="cs">Autocar</span>
-              <span class="ca">4 May 2026</span>
-              <a class="cl" href="https://www.autocar.co.uk/car-news/electric-cars/1000bhp-bmw-m3-ev-be-priced-same-ballpark-petrol-twin" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="ev">
+        <div class="card s4" data-region="world" data-cat="ev" data-search="byd has another tough month of sales decline the numbers for the 4th month of the year have come in, and byd keeps getting into a deeper hole. its passenger vehicle sales were down significantly year over year — its plugin hybrid sales were down, and its bev sales were down even more. its commercial vehicle business wasn&amp;#8217;t ... [continued cleantechnica">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -454,13 +467,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">The numbers for the 4th month of the year have come in, and BYD keeps getting into a deeper hole. Its passenger vehicle sales were down significantly year over year — its plugin hybrid sales were down, and its BEV sales were down even more. Its commercial vehicle business wasn&amp;#8217;t ... [continued…</div>
             <div class="cf">
               <span class="cs">CleanTechnica</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://cleantechnica.com/2026/05/04/byd-has-another-tough-month-of-sales-decline/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="autonomy">
+        <div class="card s4" data-region="world" data-cat="autonomy" data-search="we’ll take it: a tiktoker rallies pledges to buy spirit airlines after its abrupt weekend collapse within hours he&#x27;d thrown up a website — a janky, one-hour job, by his own admission — and by sunday, 36,000 &quot;founding patrons&quot; had pledged nearly $23 million, crashing his servers in the process. techcrunch transport">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -471,13 +485,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Within hours he&#x27;d thrown up a website — a janky, one-hour job, by his own admission — and by Sunday, 36,000 &quot;founding patrons&quot; had pledged nearly $23 million, crashing his servers in the process.…</div>
             <div class="cf">
               <span class="cs">TechCrunch Transport</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://techcrunch.com/2026/05/03/well-take-it-a-tiktoker-rallies-pledges-to-buy-spirit-airlines-after-its-abrupt-weekend-collapse/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
+        <div class="card s4" data-region="world" data-cat="ev" data-search="solid-state ev batteries will crush the fossil fuel fantasy the us startup factorial energy is aiming its new solid-state ev battery at the up-and-coming market for electric military drones and robotics. the post solid-state ev batteries will crush the fossil fuel fantasy appeared first on cleantechnica . cleantechnica">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -488,13 +503,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">The US startup Factorial Energy is aiming its new solid-state EV battery at the up-and-coming market for electric military drones and robotics. The post Solid-State EV Batteries Will Crush The Fossil Fuel Fantasy appeared first on CleanTechnica .…</div>
             <div class="cf">
               <span class="cs">CleanTechnica</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://cleantechnica.com/2026/05/03/solid-state-ev-batteries-will-crush-the-fossil-fuel-fantasy/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
+        <div class="card s4" data-region="world" data-cat="ev" data-search="the new england fishing industry is helping scientists to understand ocean changes for decades, fishing studies typically employed one-on-one mapping exercises, guided by a facilitator who helped fishing industry participants to draw polygons or mark points on a digital or a paper map of an area of interest. such ocean mapping has a strong temporal component, as it is intended to  cleantechnica">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -505,13 +521,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">For decades, fishing studies typically employed one-on-one mapping exercises, guided by a facilitator who helped fishing industry participants to draw polygons or mark points on a digital or a paper map of an area of interest. Such ocean mapping has a strong temporal component, as it is intended to …</div>
             <div class="cf">
               <span class="cs">CleanTechnica</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://cleantechnica.com/2026/05/03/the-new-england-fishing-industry-is-helping-scientists-to-understand-ocean-changes/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
+        <div class="card s4" data-region="world" data-cat="ev" data-search="the humanoid robot market is smaller than it looks humanoid robot narratives usually begin with market size, not with the physics of the work, and that leads to distorted expectations. the common framing treats all human labor as addressable, which implies a market measured in tens of trillions of dollars if one aggregates global wages across sector cleantechnica">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -522,14 +539,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Humanoid robot narratives usually begin with market size, not with the physics of the work, and that leads to distorted expectations. The common framing treats all human labor as addressable, which implies a market measured in tens of trillions of dollars if one aggregates global wages across sector…</div>
             <div class="cf">
               <span class="cs">CleanTechnica</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://cleantechnica.com/2026/05/03/the-humanoid-robot-market-is-smaller-than-it-looks/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954330152960"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/05/Tesla-10-billion-FSD-miles-milestone.png?w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139954330152960').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="tesla reaches 10 billion fsd miles — is there’s a magical milestone for autonomy tesla’s full self-driving (supervised) fleet has crossed the 10 billion mile mark, according to the automaker’s updated safety page . it’s the threshold that ceo elon musk himself set earlier this year as the data milestone needed for “safe unsupervised” driving. the achievement represents a massive electrek">
+          <div class="iw" id="iw_139904105737792"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/05/Tesla-10-billion-FSD-miles-milestone.png?w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139904105737792').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -539,14 +557,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Tesla’s Full Self-Driving (Supervised) fleet has crossed the 10 billion mile mark, according to the automaker’s updated safety page . It’s the threshold that CEO Elon Musk himself set earlier this year as the data milestone needed for “safe unsupervised” driving. The achievement represents a massive…</div>
             <div class="cf">
               <span class="cs">Electrek</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://electrek.co/2026/05/03/tesla-fsd-10-billion-miles-no-magical-milestone-autonomy/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332092800"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/04/Screenshot-2026-04-30-at-3.10.55-PM.jpeg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139954332092800').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="1971 plymouth hemi gtx for sale just 1-of-11 with 426 v8 and four-speed combo your next investment opportunity just dropped, but this mopar deserves to be driven. the post 1971 plymouth hemi gtx for sale just 1-of-11 with 426 v8 and four-speed combo appeared first on the drive . the drive">
+          <div class="iw" id="iw_139904107381504"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/04/Screenshot-2026-04-30-at-3.10.55-PM.jpeg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139904107381504').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -556,13 +575,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Your next investment opportunity just dropped, but this Mopar deserves to be driven. The post 1971 Plymouth Hemi GTX for Sale Just 1-of-11 With 426 V8 and Four-Speed Combo appeared first on The Drive .…</div>
             <div class="cf">
               <span class="cs">The Drive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.thedrive.com/news/1971-plymouth-hemi-gtx-for-sale-just-1-of-11-with-426-v8-and-four-speed-combo" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="autonomy">
+        <div class="card s4" data-region="world" data-cat="autonomy" data-search="techcrunch mobility: how do you issue a ticket to a robotaxi? welcome back to techcrunch mobility — your central hub for news and insights on the future of transportation. techcrunch transport">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -573,14 +593,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Welcome back to TechCrunch Mobility — your central hub for news and insights on the future of transportation.…</div>
             <div class="cf">
               <span class="cs">TechCrunch Transport</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://techcrunch.com/2026/05/03/techcrunch-mobility-how-do-you-issue-a-ticket-to-a-robotaxi/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332073536"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/05/Diesel-UK-Hero-1.jpg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139954332073536').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="for sale: diesel 1952 gmc pickup that’s both turbocharged and supercharged six hundred horsepower and 30 mpg? yes please. the post for sale: diesel 1952 gmc pickup that&amp;#8217;s both turbocharged and supercharged appeared first on the drive . the drive">
+          <div class="iw" id="iw_139904107362240"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/05/Diesel-UK-Hero-1.jpg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139904107362240').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -590,30 +611,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Six hundred horsepower and 30 mpg? Yes please. The post For Sale: Diesel 1952 GMC Pickup That&amp;#8217;s Both Turbocharged and Supercharged appeared first on The Drive .…</div>
             <div class="cf">
               <span class="cs">The Drive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.thedrive.com/news/for-sale-1952-gmc-pickup-thats-both-turbocharged-and-supercharged" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954331814400"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/caterham-csr-front-dynamic-low-flying-jh-64.jpg?itok=3SiloSZR" alt="" loading="lazy" onerror="document.getElementById('iw_139954331814400').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#60a5fa"></span>
-              <span style="color:#60a5fa">Automotive</span>
-            </div>
-            <div class="ct">Into the danger zone: Chasing fighter jets in the Caterham CSR</div>
-            <div class="cd">We head to the Welsh Mach Loop to see if this final edition is the ultimate four-wheeled fighter jet I don’t have accurate statistics because none will exist, but bear with. I think anecdotally it’s acknowledged that more than a few pilots subsequently become Caterham drivers, and/or that flying is …</div>
-            <div class="cf">
-              <span class="cs">Autocar</span>
-              <span class="ca">3 May 2026</span>
-              <a class="cl" href="https://www.autocar.co.uk/car-news/features/danger-zone-chasing-fighter-jets-caterham-csr" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="auto">
+        <div class="card s4" data-region="world" data-cat="auto" data-search="reggie fils-aimé says amazon once asked nintendo to break the law way back in the ds days, nintendo decided to stop selling to amazon. during a recent lecture at nyu, former nintendo of america president reggie fils-aim&amp;#233; said it was because amazon was seeking preferential treatment that would have hurt its relationship with other retailers, and potentially br the verge">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -624,14 +629,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Way back in the DS days, Nintendo decided to stop selling to Amazon. During a recent lecture at NYU, former Nintendo of America President Reggie Fils-Aim&amp;#233; said it was because Amazon was seeking preferential treatment that would have hurt its relationship with other retailers, and potentially br…</div>
             <div class="cf">
               <span class="cs">The Verge</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.theverge.com/games/922840/reggie-fils-aime-amazon-nintendo-illegal" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332103680"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/04/04XX26_news_IMG_20260406_123217_032.jpeg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139954332103680').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="drivers use their phones more when speeding, iihs says that&#x27;s based on data from insurance-company apps meant to encourage safe driving, which shows how well they&#x27;re actually working. the post drivers use their phones more when speeding, iihs says appeared first on the drive . the drive">
+          <div class="iw" id="iw_139904107392384"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/04/04XX26_news_IMG_20260406_123217_032.jpeg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139904107392384').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -641,13 +647,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">That&#x27;s based on data from insurance-company apps meant to encourage safe driving, which shows how well they&#x27;re actually working. The post Drivers Use Their Phones More When Speeding, IIHS Says appeared first on The Drive .…</div>
             <div class="cf">
               <span class="cs">The Drive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.thedrive.com/news/drivers-use-their-phones-more-when-speeding-iihs-says" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
+        <div class="card s4" data-region="world" data-cat="auto" data-search="shokz’s bassy openrun pro 2 are $40 off thanks to a new mother’s day promo if you’re looking to pick up a pair of open-ear headphones for yourself — or your mom — shokz is running a mother’s day sale. now through may 10th, the company’s best pair of bone conduction headphones, the openrun pro 2, are available from amazon, best buy, and shokz for around $139.95 ($40 off), t the verge">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -658,14 +665,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">If you’re looking to pick up a pair of open-ear headphones for yourself — or your mom — Shokz is running a Mother’s Day sale. Now through May 10th, the company’s best pair of bone conduction headphones, the OpenRun Pro 2, are available from Amazon, Best Buy, and Shokz for around $139.95 ($40 off), t…</div>
             <div class="cf">
               <span class="cs">The Verge</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.theverge.com/gadgets/922616/shokz-openrun-pro-2-bone-conduction-headphones-mothers-day-deal-sale" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954330150528"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/03/ride1up-vorsa-ft-header-fat-tire-bike.jpg?quality=82&amp;#038;strip=all&amp;#038;w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139954330150528').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="here are the best electric bikes you can buy at every price level in may 2026 i’ve spent countless hours here at electrek doing detailed hands-on testing of hundreds of electric bikes. through thousands of miles of riding, i’ve been fortunate to learn these e-bikes inside and out, top to bottom and front to back. that long-term experience with real-world e-bike testing has he electrek">
+          <div class="iw" id="iw_139904105735360"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/03/ride1up-vorsa-ft-header-fat-tire-bike.jpg?quality=82&amp;#038;strip=all&amp;#038;w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139904105735360').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -675,14 +683,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">I’ve spent countless hours here at Electrek doing detailed hands-on testing of hundreds of electric bikes. Through thousands of miles of riding, I’ve been fortunate to learn these e-bikes inside and out, top to bottom and front to back. That long-term experience with real-world e-bike testing has he…</div>
             <div class="cf">
               <span class="cs">Electrek</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://electrek.co/2026/05/03/here-are-the-best-electric-bikes-you-can-buy-at-every-price-level/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332037888"><img class="ci" src="https://cdn.motor1.com/images/mgl/7ZE0WV/s3/czinger-nurburgring-video.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332037888').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="is czinger coming for ford&#x27;s nürburgring record? video the southern california-based supercar was spotted testing its 21c hypercar at the iconic german circuit. motor1">
+          <div class="iw" id="iw_139904107325184"><img class="ci" src="https://cdn.motor1.com/images/mgl/7ZE0WV/s3/czinger-nurburgring-video.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107325184').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -692,14 +701,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">The Southern California-based supercar was spotted testing its 21C hypercar at the iconic German circuit.…</div>
             <div class="cf">
               <span class="cs">Motor1</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.motor1.com/news/794665/czinger-nurburgring-record-video/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332036480"><img class="ci" src="https://cdn.motor1.com/images/mgl/Rqk1V9/s3/bugatti-w16-mistral-fly-bug-2026.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332036480').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="bugatti&#x27;s latest one-off shows how far the mistral design can go developed with a long-time collector, the &#x27;fly bug&#x27; showcases bugatti’s sur mesure program at its most intricate. motor1">
+          <div class="iw" id="iw_139904107323648"><img class="ci" src="https://cdn.motor1.com/images/mgl/Rqk1V9/s3/bugatti-w16-mistral-fly-bug-2026.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107323648').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -709,13 +719,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Developed with a long-time collector, the &#x27;Fly Bug&#x27; showcases Bugatti’s Sur Mesure program at its most intricate.…</div>
             <div class="cf">
               <span class="cs">Motor1</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.motor1.com/news/794645/bugatti-w16-mistral-fly-bug-bespoke/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
+        <div class="card s4" data-region="world" data-cat="auto" data-search="these reusable digital polaroids are a clever way to cover a fridge in memories i love when my friends have their fridges covered in polaroids. it’s often a visual crash course of what’s been going on in their lives chronicling recent adventures, get-togethers, and other fun moments. but i don’t love the idea of schlepping around a clunky instant camera or paying a premium for  the verge">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -726,13 +737,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">I love when my friends have their fridges covered in Polaroids. It’s often a visual crash course of what’s been going on in their lives chronicling recent adventures, get-togethers, and other fun moments. But I don’t love the idea of schlepping around a clunky instant camera or paying a premium for …</div>
             <div class="cf">
               <span class="cs">The Verge</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.theverge.com/tech/917067/vidabay-snap-nfc-e-ink-paper-fridge-magnet-photo-hands-on" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
+        <div class="card s4" data-region="world" data-cat="auto" data-search="how the internet’s favorite squirrel dad made the hottest camera app of 2026 it&#x27;s not hyperbole to call dualshot recorder an overnight sensation. it took only 12 hours from the time it was released to hit number one on the app store&#x27;s list of top paid apps. it was a surprise success - but what&#x27;s even more surprising is the app&#x27;s origin story: it all started with a [&amp;#8230;] the verge">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -743,13 +755,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">It&#x27;s not hyperbole to call DualShot Recorder an overnight sensation. It took only 12 hours from the time it was released to hit number one on the App Store&#x27;s list of top paid apps. It was a surprise success - but what&#x27;s even more surprising is the app&#x27;s origin story: it all started with a [&amp;#8230;]…</div>
             <div class="cf">
               <span class="cs">The Verge</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.theverge.com/tech/921690/dualshot-recorder-iphone-camera-app-derrick-downey-jr" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
+        <div class="card s4" data-region="world" data-cat="auto" data-search="ai music is flooding streaming services — but who wants it? this is the stepback, a weekly newsletter breaking down one essential story from the tech world. for more on how ai is changing music and the music industry, follow terrence o&#x27;brien. the stepback arrives in our subscribers&#x27; inboxes at 8am et. opt in for the stepback here. how it started the use of g the verge">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -760,14 +773,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">This is The Stepback, a weekly newsletter breaking down one essential story from the tech world. For more on how AI is changing music and the music industry, follow Terrence O&#x27;Brien. The Stepback arrives in our subscribers&#x27; inboxes at 8AM ET. Opt in for The Stepback here. How it started The use of g…</div>
             <div class="cf">
               <span class="cs">The Verge</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.theverge.com/column/921599/ai-music-is-flooding-streaming-services-but-who-wants-it" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954332067840"><img class="ci" src="https://cdn.motor1.com/images/mgl/W8KALj/s3/model-3-high-degradation.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332067840').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="this 380,000-mile tesla model 3 has its original battery. range loss is huge a high-mileage 2019 model 3 standard range plus drives just fine, but it has lost around a third of its original battery capacity. insideevs">
+          <div class="iw" id="iw_139904107356544"><img class="ci" src="https://cdn.motor1.com/images/mgl/W8KALj/s3/model-3-high-degradation.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107356544').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -777,14 +791,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">A high-mileage 2019 Model 3 Standard Range Plus drives just fine, but it has lost around a third of its original battery capacity.…</div>
             <div class="cf">
               <span class="cs">InsideEVs</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://insideevs.com/news/794701/tesla-model-3-original-battery/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954331761472"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/05/segway-dirt-bike-header.jpg?quality=82&amp;#038;strip=all&amp;#038;w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139954331761472').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="segway launches 60 mph electric dirt bike – and it’s basically a full e-motorcycle segway may still be best known for its scooters , but the company has been quietly (and sometimes not so quietly) expanding deeper into the electric two-wheeler space. between its growing e-bike lineup and earlier sur ron-style off-road models, the trajectory has been clear. now with the launch of t electrek">
+          <div class="iw" id="iw_139904107082880"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/05/segway-dirt-bike-header.jpg?quality=82&amp;#038;strip=all&amp;#038;w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139904107082880').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -794,48 +809,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Segway may still be best known for its scooters , but the company has been quietly (and sometimes not so quietly) expanding deeper into the electric two-wheeler space. Between its growing e-bike lineup and earlier Sur Ron-style off-road models, the trajectory has been clear. Now with the launch of t…</div>
             <div class="cf">
               <span class="cs">Electrek</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://electrek.co/2026/05/02/segway-launches-60-mph-electric-dirt-bike-and-its-basically-a-full-e-motorcycle/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954331812608"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/mini-cooper-r53-front.jpg?itok=8tqsV7dN" alt="" loading="lazy" onerror="document.getElementById('iw_139954331812608').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#60a5fa"></span>
-              <span style="color:#60a5fa">Automotive</span>
-            </div>
-            <div class="ct">I spent big money on my Mini Cooper S... then a van wrote it off</div>
-            <div class="cd">A modern classic in the making, the Cooper S is fun, affordable and definitely a keeper I’ve had my 2005 Mini Cooper S – an ‘R53’ for the chassis code fans – for almost six years now. I didn’t think it would be a keeper when I bought it, but despite quite a few life changes in that time, it still fi…</div>
-            <div class="cf">
-              <span class="cs">Autocar</span>
-              <span class="ca">3 May 2026</span>
-              <a class="cl" href="https://www.autocar.co.uk/car-news/used-cars/i-spent-big-money-my-mini-cooper-s-then-van-wrote-it" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954331811136"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/panther-solo-jb20240627_3942-1600x1067-86fa3cdd-7679-4c95-80a3-25a957d1b53f.jpg?itok=ZTdv2V9U" alt="" loading="lazy" onerror="document.getElementById('iw_139954331811136').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#60a5fa"></span>
-              <span style="color:#60a5fa">Automotive</span>
-            </div>
-            <div class="ct">The wild British supercar that beat the BMW M5 – then vanished</div>
-            <div class="cd">The mid-engined, four-wheel-drive Panther Solo of 1989 was one of the best supercars never to succeed During the 1980s and 1990s, the British car industry was littered with ambitious sports car start-ups ready to take on the establishment. Light on cash but brimming with confidence, these one-person…</div>
-            <div class="cf">
-              <span class="cs">Autocar</span>
-              <span class="ca">3 May 2026</span>
-              <a class="cl" href="https://www.autocar.co.uk/car-news/used-cars/wild-british-supercar-beat-bmw-m5-%E2%80%93-then-vanished" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954333279552"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/04/Screenshot-2026-04-30-at-12.45.32-PM.jpeg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139954333279552').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="somehow, this 1996 toyota 4runner is the lot to watch at mecum’s indy auction it&#x27;s probably the nicest third-generation 4runner around, but will it cause a shift in the collector-car market? the post somehow, this 1996 toyota 4runner is the lot to watch at mecum’s indy auction appeared first on the drive . the drive">
+          <div class="iw" id="iw_139904106904192"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/04/Screenshot-2026-04-30-at-12.45.32-PM.jpeg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139904106904192').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -845,31 +827,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">It&#x27;s probably the nicest third-generation 4Runner around, but will it cause a shift in the collector-car market? The post Somehow, This 1996 Toyota 4Runner Is the Lot to Watch at Mecum’s Indy Auction appeared first on The Drive .…</div>
             <div class="cf">
               <span class="cs">The Drive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://www.thedrive.com/news/somehow-this-1996-toyota-4runner-is-the-lot-to-watch-at-mecums-indy-auction" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332034944"><img class="ci" src="https://cdn.motor1.com/images/mgl/zxVYpb/s3/2024-mazda-mx-5-miata-grand-touring-review.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332034944').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#60a5fa"></span>
-              <span style="color:#60a5fa">Automotive</span>
-            </div>
-            <div class="ct">Mazda&#x27;s Goal For The Next Miata: &#x27;Preserve The Car&#x27;s DNA&#x27;</div>
-            <div class="cd">Motor1 Italy sat down with Roberto Pietrantonio, Managing Director of Mazda Italia, who spoke about the next-gen Miata&#x27;s development.…</div>
-            <div class="cf">
-              <span class="cs">Motor1</span>
-              <span class="ca">2 May 2026</span>
-              <a class="cl" href="https://www.motor1.com/news/794663/mazda-miata-interview-next-gen-development/" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="world" data-cat="auto">
-          <div class="iw" id="iw_139954332154176"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/05/Skat-Trak-Hero-1.jpg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139954332154176').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="auto" data-search="these snowmobile conversion kits from the ’70s turned sleds into trikes aftermarket companies once made snowmobiles into year-round toys. the post these snowmobile conversion kits from the &amp;#8217;70s turned sleds into trikes appeared first on the drive . the drive">
+          <div class="iw" id="iw_139904107445120"><img class="ci" src="https://www.thedrive.com/wp-content/uploads/2026/05/Skat-Trak-Hero-1.jpg?quality=85" alt="" loading="lazy" onerror="document.getElementById('iw_139904107445120').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -879,14 +845,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Aftermarket companies once made snowmobiles into year-round toys. The post These Snowmobile Conversion Kits From the &amp;#8217;70s Turned Sleds Into Trikes appeared first on The Drive .…</div>
             <div class="cf">
               <span class="cs">The Drive</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://www.thedrive.com/news/these-snowmobile-conversion-kits-from-the-70s-turned-sleds-into-trikes" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954331761216"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/05/Tesla-FSD-in-Mustang.jpeg?quality=82&amp;#038;strip=all&amp;#038;w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139954331761216').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="1966 ford mustang converted into a tesla with working ‘full self-driving’ a tesla auto parts shop owner in sacramento spent about $40,000 and two years converting a 1966 ford mustang into a fully functional tesla — complete with the model 3’s dual-motor drivetrain, 15-inch touchscreen, and working “full self-driving” (supervised). it’s likely the first non-tesla vehicle t electrek">
+          <div class="iw" id="iw_139904107082624"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2026/05/Tesla-FSD-in-Mustang.jpeg?quality=82&amp;#038;strip=all&amp;#038;w=1600" alt="" loading="lazy" onerror="document.getElementById('iw_139904107082624').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -896,14 +863,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">A Tesla auto parts shop owner in Sacramento spent about $40,000 and two years converting a 1966 Ford Mustang into a fully functional Tesla — complete with the Model 3’s dual-motor drivetrain, 15-inch touchscreen, and working “Full Self-Driving” (Supervised). It’s likely the first non-Tesla vehicle t…</div>
             <div class="cf">
               <span class="cs">Electrek</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://electrek.co/2026/05/02/tesla-1966-mustang-ev-conversion-full-self-driving/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954332066048"><img class="ci" src="https://cdn.motor1.com/images/mgl/koK71e/s3/civlp-n78ca.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332066048').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="this theft-proof e-bike is a cheat code for nyc streets easy to ride and hard to steal, infinite machine’s bike-lane-legal olto is sure to make an impression. insideevs">
+          <div class="iw" id="iw_139904107354752"><img class="ci" src="https://cdn.motor1.com/images/mgl/koK71e/s3/civlp-n78ca.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107354752').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -913,14 +881,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Easy to ride and hard to steal, Infinite Machine’s bike-lane-legal Olto is sure to make an impression.…</div>
             <div class="cf">
               <span class="cs">InsideEVs</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://insideevs.com/news/794667/infinite-machine-olto-video-review/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954331761664"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2025/04/Tesla-FSD-1500.webp?w=1500" alt="" loading="lazy" onerror="document.getElementById('iw_139954331761664').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="this tesla owner won $10k in court for tesla’s fsd lies. tesla is still fighting him. for over a decade now, tesla has sold a promise of vehicles that can drive themselves, even stating that every car it produced had all the hardware for self-driving . but after years of the company being unable to deliver, some owners want their money back. ben gawiser is one of those owners, who re electrek">
+          <div class="iw" id="iw_139904107083072"><img class="ci" src="https://electrek.co/wp-content/uploads/sites/3/2025/04/Tesla-FSD-1500.webp?w=1500" alt="" loading="lazy" onerror="document.getElementById('iw_139904107083072').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -930,14 +899,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">For over a decade now, Tesla has sold a promise of vehicles that can drive themselves, even stating that every car it produced had all the hardware for self-driving . But after years of the company being unable to deliver, some owners want their money back. Ben Gawiser is one of those owners, who re…</div>
             <div class="cf">
               <span class="cs">Electrek</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://electrek.co/2026/05/02/this-tesla-owner-won-10k-in-court-for-teslas-fsd-lies-tesla-is-still-fighting-him/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="ev">
-          <div class="iw" id="iw_139954332064640"><img class="ci" src="https://cdn.motor1.com/images/mgl/xqPzjP/s3/ev-gas-station.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332064640').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="world" data-cat="ev" data-search="evs slashed global fuel consumption massively in 2025 as ev sales grow, the future of gas and diesel isn’t looking all that great. insideevs">
+          <div class="iw" id="iw_139904107353344"><img class="ci" src="https://cdn.motor1.com/images/mgl/xqPzjP/s3/ev-gas-station.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107353344').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#34d9b5"></span>
@@ -947,13 +917,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">As EV sales grow, the future of gas and diesel isn’t looking all that great.…</div>
             <div class="cf">
               <span class="cs">InsideEVs</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://insideevs.com/news/794457/evs-cut-global-oil-consumption/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="autonomy">
+        <div class="card s4" data-region="world" data-cat="autonomy" data-search="uber wants to turn its millions of drivers into a sensor grid for self-driving companies praveen neppalli naga, uber&#x27;s chief technology officer, revealed the plan in an interview at techcrunch&#x27;s strictlyvc event in san francisco on thursday night, describing it as a natural extension of a nascent program the company announced in late january called av labs. techcrunch transport">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -964,13 +935,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Praveen Neppalli Naga, Uber&#x27;s chief technology officer, revealed the plan in an interview at TechCrunch&#x27;s StrictlyVC event in San Francisco on Thursday night, describing it as a natural extension of a nascent program the company announced in late January called AV Labs.…</div>
             <div class="cf">
               <span class="cs">TechCrunch Transport</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://techcrunch.com/2026/05/01/uber-wants-to-turn-its-millions-of-drivers-into-a-sensor-grid-for-self-driving-companies/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="autonomy">
+        <div class="card s4" data-region="world" data-cat="autonomy" data-search="rivian downsizes doe loan to $4.5b for georgia factory rivian has reworked its loan deal with the department of energy and now expects to borrow $4.5 billion to build its new factory in georgia, down from the original amount of $6.6 billion. techcrunch transport">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -981,25 +953,471 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Rivian has reworked its loan deal with the Department of Energy and now expects to borrow $4.5 billion to build its new factory in Georgia, down from the original amount of $6.6 billion.…</div>
             <div class="cf">
               <span class="cs">TechCrunch Transport</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">30 Apr 2026</span>
               <a class="cl" href="https://techcrunch.com/2026/04/30/rivian-downsizes-doe-loan-to-4-5b-of-georgia-factory/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
+        </div></div>
+      </div>
+      <div class="rsec">
+        <div class="rh">
+          <span class="rh-t">🇪🇺 Europe</span>
+          <span class="rh-c">15 articles</span>
+        </div>
+        <div class="grid">
+        <div class="card s8" data-region="europe" data-cat="auto" data-search="oddball us car maker amc is a forgotten hero amc wasn&#x27;t afraid of unconventional ideas: it held a candle to the big three on a shoestring budget in the early 1970s, the american automotive industry sank into its &#x27;malaise era&#x27;. cars from this time were widely regarded as, to put it bluntly, crap. japanese cars rocketed in popularity and it seem autocar">
+          <div class="iw" id="iw_139904107359744"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/1-amc_why_i_love_aw.jpg?itok=M1MNlura" alt="" loading="lazy" onerror="document.getElementById('iw_139904107359744').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Oddball US car maker AMC is a forgotten hero</div>
+            <div class="cd">AMC wasn&#x27;t afraid of unconventional ideas: It held a candle to the Big Three on a shoestring budget In the early 1970s, the American automotive industry sank into its &#x27;malaise era&#x27;. Cars from this time were widely regarded as, to put it bluntly, crap. Japanese cars rocketed in popularity and it seem…</div>
+            <div class="cf">
+              <span class="cs">Autocar</span>
+              
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autocar.co.uk/opinion/used-cars/oddball-us-car-maker-amc-forgotten-hero" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
         </div>
 
-        <div class="card s4" data-region="world" data-cat="autonomy">
+        <div class="card s6" data-region="europe" data-cat="auto" data-search="long-term test: citroen e-c5 aircross max comfort range first report: can your mood be influenced by the type of car you drive? we’re already seeing strong evidence that it can auto express">
+          <div class="iw" id="iw_139904107348800"><img class="ci" src="https://media.autoexpress.co.uk/image/private/s---qyPW4TV--/t_rss_image_w_845/v1777625977/autoexpress/2026/04/Citroen%20e-C5%20Aircross%20MAX%20Comfort%20Range-4.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107348800').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Long-term test: Citroen e-C5 Aircross MAX Comfort Range</div>
+            <div class="cd">First report: Can your mood be influenced by the type of car you drive? We’re already seeing strong evidence that it can…</div>
+            <div class="cf">
+              <span class="cs">Auto Express</span>
+              
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autoexpress.co.uk/citroen/c5-aircross/369499/long-term-test-citroen-e-c5-aircross-max-comfort-range" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="citroen e-c5 aircross max comfort range - pictures pictures of our long-term citroen e-c5 aircross max comfort range test car. pictures taken by auto express senior photographer, pete gibson. auto express">
+          <div class="iw" id="iw_139904107348224"><img class="ci" src="https://media.autoexpress.co.uk/image/private/s---qyPW4TV--/t_rss_image_w_845/v1777625977/autoexpress/2026/04/Citroen%20e-C5%20Aircross%20MAX%20Comfort%20Range-4.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107348224').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Citroen e-C5 Aircross MAX Comfort Range - pictures</div>
+            <div class="cd">Pictures of our long-term Citroen e-C5 Aircross MAX Comfort Range test car. Pictures taken by Auto Express senior photographer, Pete Gibson.…</div>
+            <div class="cf">
+              <span class="cs">Auto Express</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autoexpress.co.uk/citroen/c5-aircross/369498/citroen-e-c5-aircross-max-comfort-range-pictures" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="better than a bmw? how to score a mercedes c-class for £10k the used mercedes compact exec saloon or estate makes a fine (and reliable) all-rounder the mercedes c-class has always been up against stiff competition, not least the bmw 3 series and audi a4 . but this generation, the &#x27; w205 c-class &#x27;, produced from 2014 to 2021 is more than capable of holding it autocar">
+          <div class="iw" id="iw_139904107350144"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/1-c-class_c220d_estate_2018_314.jpg?itok=ERqOnDGm" alt="" loading="lazy" onerror="document.getElementById('iw_139904107350144').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Better than a BMW? How to score a Mercedes C-Class for £10k</div>
+            <div class="cd">The used Mercedes compact exec saloon or estate makes a fine (and reliable) all-rounder The Mercedes C-Class has always been up against stiff competition, not least the BMW 3 Series and Audi A4 . But this generation, the &#x27; W205 C-Class &#x27;, produced from 2014 to 2021 is more than capable of holding it…</div>
+            <div class="cf">
+              <span class="cs">Autocar</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autocar.co.uk/car-news/used-cars/better-bmw-how-score-mercedes-c-class-%C2%A310k" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="1000bhp bmw m3 ev to be priced &#x27;in same ballpark&#x27; as petrol twin autocar rendering shows how bmw may make the electric m3 distinct from the i3 on which it is based hallowed super-saloon will return as both quad-motor ev and next-generation ice car, offering buyers &quot;the choice&quot; the forthcoming electric bmw m3 due in 2027 and the next-generation petrol m3 will be “ autocar">
+          <div class="iw" id="iw_139904107432448"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/bmw_im3_render_2026-web_0.jpg?itok=PSW0hhXx" alt="" loading="lazy" onerror="document.getElementById('iw_139904107432448').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">1000bhp BMW M3 EV to be priced &#x27;in same ballpark&#x27; as petrol twin</div>
+            <div class="cd">Autocar rendering shows how BMW may make the electric M3 distinct from the i3 on which it is based Hallowed super-saloon will return as both quad-motor EV and next-generation ICE car, offering buyers &quot;the choice&quot; The forthcoming electric BMW M3 due in 2027 and the next-generation petrol M3 will be “…</div>
+            <div class="cf">
+              <span class="cs">Autocar</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.autocar.co.uk/car-news/electric-cars/1000bhp-bmw-m3-ev-be-priced-same-ballpark-petrol-twin" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="into the danger zone: chasing fighter jets in the caterham csr we head to the welsh mach loop to see if this final edition is the ultimate four-wheeled fighter jet i don’t have accurate statistics because none will exist, but bear with. i think anecdotally it’s acknowledged that more than a few pilots subsequently become caterham drivers, and/or that flying is  autocar">
+          <div class="iw" id="iw_139904107431488"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/caterham-csr-front-dynamic-low-flying-jh-64.jpg?itok=3SiloSZR" alt="" loading="lazy" onerror="document.getElementById('iw_139904107431488').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Into the danger zone: Chasing fighter jets in the Caterham CSR</div>
+            <div class="cd">We head to the Welsh Mach Loop to see if this final edition is the ultimate four-wheeled fighter jet I don’t have accurate statistics because none will exist, but bear with. I think anecdotally it’s acknowledged that more than a few pilots subsequently become Caterham drivers, and/or that flying is …</div>
+            <div class="cf">
+              <span class="cs">Autocar</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">3 May 2026</span>
+              <a class="cl" href="https://www.autocar.co.uk/car-news/features/danger-zone-chasing-fighter-jets-caterham-csr" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="china is the top car building nation in the world, and it’s just getting started manufacturing 31 million cars in 2025, mike rutherford thinks no country could catch or surpass china when it comes to car production. auto express">
+          <div class="iw" id="iw_139904107184512"><img class="ci" src="https://media.autoexpress.co.uk/image/private/s--3OQv-kq0--/t_rss_image_w_845/v1749799005/autoexpress/2025/06/Opinion%20-%20UK%20car%20production.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107184512').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">China is the top car building nation in the world, and it’s just getting started</div>
+            <div class="cd">Manufacturing 31 million cars in 2025, Mike Rutherford thinks no country could catch or surpass China when it comes to car production.…</div>
+            <div class="cf">
+              <span class="cs">Auto Express</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">3 May 2026</span>
+              <a class="cl" href="https://www.autoexpress.co.uk/opinion/369500/china-top-car-building-nation-world-and-its-just-getting-started-mike-rutherford" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="renault 5 and nissan micra: which of the small ev siblings would suit you? renault and nissan each make their own version of the same stylish small ev but which is best? auto express">
+          <div class="iw" id="iw_139904107187264"><img class="ci" src="https://media.autoexpress.co.uk/image/private/s--sEpBKWCz--/t_rss_image_w_845/v1777636304/autoexpress/2026/04/Renault%205%20and%20Nissan%20Micra-5.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107187264').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Renault 5 and Nissan Micra: Which of the small EV siblings would suit you?</div>
+            <div class="cd">Renault and Nissan each make their own version of the same stylish small EV but which is best?…</div>
+            <div class="cf">
+              <span class="cs">Auto Express</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">3 May 2026</span>
+              <a class="cl" href="https://www.autoexpress.co.uk/features/369504/renault-5-and-nissan-micra-which-small-ev-siblings-would-suit-you" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="renault 5 and nissan micra - pictures comparison pictures of the nissan micra and renault 5 evs. pictures taken by auto express senior photographer, pete gibson. auto express">
+          <div class="iw" id="iw_139904107184832"><img class="ci" src="https://media.autoexpress.co.uk/image/private/s--sEpBKWCz--/t_rss_image_w_845/v1777636304/autoexpress/2026/04/Renault%205%20and%20Nissan%20Micra-5.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107184832').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Renault 5 and Nissan Micra - pictures</div>
+            <div class="cd">Comparison pictures of the Nissan Micra and Renault 5 EVs. Pictures taken by Auto Express senior photographer, Pete Gibson.…</div>
+            <div class="cf">
+              <span class="cs">Auto Express</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">3 May 2026</span>
+              <a class="cl" href="https://www.autoexpress.co.uk/features/369503/renault-5-and-nissan-micra-pictures" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="auto" data-search="i spent big money on my mini cooper s... then a van wrote it off a modern classic in the making, the cooper s is fun, affordable and definitely a keeper i’ve had my 2005 mini cooper s – an ‘r53’ for the chassis code fans – for almost six years now. i didn’t think it would be a keeper when i bought it, but despite quite a few life changes in that time, it still fi autocar">
+          <div class="iw" id="iw_139904107432960"><img class="ci" src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/car_review_image_190/public/images/car-reviews/first-drives/legacy/mini-cooper-r53-front.jpg?itok=8tqsV7dN" alt="" loading="lazy" onerror="document.getElementById('iw_139904107432960').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">I spent big money on my Mini Cooper S... then a van wrote it off</div>
+            <div class="cd">A modern classic in the making, the Cooper S is fun, affordable and definitely a keeper I’ve had my 2005 Mini Cooper S – an ‘R53’ for the chassis code fans – for almost six years now. I didn’t think it would be a keeper when I bought it, but despite quite a few life changes in that time, it still fi…</div>
+            <div class="cf">
+              <span class="cs">Autocar</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">3 May 2026</span>
+              <a class="cl" href="https://www.autocar.co.uk/car-news/used-cars/i-spent-big-money-my-mini-cooper-s-then-van-wrote-it" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="industry" data-search="monthly market update: used car residual values stable in april residual values (rvs) remained broadly stable across european used-car markets in april. but what did other metrics reveal in austria, france, germany, italy, spain, switzerland, and the uk? autovista24 editor tom geggus examines the market data. passenger car values in key european markets remained autovista24">
+          <div class="iw" id="iw_139904107330880"><img class="ci" src="https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2026/05/mmu-1-5-26-300x181.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107330880').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">Monthly Market Update: Used car residual values stable in April</div>
+            <div class="cd">Residual values (RVs) remained broadly stable across European used-car markets in April. But what did other metrics reveal in Austria, France, Germany, Italy, Spain, Switzerland, and the UK? Autovista24 editor Tom Geggus examines the market data. Passenger car values in key European markets remained…</div>
+            <div class="cf">
+              <span class="cs">Autovista24</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">1 May 2026</span>
+              <a class="cl" href="https://autovista24.autovistagroup.com/news/mmu-used-car-residual-values-stable-in-april/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=mmu-used-car-residual-values-stable-in-april" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="industry" data-search="the automotive update: a deep dive into eu new-car market fortunes what happened to passenger car and light-commercial vehicle (lcv) registrations in the eu during the first quarter of 2026? which brands proved most popular? tom geggus, autovista24 editor, reveals all in the automotive update podcast. in this episode, an exploration of the latest acea data covering autovista24">
+          <div class="iw" id="iw_139904107326528"><img class="ci" src="https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2026/04/tau-30-4-26-300x188.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107326528').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">The Automotive Update: A deep dive into EU new-car market fortunes</div>
+            <div class="cd">What happened to passenger car and light-commercial vehicle (LCV) registrations in the EU during the first quarter of 2026? Which brands proved most popular? Tom Geggus, Autovista24 editor, reveals all in the Automotive Update podcast. In this episode, an exploration of the latest ACEA data covering…</div>
+            <div class="cf">
+              <span class="cs">Autovista24</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">30 Apr 2026</span>
+              <a class="cl" href="https://autovista24.autovistagroup.com/news/the-automotive-update-a-deep-dive-into-eu-new-car-market-fortunes/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=the-automotive-update-a-deep-dive-into-eu-new-car-market-fortunes" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="industry" data-search="are things looking up for the eu’s new lcv market? the eu’s new light-commercial vehicle (lcv) market managed modest growth in the first quarter of 2026. this was boosted by an increase in electric vehicle (ev) demand, as diesel’s dominant grip weakened. tom hooker, autovista24 journalist, unpacks the data. new lcv registrations in the eu grew by 2. autovista24">
+          <div class="iw" id="iw_139904106900288"><img class="ci" src="https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2026/04/eu-lcv-29-4-26-300x193.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904106900288').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">Are things looking up for the EU’s new LCV market?</div>
+            <div class="cd">The EU’s new light-commercial vehicle (LCV) market managed modest growth in the first quarter of 2026. This was boosted by an increase in electric vehicle (EV) demand, as diesel’s dominant grip weakened. Tom Hooker, Autovista24 journalist, unpacks the data. New LCV registrations in the EU grew by 2.…</div>
+            <div class="cf">
+              <span class="cs">Autovista24</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">29 Apr 2026</span>
+              <a class="cl" href="https://autovista24.autovistagroup.com/news/are-things-looking-up-for-the-eus-new-lcv-market/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=are-things-looking-up-for-the-eus-new-lcv-market" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="industry" data-search="cross-border used-car remarketing: from opportunity to execution in europe price differences between european used-car markets are creating cross-border sales opportunities for dealers, especially for electric vehicles (evs). however, after identifying these opportunities, utilising them efficiently and at scale can present a challenge. tom hooker, autovista24 journalist,  autovista24">
+          <div class="iw" id="iw_139904106892224"><img class="ci" src="https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2026/04/uvrs-27-4-26-300x200.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904106892224').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">Cross-border used-car remarketing: From opportunity to execution in Europe</div>
+            <div class="cd">Price differences between European used-car markets are creating cross-border sales opportunities for dealers, especially for electric vehicles (EVs). However, after identifying these opportunities, utilising them efficiently and at scale can present a challenge. Tom Hooker, Autovista24 journalist, …</div>
+            <div class="cf">
+              <span class="cs">Autovista24</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">28 Apr 2026</span>
+              <a class="cl" href="https://autovista24.autovistagroup.com/news/cross-border-used-car-remarketing-from-opportunity-to-execution-in-europe/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=cross-border-used-car-remarketing-from-opportunity-to-execution-in-europe" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="europe" data-cat="industry" data-search="eu new-car registrations boosted in first quarter by strong march robust demand pushed the eu new-car market to year-on-year growth in the first quarter of 2026. rising electric vehicle (ev) sales prevailed as a significant catalyst for growth. but is a familiar powertrain still dominating sales? james roberts, autovista24 web editor, unpicks the latest data. in m autovista24">
+          <div class="iw" id="iw_139904106897280"><img class="ci" src="https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2026/04/acea-28-4-26-300x236.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904106897280').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#818cf8"></span>
+              <span style="color:#818cf8">Industry</span>
+            </div>
+            <div class="ct">EU new-car registrations boosted in first quarter by strong March</div>
+            <div class="cd">Robust demand pushed the EU new-car market to year-on-year growth in the first quarter of 2026. Rising electric vehicle (EV) sales prevailed as a significant catalyst for growth. But is a familiar powertrain still dominating sales? James Roberts, Autovista24 web editor, unpicks the latest data. In M…</div>
+            <div class="cf">
+              <span class="cs">Autovista24</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">28 Apr 2026</span>
+              <a class="cl" href="https://autovista24.autovistagroup.com/news/eu-new-car-registrations-boosted-in-first-quarter-by-strong-march/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=eu-new-car-registrations-boosted-in-first-quarter-by-strong-march" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="rsec">
+        <div class="rh">
+          <span class="rh-t">🇨🇳 China</span>
+          <span class="rh-c">10 articles</span>
+        </div>
+        <div class="grid">
+        <div class="card s8" data-region="china" data-cat="ev" data-search="xiaomi shares jump 6.75% as new su7 orders top 70,000 in 6 weeks xiaomi will remove some optional configurations from the new su7 starting may 6 to optimize production and delivery efficiency. for details, please visit cnevpost . cnevpost">
+          <div class="iw" id="iw_139904107326784"><img class="ci" src="https://cnevpost.com/wp-content/uploads/2026/05/2026050410345283.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107326784').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#34d9b5"></span>
+              <span style="color:#34d9b5">BEV / PHEV</span>
+            </div>
+            <div class="ct">Xiaomi shares jump 6.75% as new SU7 orders top 70,000 in 6 weeks</div>
+            <div class="cd">Xiaomi will remove some optional configurations from the new SU7 starting May 6 to optimize production and delivery efficiency. For details, please visit CnEVPost .…</div>
+            <div class="cf">
+              <span class="cs">CnEVPost</span>
+              
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://cnevpost.com/2026/05/04/xiaomi-shares-jump-new-su7-orders-top-70000/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s6" data-region="china" data-cat="ev" data-search="record-breaking beijing auto show highlights accelerated shift to smart evs intelligence and electrification technologies emerged as core highlights, with multiple automakers showcasing models integrated with ai. for details, please visit cnevpost . cnevpost">
+          <div class="iw" id="iw_139904107325248"><img class="ci" src="https://cnevpost.com/wp-content/uploads/2026/05/2026050410003445.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107325248').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#34d9b5"></span>
+              <span style="color:#34d9b5">BEV / PHEV</span>
+            </div>
+            <div class="ct">Record-breaking Beijing Auto Show highlights accelerated shift to smart EVs</div>
+            <div class="cd">Intelligence and electrification technologies emerged as core highlights, with multiple automakers showcasing models integrated with AI. For details, please visit CnEVPost .…</div>
+            <div class="cf">
+              <span class="cs">CnEVPost</span>
+              
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://cnevpost.com/2026/05/04/beijing-auto-show-highlights-accelerated-shift-to-smart-evs/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="auto" data-search="china’s full-size suv wave expands in 2026, starting at 22,000 usd with baas entry point multiple suvs launch in china after beijing auto show, with bev, phev, and erev models across pricing tiers. the post china’s full-size suv wave expands in 2026, starting at 22,000 usd with baas entry point appeared first on carnewschina.com . carnewschina">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
-              <span class="pip" style="background:#fb923c"></span>
-              <span style="color:#fb923c">Autonomous</span>
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
             </div>
-            <div class="ct">EV startup Faraday Future paid $7.5M to company tied to founder Jia Yueting</div>
-            <div class="cd">The perpetually struggling EV company made the payments while being investigated by the SEC. That four-year probe was ultimately closed in March.…</div>
+            <div class="ct">China’s full-size SUV wave expands in 2026, starting at 22,000 USD with BaaS entry point</div>
+            <div class="cd">Multiple SUVs launch in China after Beijing Auto Show, with BEV, PHEV, and EREV models across pricing tiers. The post China’s full-size SUV wave expands in 2026, starting at 22,000 USD with BaaS entry point appeared first on CarNewsChina.com .…</div>
             <div class="cf">
-              <span class="cs">TechCrunch Transport</span>
-              <span class="ca">30 Apr 2026</span>
-              <a class="cl" href="https://techcrunch.com/2026/04/30/ev-startup-faraday-future-paid-7-5m-to-company-tied-to-founder-jia-yueting/" target="_blank" rel="noopener">Read →</a>
+              <span class="cs">CarNewsChina</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://carnewschina.com/2026/05/04/chinas-full-size-suv-wave-expands-in-2026-starting-at-22000-usd-with-baas-entry-point/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="auto" data-search="xiaomi yu7 gt crossovers with 990 hp piling up at the factory ahead of launch the xiaomi yu7 gt crossovers with a peak power of 990 hp are piling up at the factory ahead of the official debut scheduled for this month. the post xiaomi yu7 gt crossovers with 990 hp piling up at the factory ahead of launch appeared first on carnewschina.com . carnewschina">
+          <div class="iw ie"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Xiaomi YU7 GT crossovers with 990 hp piling up at the factory ahead of launch</div>
+            <div class="cd">The Xiaomi YU7 GT crossovers with a peak power of 990 hp are piling up at the factory ahead of the official debut scheduled for this month. The post Xiaomi YU7 GT crossovers with 990 hp piling up at the factory ahead of launch appeared first on CarNewsChina.com .…</div>
+            <div class="cf">
+              <span class="cs">CarNewsChina</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://carnewschina.com/2026/05/04/xiaomi-yu7-gt-crossovers-with-990-hp-piling-up-at-the-factory-ahead-of-launch/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="auto" data-search="beijing auto show 2026 draws 1.28 million visitors, 181 debuts and 71 concept cars beijing auto show 2026 set global records in scale and attendance, featuring 181 debuts and strong international participation. the post beijing auto show 2026 draws 1.28 million visitors, 181 debuts and 71 concept cars appeared first on carnewschina.com . carnewschina">
+          <div class="iw ie"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Beijing Auto Show 2026 draws 1.28 million visitors, 181 debuts and 71 concept cars</div>
+            <div class="cd">Beijing Auto Show 2026 set global records in scale and attendance, featuring 181 debuts and strong international participation. The post Beijing Auto Show 2026 draws 1.28 million visitors, 181 debuts and 71 concept cars appeared first on CarNewsChina.com .…</div>
+            <div class="cf">
+              <span class="cs">CarNewsChina</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://carnewschina.com/2026/05/04/beijing-auto-show-2026-draws-1-28-million-visitors-181-debuts-and-71-concept-cars/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="auto" data-search="sunday china drive | zeekr 8x ultra plus tested with 885 hp hybrid, europe entry late 2026 zeekr 8x ultra plus delivers 3.7 second acceleration with dual-motor hybrid system and active anti-roll chassis. the post sunday china drive | zeekr 8x ultra plus tested with 885 hp hybrid, europe entry late 2026 appeared first on carnewschina.com . carnewschina">
+          <div class="iw ie"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Sunday China Drive | Zeekr 8X Ultra Plus tested with 885 hp hybrid, Europe entry late 2026</div>
+            <div class="cd">Zeekr 8X Ultra Plus delivers 3.7 second acceleration with dual-motor hybrid system and active anti-roll chassis. The post Sunday China Drive | Zeekr 8X Ultra Plus tested with 885 hp hybrid, Europe entry late 2026 appeared first on CarNewsChina.com .…</div>
+            <div class="cf">
+              <span class="cs">CarNewsChina</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">3 May 2026</span>
+              <a class="cl" href="https://carnewschina.com/2026/05/03/sunday-china-drive-zeekr-8x-ultra-plus-tested-with-885-hp-hybrid-europe-entry-late-2026/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="auto" data-search="byd under pressure as sales fall for eighth straight month in april despite record overseas deliveries domestic sales are in free fall. the post byd under pressure as sales fall for eighth straight month in april despite record overseas deliveries appeared first on carnewschina.com . carnewschina">
+          <div class="iw ie"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">BYD under pressure as sales fall for eighth straight month in April despite record overseas deliveries</div>
+            <div class="cd">Domestic sales are in free fall. The post BYD under pressure as sales fall for eighth straight month in April despite record overseas deliveries appeared first on CarNewsChina.com .…</div>
+            <div class="cf">
+              <span class="cs">CarNewsChina</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">1 May 2026</span>
+              <a class="cl" href="https://carnewschina.com/2026/05/01/byd-under-pressure-as-sales-fall-for-eighth-straight-month-in-april-despite-record-overseas-deliveries/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="ev" data-search="byd april sales rebound sequentially as overseas shipments hit record high byd&#x27;s april nev sales reached 321,123 units, up 6.96% from march, though continuing a year-on-year decline. for details, please visit cnevpost . cnevpost">
+          <div class="iw" id="iw_139904107388096"><img class="ci" src="https://cnevpost.com/wp-content/uploads/2026/05/2026050111522163.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107388096').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#34d9b5"></span>
+              <span style="color:#34d9b5">BEV / PHEV</span>
+            </div>
+            <div class="ct">BYD April sales rebound sequentially as overseas shipments hit record high</div>
+            <div class="cd">BYD&#x27;s April NEV sales reached 321,123 units, up 6.96% from March, though continuing a year-on-year decline. For details, please visit CnEVPost .…</div>
+            <div class="cf">
+              <span class="cs">CnEVPost</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">1 May 2026</span>
+              <a class="cl" href="https://cnevpost.com/2026/05/01/byd-apr-2026-sales/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="ev" data-search="geely april sales edge up as record exports offset domestic slump geely&#x27;s overseas sales surged 244.70% year-on-year in april, while domestic sales tumbled 27.62%. for details, please visit cnevpost . cnevpost">
+          <div class="iw" id="iw_139904107388160"><img class="ci" src="https://cnevpost.com/wp-content/uploads/2026/05/2026050110391629.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107388160').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#34d9b5"></span>
+              <span style="color:#34d9b5">BEV / PHEV</span>
+            </div>
+            <div class="ct">Geely April sales edge up as record exports offset domestic slump</div>
+            <div class="cd">Geely&#x27;s overseas sales surged 244.70% year-on-year in April, while domestic sales tumbled 27.62%. For details, please visit CnEVPost .…</div>
+            <div class="cf">
+              <span class="cs">CnEVPost</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">1 May 2026</span>
+              <a class="cl" href="https://cnevpost.com/2026/05/01/geely-apr-2026-sales/" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s4" data-region="china" data-cat="ev" data-search="zeekr april deliveries hit record high as 9x remains strong zeekr&#x27;s april deliveries surged 132% year-on-year to 31,787 units, with the 9x hybrid suv topping 10,000 units again. for details, please visit cnevpost . cnevpost">
+          <div class="iw" id="iw_139904107383872"><img class="ci" src="https://cnevpost.com/wp-content/uploads/2026/05/2026050109470490.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107383872').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#34d9b5"></span>
+              <span style="color:#34d9b5">BEV / PHEV</span>
+            </div>
+            <div class="ct">Zeekr April deliveries hit record high as 9X remains strong</div>
+            <div class="cd">Zeekr&#x27;s April deliveries surged 132% year-on-year to 31,787 units, with the 9X hybrid SUV topping 10,000 units again. For details, please visit CnEVPost .…</div>
+            <div class="cf">
+              <span class="cs">CnEVPost</span>
+              <span class="xhint">▼ read more</span>
+              <span class="ca">1 May 2026</span>
+              <a class="cl" href="https://cnevpost.com/2026/05/01/zeekr-apr-2026-deliveries/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div></div>
@@ -1010,8 +1428,26 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
           <span class="rh-c">15 articles</span>
         </div>
         <div class="grid">
-        <div class="card s8" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954332153536"><img class="ci" src="https://1gr.cz/fotky/idnes/25/121/cl6/FDV9690275b01_img_8332_d073952a.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332153536').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s8" data-region="cz" data-cat="auto" data-search="nová škoda epiq konečně ukazuje interiér! čekali jste tohle? známe i datum premiéry mladoboleslavská automobilka dnes zveřejnila první skici interiéru nového modelu epiq. a konečně známe také datum kompletní oficiální premiéry. auto.cz">
+          <div class="iw" id="iw_139904106880960"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/skoda-epiq/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSkvaW1n/9831727.jpg?v=0&amp;st=l25hVBXpSddGfYhV-ANp6efASMQaT8fVpuFvYh0JpXM&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139904106880960').classList.add('ie')"><div class="cfb">🚗</div></div>
+          <div class="cb">
+            <div class="ccat">
+              <span class="pip" style="background:#60a5fa"></span>
+              <span style="color:#60a5fa">Automotive</span>
+            </div>
+            <div class="ct">Nová Škoda Epiq konečně ukazuje interiér! Čekali jste tohle? Známe i datum premiéry</div>
+            <div class="cd">Mladoboleslavská automobilka dnes zveřejnila první skici interiéru nového modelu Epiq. A konečně známe také datum kompletní oficiální premiéry.…</div>
+            <div class="cf">
+              <span class="cs">Auto.cz</span>
+              
+              <span class="ca">4 May 2026</span>
+              <a class="cl" href="https://www.auto.cz/nova-skoda-epiq-konecne-ukazuje-interier-cekali-jste-tohle-zname-i-datum-premiery-160862" target="_blank" rel="noopener">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s6" data-region="cz" data-cat="auto" data-search="velká jízda škody: už je druhá v evropě a posílá zaměstnancům bonus 140 tisíc značka škoda, která je letos 35 let součástí koncernu volkswagen, zvýšila v letošním prvním čtvrtletí odbyt v evropě meziročně o 17,1 procenta. evropským zákazníkům dodala 222 500 vozů, což z ní poprvé v historii činí druhou nejprodávanější automobilovou značku v regionu. idnes auto">
+          <div class="iw" id="iw_139904107396992"><img class="ci" src="https://1gr.cz/fotky/idnes/25/121/cl6/FDV9690275b01_img_8332_d073952a.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107396992').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1021,14 +1457,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Značka Škoda, která je letos 35 let součástí koncernu Volkswagen, zvýšila v letošním prvním čtvrtletí odbyt v Evropě meziročně o 17,1 procenta. Evropským zákazníkům dodala 222 500 vozů, což z ní poprvé v historii činí druhou nejprodávanější automobilovou značku v regionu.…</div>
             <div class="cf">
               <span class="cs">iDnes Auto</span>
+              
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.idnes.cz/auto/zpravodajstvi/volkskwagen-vw-skoda-vysledky-premie-hospodareni-restrukturalizace.A260501_120307_automoto_fdv#utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=autokat&amp;utm_content=main" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s6" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954331550080"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/mitsubishi-mitsubishi-outlander-outlander/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSkvaW1n/9829657.jpg?v=0&amp;st=6I2IKg-3KNc0K3O6ub28diqZE2CSKJIwbtgJB2eAvKY&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139954331550080').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="mitsubishi má nový mild-hybridní motor pro outlander. má to ale háček automobilka mitsubishi na evropském trhu momentálně nabízí pouze dva vlastní modely, ostatní jsou licencovanými renaulty. pro americký trh však nyní připravila novou pohonnou jednotku. auto.cz">
+          <div class="iw" id="iw_139904107318784"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/mitsubishi-mitsubishi-outlander-outlander/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSkvaW1n/9829657.jpg?v=0&amp;st=6I2IKg-3KNc0K3O6ub28diqZE2CSKJIwbtgJB2eAvKY&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139904107318784').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1038,14 +1475,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Automobilka Mitsubishi na evropském trhu momentálně nabízí pouze dva vlastní modely, ostatní jsou licencovanými Renaulty. Pro americký trh však nyní připravila novou pohonnou jednotku.…</div>
             <div class="cf">
               <span class="cs">Auto.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.auto.cz/mitsubishi-ma-novy-mild-hybridni-motor-pro-outlander-ma-to-ale-hacek-160848" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954332149248"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/dite/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSk6Zm9jYWwoMzYyeDE4MDo4NjR4Njc2KS9pbWc/9829510.jpg?v=0&amp;st=AINdBtnPxJnQdj7hUS_C0YoqRaVTg7Jbf7jEC_vr5gM&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139954332149248').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="děti se od rodičů učí špatným řidičským návykům. v británii proto řídí už od 9 let věku průzkumy ukazují, že děti za své mládí stráví průměrně 3400 hodin v autě, kde pozorují špatné řidičské návyky svých rodičů. britská autoškola se to snaží změnit poskytnutím kurzů dětem od devíti let a vypadá to, že je tento přístup úspěšný. auto.cz">
+          <div class="iw" id="iw_139904106884800"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/dite/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSk6Zm9jYWwoMzYyeDE4MDo4NjR4Njc2KS9pbWc/9829510.jpg?v=0&amp;st=AINdBtnPxJnQdj7hUS_C0YoqRaVTg7Jbf7jEC_vr5gM&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139904106884800').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1055,14 +1493,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Průzkumy ukazují, že děti za své mládí stráví průměrně 3400 hodin v autě, kde pozorují špatné řidičské návyky svých rodičů. Britská autoškola se to snaží změnit poskytnutím kurzů dětem od devíti let a vypadá to, že je tento přístup úspěšný.…</div>
             <div class="cf">
               <span class="cs">Auto.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.auto.cz/deti-se-od-rodicu-uci-spatnym-ridicskym-navykum-v-britanii-proto-ridi-uz-od-9-let-veku-160844" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954332143232"><img class="ci" src="https://1gr.cz/fotky/idnes/25/073/cl6/FDV95f093d2a1_horch_99.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332143232').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="hasiči slaví svůj velký den. podívejte se, čím vším jezdili a jezdí čtvrtého května slaví hasiči svátek svého patrona, svatého floriána. tento den není jen připomínkou historie a tradic, ale také oslavou pokroku techniky, která v českých a moravských městech pomáhá chránit životy a majetek již po staletí. podívejte se na velkou fotogalerii. idnes auto">
+          <div class="iw" id="iw_139904107381376"><img class="ci" src="https://1gr.cz/fotky/idnes/25/073/cl6/FDV95f093d2a1_horch_99.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107381376').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1072,13 +1511,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Čtvrtého května slaví hasiči svátek svého patrona, svatého Floriána. Tento den není jen připomínkou historie a tradic, ale také oslavou pokroku techniky, která v českých a moravských městech pomáhá chránit životy a majetek již po staletí. Podívejte se na velkou fotogalerii.…</div>
             <div class="cf">
               <span class="cs">iDnes Auto</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.idnes.cz/auto/zpravodajstvi/hasici-4-5-den-hasicu-4-kvetna-auta-pozarniku-tatra.A260429_115245_automoto_lobl#utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=autokat&amp;utm_content=main" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="ev">
+        <div class="card s4" data-region="cz" data-cat="ev" data-search="škoda auto: druhá nejprodávanější značka v evropě škoda auto dodala zákazníkům na celém světě 271 900 vozů, meziročně +14,0 %, a stala se druhou nejprodávanější značkou v evropě. the post škoda auto: druhá nejprodávanější značka v evropě first appeared on hybrid.cz . hybrid.cz">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -1089,14 +1529,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Škoda Auto dodala zákazníkům na celém světě 271 900 vozů, meziročně +14,0 %, a stala se druhou nejprodávanější značkou v Evropě. The post Škoda Auto: druhá nejprodávanější značka v Evropě first appeared on Hybrid.cz .…</div>
             <div class="cf">
               <span class="cs">Hybrid.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.hybrid.cz/skoda-auto-druha-nejprodavanejsi-znacka-v-evrope/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954331558080"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/nissan-n7/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSk6Zm9jYWwoOTB4MTA3OjEzMzZ4ODAzKS9pbWc/9519297.jpg?v=0&amp;st=ChJ2Bp-1d32FU6R9pYb0uXHxi_VkP1hFDrhbP4-pSvk&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139954331558080').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="nissan se vrací ke jménu primera a nebude to suv. novinka ale staromilce nepotěší oživování dávno ukončených modelů je dnes v kurzu a oblíbily si ho i japonské automobilky. další je nissan, který se vrací k dávno zapomenuté modelové řadě primera. jen technikou už míří jasně do budoucnosti. auto.cz">
+          <div class="iw" id="iw_139904107329216"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/nissan-n7/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSk6Zm9jYWwoOTB4MTA3OjEzMzZ4ODAzKS9pbWc/9519297.jpg?v=0&amp;st=ChJ2Bp-1d32FU6R9pYb0uXHxi_VkP1hFDrhbP4-pSvk&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139904107329216').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1106,14 +1547,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Oživování dávno ukončených modelů je dnes v kurzu a oblíbily si ho i japonské automobilky. Další je Nissan, který se vrací k dávno zapomenuté modelové řadě Primera. Jen technikou už míří jasně do budoucnosti.…</div>
             <div class="cf">
               <span class="cs">Auto.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.auto.cz/nissan-se-vraci-ke-jmenu-primera-a-nebude-to-suv-novinka-ale-staromilce-nepotesi-160847" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954331978880"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/great-wall-motor/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSk6Zm9jYWwoMXgxNjI6MTkyMHgxMjQyKS9pbWc/9454891.jpg?v=0&amp;st=CmRo7nj3b7U-FuY6Y7MkmYSx3OpRGx6e7IDBlx5R6j8&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139954331978880').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="vrátí se osmiválce do aut? podporu získávají z nečekaného místa celá čína sice masivně elektrifikuje, neznamená to ale, že se se spalovacími motory úplně končí. po návratu boxeru u byd a pokusech s wankelem menší renesancí prochází i osmiválec. tomu důvěřuje zejména automobilka gwm. auto.cz">
+          <div class="iw" id="iw_139904107385408"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/great-wall-motor/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSk6Zm9jYWwoMXgxNjI6MTkyMHgxMjQyKS9pbWc/9454891.jpg?v=0&amp;st=CmRo7nj3b7U-FuY6Y7MkmYSx3OpRGx6e7IDBlx5R6j8&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139904107385408').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1123,14 +1565,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Celá Čína sice masivně elektrifikuje, neznamená to ale, že se se spalovacími motory úplně končí. Po návratu boxeru u BYD a pokusech s wankelem menší renesancí prochází i osmiválec. Tomu důvěřuje zejména automobilka GWM.…</div>
             <div class="cf">
               <span class="cs">Auto.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">4 May 2026</span>
               <a class="cl" href="https://www.auto.cz/vrati-se-osmivalce-do-aut-podporu-ziskavaji-z-necekaneho-mista-160840" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954332061504"><img class="ci" src="https://1gr.cz/fotky/idnes/26/051/cl6/FDV4cbc595881_DB2025AL00210_large.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332061504').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="specialista na krize vw: nejistota je nová norma, problém evropy je byrokracie karsten schnake je zpátky ve wolfsburgu. ceněný manažer, který se proslavil tím, že vyřešil čipovou krizi koncernu volkswagen, se po pěti letech přesunul z mladé boleslavi zpátky do německa. povýšil na šéfa nákupu celé skupiny. na roky ve škodě rád vzpomíná, však si v praze právě pořídil byt. idnes auto">
+          <div class="iw" id="iw_139904107386880"><img class="ci" src="https://1gr.cz/fotky/idnes/26/051/cl6/FDV4cbc595881_DB2025AL00210_large.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107386880').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1140,14 +1583,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Karsten Schnake je zpátky ve Wolfsburgu. Ceněný manažer, který se proslavil tím, že vyřešil čipovou krizi koncernu Volkswagen, se po pěti letech přesunul z Mladé Boleslavi zpátky do Německa. Povýšil na šéfa nákupu celé skupiny. Na roky ve Škodě rád vzpomíná, však si v Praze právě pořídil byt.…</div>
             <div class="cf">
               <span class="cs">iDnes Auto</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.idnes.cz/auto/zpravodajstvi/vw-volkswagen-karsten-schnake-rozhovor.A260417_155206_automoto_fdv#utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=autokat&amp;utm_content=main" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954332073920"><img class="ci" src="https://1gr.cz/fotky/idnes/20/112/cl6/SOV875660_profimedia_0186075476.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332073920').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="pokud vám letos končí řidičák, vyměňte jej ještě před dovolenou podle dat ministerstva dopravy bude potřeba vyměnit nejvíce dokladů v srpnu a ve středočeském kraji. v česku doklad nemusíte mít u sebe, ale v zahraničí naopak ano. a s propadlým řidičským průkazem vás mohou rychle vrátit domů. idnes auto">
+          <div class="iw" id="iw_139904107388800"><img class="ci" src="https://1gr.cz/fotky/idnes/20/112/cl6/SOV875660_profimedia_0186075476.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107388800').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1157,31 +1601,15 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Podle dat ministerstva dopravy bude potřeba vyměnit nejvíce dokladů v srpnu a ve Středočeském kraji. V Česku doklad nemusíte mít u sebe, ale v zahraničí naopak ano. A s propadlým řidičským průkazem vás mohou rychle vrátit domů.…</div>
             <div class="cf">
               <span class="cs">iDnes Auto</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">3 May 2026</span>
               <a class="cl" href="https://www.idnes.cz/auto/zpravodajstvi/platnost-ridicak-ridicsky-prukaz-vymena.A260422_153051_automoto_mom#utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=autokat&amp;utm_content=main" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954331876608"><img class="ci" src="https://1884403144.rsc.cdn77.org/foto/formule-1-f1/MjIweDE1NS9jZW50ZXIvbWlkZGxlL3NtYXJ0L2ZpbHRlcnM6cXVhbGl0eSg4NSkvaW1n/9831378.jpg?v=0&amp;st=LRE4sTv7xl7e8lkN5F09fawwPaWhbDNb-QZMqlm5TOs&amp;ts=1600812000&amp;e=0" alt="" loading="lazy" onerror="document.getElementById('iw_139954331876608').classList.add('ie')"><div class="cfb">🚗</div></div>
-          <div class="cb">
-            <div class="ccat">
-              <span class="pip" style="background:#60a5fa"></span>
-              <span style="color:#60a5fa">Automotive</span>
-            </div>
-            <div class="ct">Dramatickou Velkou cenu Miami 2026 vyhrál Kimi Antonelli</div>
-            <div class="cd">Grand Prix Miami 2026 vyhrál Kimi Antonelli před Landem Norrisem a Oscarem Piastrim.…</div>
-            <div class="cf">
-              <span class="cs">Auto.cz</span>
-              <span class="ca">3 May 2026</span>
-              <a class="cl" href="https://f1sport.auto.cz/clanek/gp-miami-2026-zavod" target="_blank" rel="noopener">Read →</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card s4" data-region="cz" data-cat="auto">
-          <div class="iw" id="iw_139954332063872"><img class="ci" src="https://1gr.cz/fotky/idnes/25/062/cl6/FDV619413bc7f_img_20250603_113736.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139954332063872').classList.add('ie')"><div class="cfb">🚗</div></div>
+        <div class="card s4" data-region="cz" data-cat="auto" data-search="glosa: daň za to, že nemáme moře? připomínají to poplatky na cestě k jadranu vykoupat se v itálii nebo chorvatsku plánuje spousta čechů a snad bez výjimky všechny štve rakousko se slovinskem, které v cestě k jadranu vysloveně „překážejí“. a k tomu vám ještě cestu „osladí“. navrhuji tomu říkat pomsta za to, že nemám jadran. nebo že by msta za rozpad rakouska-uherska? slovinci idnes auto">
+          <div class="iw" id="iw_139904107329088"><img class="ci" src="https://1gr.cz/fotky/idnes/25/062/cl6/FDV619413bc7f_img_20250603_113736.jpg" alt="" loading="lazy" onerror="document.getElementById('iw_139904107329088').classList.add('ie')"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:#60a5fa"></span>
@@ -1191,13 +1619,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Vykoupat se v Itálii nebo Chorvatsku plánuje spousta Čechů a snad bez výjimky všechny štve Rakousko se Slovinskem, které v cestě k Jadranu vysloveně „překážejí“. A k tomu vám ještě cestu „osladí“. Navrhuji tomu říkat pomsta za to, že nemám Jadran. Nebo že by msta za rozpad Rakouska-Uherska? Slovinci…</div>
             <div class="cf">
               <span class="cs">iDnes Auto</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">2 May 2026</span>
               <a class="cl" href="https://www.idnes.cz/auto/zpravodajstvi/glosa-komentar-dalnice-rakousko-slovinsko-znamky-poplatky.A260428_133104_automoto_fdv#utm_source=rss&amp;utm_medium=feed&amp;utm_campaign=autokat&amp;utm_content=main" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="ev">
+        <div class="card s4" data-region="cz" data-cat="ev" data-search="renault 4 e-tech electric s otevíratelnou plátěnou střechou verze plein sud elektromobilu renault 4 e-tech electric s otevíratelnou plátěnou střechou je nyní k dispozici k objednání. the post renault 4 e-tech electric s otevíratelnou plátěnou střechou first appeared on hybrid.cz . hybrid.cz">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -1208,13 +1637,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Verze Plein Sud elektromobilu Renault 4 E-Tech electric s otevíratelnou plátěnou střechou je nyní k dispozici k objednání. The post Renault 4 E-tech electric s otevíratelnou plátěnou střechou first appeared on Hybrid.cz .…</div>
             <div class="cf">
               <span class="cs">Hybrid.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">30 Apr 2026</span>
               <a class="cl" href="https://www.hybrid.cz/renault-4-e-tech-electric-s-oteviratelnou-platenou-strechou/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="ev">
+        <div class="card s4" data-region="cz" data-cat="ev" data-search="elektromobil volkswagen id. polo slaví světovou premiéru volkswagen představuje nový elektromobil volkswagen id. polo, zcela elektrickou verzi jednoho z nejúspěšnějších modelů v historii značky. pro polo s více než 20 &amp;#8230; the post elektromobil volkswagen id. polo slaví světovou premiéru first appeared on hybrid.cz . hybrid.cz">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -1225,13 +1655,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Volkswagen představuje nový elektromobil Volkswagen ID. Polo, zcela elektrickou verzi jednoho z nejúspěšnějších modelů v historii značky. Pro Polo s více než 20 &amp;#8230; The post Elektromobil Volkswagen ID. Polo slaví světovou premiéru first appeared on Hybrid.cz .…</div>
             <div class="cf">
               <span class="cs">Hybrid.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">29 Apr 2026</span>
               <a class="cl" href="https://www.hybrid.cz/elektromobil-volkswagen-id-polo-slavi-svetovou-premieru/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="ev">
+        <div class="card s4" data-region="cz" data-cat="ev" data-search="volvo zahajuje výrobu nového elektromobilu volvo ex60 automobilka volvo cars zahájila výrobu nového elektromobilu volvo ex60, jehož distribuce začne ve druhé polovině letošního roku. the post volvo zahajuje výrobu nového elektromobilu volvo ex60 first appeared on hybrid.cz . hybrid.cz">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -1242,13 +1673,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Automobilka Volvo Cars zahájila výrobu nového elektromobilu Volvo EX60, jehož distribuce začne ve druhé polovině letošního roku. The post Volvo zahajuje výrobu nového elektromobilu Volvo EX60 first appeared on Hybrid.cz .…</div>
             <div class="cf">
               <span class="cs">Hybrid.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">29 Apr 2026</span>
               <a class="cl" href="https://www.hybrid.cz/volvo-zahajuje-vyrobu-noveho-elektromobilu-volvo-ex60/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div>
 
-        <div class="card s4" data-region="cz" data-cat="ev">
+        <div class="card s4" data-region="cz" data-cat="ev" data-search="audi q4 e-tron: vyšší dojezd, lepší funkce faceliftovaný elektromobil audi q4 e-tron odvádí ještě vyšší provozní výkony díky delšímu dojezdu a většímu nabíjecímu výkonu. the post audi q4 e-tron: vyšší dojezd, lepší funkce first appeared on hybrid.cz . hybrid.cz">
           <div class="iw ie"><div class="cfb">🚗</div></div>
           <div class="cb">
             <div class="ccat">
@@ -1259,18 +1691,18 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
             <div class="cd">Faceliftovaný elektromobil Audi Q4 e-tron odvádí ještě vyšší provozní výkony díky delšímu dojezdu a většímu nabíjecímu výkonu. The post Audi Q4 e-tron: vyšší dojezd, lepší funkce first appeared on Hybrid.cz .…</div>
             <div class="cf">
               <span class="cs">Hybrid.cz</span>
+              <span class="xhint">▼ read more</span>
               <span class="ca">28 Apr 2026</span>
               <a class="cl" href="https://www.hybrid.cz/audi-q4-e-tron-vyssi-dojezd-lepsi-funkce/" target="_blank" rel="noopener">Read →</a>
             </div>
           </div>
         </div></div>
-      </div>
-  </div>
+      </div></div>
 </div>
 
 <div class="src-acc" id="sA">
   <button class="stog" onclick="document.getElementById('sA').classList.toggle('src-open')">
-    <span>📰 Sources<span class="hl"> — Electrek · InsideEVs · CleanTechnica · Electrive · Motor1 · The Drive · Autocar · Automotive News · Reuters · TechCrunch · The Verge · Hybrid.cz · Auto.cz · AutoRevue · iDnes Auto · Autoforum · EV Magazin CZ · Green Car Reports</span></span>
+    <span>📰 Sources<span class="hl"> — Electrek · InsideEVs · CleanTechnica · Electrive · Motor1 · The Drive · Automotive News · TechCrunch · The Verge · Autocar · Auto Express · CnEVPost · CarNewsChina · Gasgoo · Hybrid.cz · Auto.cz · iDnes Auto & more</span></span>
     <span class="sch">▼</span>
   </button>
   <div class="sbody">
@@ -1284,14 +1716,22 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
         <div class="sgr"><div><span class="sn">Green Car Reports</span><span class="sd">greencarreports.com</span></div></div>
       </div>
       <div>
-        <div class="sgh" style="color:var(--acc)">🌍 Global — Automotive</div>
+        <div class="sgh" style="color:var(--acc)">🌍 Global — Auto & Tech</div>
         <div class="sgr"><div><span class="sn">Motor1</span><span class="sd">motor1.com</span></div></div>
         <div class="sgr"><div><span class="sn">The Drive</span><span class="sd">thedrive.com</span></div></div>
-        <div class="sgr"><div><span class="sn">Autocar</span><span class="sd">autocar.co.uk</span></div></div>
         <div class="sgr"><div><span class="sn">Automotive News</span><span class="sd">autonews.com</span></div></div>
-        <div class="sgr"><div><span class="sn">Reuters Autos</span><span class="sd">reuters.com</span></div></div>
         <div class="sgr"><div><span class="sn">TechCrunch Transport</span><span class="sd">techcrunch.com</span></div></div>
         <div class="sgr"><div><span class="sn">The Verge</span><span class="sd">theverge.com</span></div></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--grn)">🇪🇺 Europe</div>
+        <div class="sgr"><div><span class="sn">Autocar</span><span class="sd">autocar.co.uk</span></div></div>
+        <div class="sgr"><div><span class="sn">Auto Express</span><span class="sd">autoexpress.co.uk</span></div></div>
+        <div class="sgr"><div><span class="sn">Autovista24</span><span class="sd">autovista24.autovistagroup.com</span></div></div>
+        <div class="sgh" style="color:var(--acc);margin-top:12px">🇨🇳 China</div>
+        <div class="sgr"><div><span class="sn">CnEVPost</span><span class="sd">cnevpost.com</span></div></div>
+        <div class="sgr"><div><span class="sn">CarNewsChina</span><span class="sd">carnewschina.com</span></div></div>
+        <div class="sgr"><div><span class="sn">Gasgoo</span><span class="sd">gasgoo.com</span></div></div>
       </div>
       <div>
         <div class="sgh" style="color:var(--mut)">🇨🇿 Czech Republic</div>
@@ -1307,42 +1747,82 @@ footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;ju
 </div>
 
 <footer>
-  <span>MOTOR DESK · Automotive & Mobility Intelligence · April 2026</span>
-  <span>18 sources · Auto-updated monthly</span>
+  <span>MOTOR DESK · Automotive & Mobility Intelligence · May 2026</span>
+  <span>20+ sources · Auto-updated monthly</span>
 </footer>
 
 <script>
-let aR = "all", aT = "all";
+let aR="all",aT="all",aQ="";
 
-function sR(r) {
-  aR = r;
-  document.querySelectorAll(".rb").forEach(b => b.classList.toggle("on", b.dataset.r === r));
+// Restore preferences
+(function(){
+  const t=localStorage.getItem("md-theme")||"dark";
+  document.documentElement.setAttribute("data-theme",t);
+  updateThemeBtn(t);
+  if(localStorage.getItem("md-img")==="off"){
+    document.body.classList.add("no-images");
+    document.getElementById("imgBtn").classList.remove("on");
+  }
+})();
+
+function toggleTheme(){
+  const c=document.documentElement.getAttribute("data-theme");
+  const n=c==="dark"?"light":"dark";
+  document.documentElement.setAttribute("data-theme",n);
+  localStorage.setItem("md-theme",n);
+  updateThemeBtn(n);
+}
+function updateThemeBtn(t){
+  const b=document.getElementById("themeBtn");
+  b.textContent=t==="dark"?"☀️ Light":"🌙 Dark";
+  t==="dark"?b.classList.remove("on"):b.classList.add("on");
+}
+
+function toggleImg(){
+  const on=document.body.classList.toggle("no-images");
+  const b=document.getElementById("imgBtn");
+  on?b.classList.remove("on"):b.classList.add("on");
+  localStorage.setItem("md-img",on?"off":"on");
+}
+
+function sR(r){aR=r;document.querySelectorAll(".rb").forEach(b=>b.classList.toggle("on",b.dataset.r===r));applyFilters();}
+function sT(t){aT=t;document.querySelectorAll(".fb").forEach(b=>b.classList.toggle("on",b.dataset.t===t));applyFilters();}
+
+function onSearch(q){
+  aQ=q.toLowerCase().trim();
+  document.getElementById("sc").classList.toggle("on",aQ.length>0);
   applyFilters();
 }
-
-function sT(t) {
-  aT = t;
-  document.querySelectorAll(".tb").forEach(b => b.classList.toggle("on", b.dataset.t === t));
-  applyFilters();
+function clearS(){
+  document.getElementById("si").value="";
+  onSearch("");
 }
 
-function applyFilters() {
-  let visible = 0;
-  document.querySelectorAll(".card").forEach(card => {
-    const rOk = aR === "all" || card.dataset.region === aR;
-    const tOk = aT === "all" || card.dataset.cat    === aT;
-    const show = rOk && tOk;
-    card.classList.toggle("hidden", !show);
-    if (show) visible++;
+function applyFilters(){
+  let v=0;
+  document.querySelectorAll(".card").forEach(c=>{
+    const ok=(aR==="all"||c.dataset.region===aR)&&
+             (aT==="all"||c.dataset.cat===aT)&&
+             (aQ===""||c.dataset.search.includes(aQ));
+    c.classList.toggle("hidden",!ok);
+    if(ok)v++;
   });
-  document.getElementById("visCount").textContent = visible + " article" + (visible !== 1 ? "s" : "");
-
-  // Hide section headers if all cards in them are hidden
-  document.querySelectorAll(".rsec").forEach(sec => {
-    const anyVisible = [...sec.querySelectorAll(".card")].some(c => !c.classList.contains("hidden"));
-    sec.style.display = anyVisible ? "" : "none";
+  const s=v+" article"+(v!==1?"s":"");
+  document.getElementById("vc").textContent=s;
+  document.getElementById("cnt").textContent=s;
+  document.querySelectorAll(".rsec").forEach(s=>{
+    s.style.display=[...s.querySelectorAll(".card")].some(c=>!c.classList.contains("hidden"))?"":"none";
   });
 }
+
+// Expand perex on small cards
+document.addEventListener("click",function(e){
+  const card=e.target.closest(".card.s4");
+  if(!card||e.target.closest("a"))return;
+  card.classList.toggle("exp");
+  const h=card.querySelector(".xhint");
+  if(h)h.textContent=card.classList.contains("exp")?"▲ collapse":"▼ read more";
+});
 </script>
 </body>
 </html>
