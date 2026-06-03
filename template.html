@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MOTOR DESK — {{MONTH_LABEL}}</title>
+<meta property="og:title" content="Motor Desk — {{MONTH_LABEL}}">
+<meta property="og:description" content="Automotive & Mobility Intelligence for Škoda Auto — {{ARTICLE_COUNT}} articles">
+<meta name="theme-color" content="#070e0b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23070e0b'/><text y='72' x='8' font-size='60' font-family='monospace' font-weight='bold' fill='%2334d9b5'>M</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+[data-theme="dark"]{
+  --bg:#0d1210;--bg2:#141c18;--bg3:#1a2420;--bdr:#1e2e28;--bdr2:#243830;
+  --acc:#34d9b5;--grn:#4ade80;--mut:#7aaa96;--dim:#4a7a66;
+  --wh:#eef4f0;--txt:#b8d0c4;--head:#070e0b;
+  --sbg:#1a2420;--sbdr:#243830;--stxt:#b8d0c4;
+  --trend-bg:rgba(251,146,60,.08);--trend-c:#fb923c;--trend-bdr:rgba(251,146,60,.2);
+  --overlay-bg:rgba(0,0,0,.88);
+  --hero-grad:linear-gradient(to top,rgba(7,14,11,.98) 0%,rgba(7,14,11,.6) 50%,transparent 100%);
+  --r-global:#34d9b5;--r-europe:#60a5fa;--r-china:#f87171;--r-cz:#4ade80;
+  --new-bg:rgba(52,217,181,.15);--new-c:#34d9b5;
+  --breaking-c:#f87171;--mustread-c:#fb923c;
+  --threat:#f87171;--opportunity:#4ade80;--watch:#fbbf24;--info:#60a5fa;
+}
+[data-theme="light"]{
+  --bg:#f0f4f2;--bg2:#ffffff;--bg3:#e8f0ec;--bdr:#ccddd4;--bdr2:#bdd0c8;
+  --acc:#1a9e85;--grn:#2a9e50;--mut:#3a6e54;--dim:#6a9a7a;
+  --wh:#0a1a12;--txt:#1a3a28;--head:#ddeae2;
+  --sbg:#ffffff;--sbdr:#bdd0c8;--stxt:#1a3a28;
+  --trend-bg:rgba(217,119,6,.07);--trend-c:#d97706;--trend-bdr:rgba(217,119,6,.2);
+  --overlay-bg:rgba(0,0,0,.65);
+  --hero-grad:linear-gradient(to top,rgba(221,234,226,.98) 0%,rgba(221,234,226,.6) 50%,transparent 100%);
+  --r-global:#1a9e85;--r-europe:#2563eb;--r-china:#dc2626;--r-cz:#16a34a;
+  --new-bg:rgba(26,158,133,.12);--new-c:#1a9e85;
+  --breaking-c:#dc2626;--mustread-c:#d97706;
+  --threat:#dc2626;--opportunity:#16a34a;--watch:#d97706;--info:#2563eb;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;min-height:100vh;transition:background .3s,color .3s}
+
+/* ── HEADER ── */
+.site-header{position:sticky;top:0;z-index:100;background:var(--head);transition:background .3s;box-shadow:0 2px 30px rgba(0,0,0,.5)}
+.masthead{padding:0 52px;border-bottom:2px solid var(--acc)}
+.mast-top{display:flex;align-items:center;justify-content:space-between;padding:13px 0 10px;border-bottom:1px solid var(--bdr);gap:12px;flex-wrap:wrap}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;letter-spacing:.12em;color:var(--wh);text-transform:uppercase}
+.brand span{color:var(--acc)}
+.brand-sub{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--bdr2);padding-left:14px;margin-left:14px}
+.mast-right{display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.mast-date{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);text-align:right;line-height:1.7}
+.mast-date strong{display:block;font-size:11px;color:var(--txt)}
+.tbtn{display:flex;align-items:center;gap:5px;padding:5px 11px;background:transparent;border:1px solid var(--bdr2);border-radius:20px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s;white-space:nowrap;user-select:none}
+.tbtn:hover{border-color:var(--acc);color:var(--acc)}.tbtn.on{border-color:var(--acc);color:var(--acc);background:rgba(52,217,181,.1)}
+.archive-link{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;border:1px solid var(--bdr2);border-radius:2px;padding:4px 11px;transition:all .15s}
+.archive-link:hover{border-color:var(--acc);color:var(--acc)}
+
+/* ── VIEW SWITCHER ── */
+.view-nav{display:flex;border-bottom:1px solid var(--bdr);overflow-x:auto;gap:0}
+.vb{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:9px 20px;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:6px}
+.vb:hover{color:var(--txt)}.vb.on{color:var(--acc);border-bottom-color:var(--acc)}
+.vb-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+
+/* ── REGION + TOPIC NAV (hidden in exec/trend/deepdive views) ── */
+.filter-nav{transition:all .2s}
+.rnav{display:flex;border-bottom:1px solid var(--bdr);overflow-x:auto}
+.rb{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:8px 16px;cursor:pointer;transition:all .15s;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.rb:hover{color:var(--txt)}.rb.on{color:var(--acc);border-bottom-color:var(--acc)}
+.rb .rc{font-size:9px;opacity:.65;font-weight:400}
+.tnav{display:flex;flex-wrap:wrap;gap:5px;padding:7px 0 9px}
+.fb{padding:3px 12px;background:transparent;border:1px solid var(--bdr2);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.fb:hover{border-color:var(--mut);color:var(--txt)}.fb.on{background:var(--acc);color:var(--head);border-color:var(--acc)}
+.fb .fc{font-size:9px;opacity:.7;font-weight:400}
+
+/* ── TOOLBAR ── */
+.toolbar{background:var(--head);border-bottom:1px solid var(--bdr);padding:8px 52px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;transition:background .3s}
+.sw{flex:1;min-width:180px;max-width:380px;position:relative}
+.si{width:100%;background:var(--sbg);border:1px solid var(--sbdr);border-radius:3px;padding:7px 30px 7px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--stxt);outline:none;transition:border-color .15s}
+.si:focus{border-color:var(--acc)}.si::placeholder{color:var(--dim)}
+.sc{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px;display:none}
+.sc.on{display:block}
+.new-counter{display:none;align-items:center;gap:6px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--new-c);background:var(--new-bg);border:1px solid rgba(52,217,181,.25);padding:5px 12px;border-radius:3px;cursor:pointer;transition:all .15s}
+.new-counter.on{display:flex}
+.cnt{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);background:rgba(52,217,181,.06);border:1px solid rgba(52,217,181,.15);padding:5px 12px;border-radius:3px;margin-left:auto}
+
+/* ── PAGE ── */
+.page{max-width:1320px;margin:0 auto;padding:0 52px 80px}
+
+/* ── SIGNAL BADGES ── */
+.signal-badge{display:inline-flex;align-items:center;gap:4px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:2px 8px;border-radius:2px}
+.sig-threat{color:var(--threat);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.25)}
+.sig-opportunity{color:var(--opportunity);background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.25)}
+.sig-watch{color:var(--watch);background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2)}
+.sig-info{color:var(--info);background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2)}
+
+/* ── STANDARD VIEW ── */
+.view-standard{display:block}.view-exec{display:none}.view-trend{display:none}.view-deep{display:none}
+
+/* ── HERO ── */
+.hero-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin-top:0}
+.hero-main{grid-column:span 8;position:relative;overflow:hidden;min-height:460px;cursor:pointer;background:var(--bg2);display:flex;flex-direction:column}
+.hero-main .iw{position:absolute;inset:0;aspect-ratio:unset;height:100%}
+.hero-main .ci{height:100%;object-fit:cover;transition:transform .4s}
+.hero-main:hover .ci{transform:scale(1.04)}
+.hero-main .cfb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:60px;opacity:.12;background:linear-gradient(135deg,var(--bg3),var(--bdr))}
+.hero-overlay{position:absolute;inset:0;background:var(--hero-grad);display:flex;flex-direction:column;justify-content:flex-end;padding:32px 36px;z-index:2}
+.hero-main .ccat{margin-bottom:10px}
+.hero-main .ct{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;line-height:1.18;color:var(--wh);margin-bottom:12px;letter-spacing:-.01em;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.hero-main .cd{font-size:14px;color:rgba(238,244,240,.8);line-height:1.62;font-weight:300;margin-bottom:14px;text-shadow:0 1px 8px rgba(0,0,0,.4);max-height:none}
+.hero-main .cf{color:rgba(238,244,240,.55)}.hero-main .cs{color:rgba(238,244,240,.85);font-weight:700}
+.hero-side{grid-column:span 4;display:flex;flex-direction:column;gap:3px}
+.hero-side .card{flex:1;min-height:152px}
+.section-wrap{margin-top:3px}
+
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+.card{background:var(--bg2);position:relative;display:flex;flex-direction:column;transition:background .15s;overflow:hidden;cursor:pointer}
+.card.s8{grid-column:span 8}.card.s6{grid-column:span 6}.card.s4{grid-column:span 4}.card.s3{grid-column:span 3}
+.card:hover{background:var(--bg3)}.card.hidden{display:none!important}
+.rsec[data-region="world"]  .card:hover{outline:2px solid var(--r-global)}
+.rsec[data-region="europe"] .card:hover{outline:2px solid var(--r-europe)}
+.rsec[data-region="china"]  .card:hover{outline:2px solid var(--r-china)}
+.rsec[data-region="cz"]     .card:hover{outline:2px solid var(--r-cz)}
+
+/* ── IMAGE ── */
+.iw{width:100%;overflow:hidden;position:relative;flex-shrink:0}
+.card.s8 .iw,.card.s6 .iw{aspect-ratio:16/9}.card.s4 .iw,.card.s3 .iw{aspect-ratio:3/2}
+.ci{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.card:hover .ci{transform:scale(1.03)}
+.cfb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;opacity:.2;background:linear-gradient(135deg,var(--bg3),var(--bdr))}
+.ie .ci{display:none}
+.badge-wrap{position:absolute;top:10px;left:10px;display:flex;gap:5px;z-index:2;flex-wrap:wrap}
+.badge{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:2px 7px;border-radius:2px}
+.badge-new{background:var(--new-bg);color:var(--new-c);border:1px solid rgba(52,217,181,.3);animation:pulse 2s infinite}
+.badge-breaking{background:rgba(248,113,113,.15);color:var(--breaking-c);border:1px solid rgba(248,113,113,.3);animation:pulse 1.5s infinite}
+.badge-mustread{background:rgba(251,146,60,.12);color:var(--mustread-c);border:1px solid rgba(251,146,60,.25)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.65}}
+
+/* ── CARD BODY ── */
+.cb{padding:16px 16px 13px;flex:1;display:flex;flex-direction:column}
+.ccat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block}
+.ct{font-family:'Playfair Display',serif;font-weight:700;line-height:1.24;margin-bottom:8px;color:var(--wh);transition:color .3s}
+.card.s8 .ct{font-size:20px}.card.s6 .ct{font-size:17px}.card.s4 .ct,.card.s3 .ct{font-size:14px}
+.cd{font-size:13px;color:var(--mut);line-height:1.65;font-weight:300;overflow:hidden;transition:max-height .3s,margin .2s;margin-bottom:0}
+.card.s8 .cd,.card.s6 .cd{max-height:300px;margin-bottom:10px}
+.card.s4 .cd,.card.s3 .cd{max-height:0;margin-bottom:0!important}
+.card.s4.exp .cd,.card.s3.exp .cd{max-height:300px;margin-bottom:10px}
+.cf{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.cs{font-weight:700;color:var(--mut)}.ca{margin-left:auto}
+.cl{color:var(--acc);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
+.cl:hover{text-decoration:underline}
+.xhint{font-size:9px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;user-select:none;flex-shrink:0}
+.card.s8 .xhint,.card.s6 .xhint{display:none}
+
+/* signal indicator on card */
+.card-signal{position:absolute;top:0;right:0;width:4px;height:100%;opacity:.6}
+.card[data-signal="threat"]      .card-signal{background:var(--threat)}
+.card[data-signal="opportunity"] .card-signal{background:var(--opportunity)}
+.card[data-signal="watch"]       .card-signal{background:var(--watch)}
+
+/* ── SECTION HEADERS ── */
+.ed-head{padding:26px 0 14px;border-bottom:1px solid var(--acc);margin-bottom:0;display:flex;align-items:flex-end;justify-content:space-between}
+.ed-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+.ed-t{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--wh);line-height:1;transition:color .3s}
+.ed-m{text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--mut);letter-spacing:.12em;text-transform:uppercase;line-height:1.8}
+.ed-m strong{color:var(--txt)}
+.rsec{margin-top:30px}
+.rh{display:flex;align-items:center;gap:16px;margin-bottom:3px;padding-bottom:11px;border-bottom:3px solid var(--bdr2)}
+.rsec[data-region="world"]  .rh{border-bottom-color:var(--r-global)}
+.rsec[data-region="europe"] .rh{border-bottom-color:var(--r-europe)}
+.rsec[data-region="china"]  .rh{border-bottom-color:var(--r-china)}
+.rsec[data-region="cz"]     .rh{border-bottom-color:var(--r-cz)}
+.rh-t{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.rsec[data-region="world"]  .rh-t{color:var(--r-global)}
+.rsec[data-region="europe"] .rh-t{color:var(--r-europe)}
+.rsec[data-region="china"]  .rh-t{color:var(--r-china)}
+.rsec[data-region="cz"]     .rh-t{color:var(--r-cz)}
+.rh-c{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-left:auto}
+
+/* ── TRENDING ── */
+.trending{background:var(--trend-bg);border:1px solid var(--trend-bdr);border-radius:3px;padding:10px 16px;margin:22px 0 0;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.trend-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--trend-c);flex-shrink:0;padding-top:3px}
+.trend-tags{display:flex;flex-wrap:wrap;gap:6px;flex:1}
+.trend-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;padding:3px 10px;border:1px solid var(--trend-bdr);border-radius:20px;cursor:pointer;color:var(--trend-c);transition:all .15s;white-space:nowrap}
+.trend-tag:hover{background:rgba(251,146,60,.15)}
+.trend-tag .tc{font-size:9px;opacity:.6;margin-left:3px}
+
+/* ── EXECUTIVE VIEW ── */
+.exec-header{padding:26px 0 18px;border-bottom:1px solid var(--acc);margin-bottom:24px;display:flex;align-items:flex-end;justify-content:space-between}
+.exec-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:6px}
+.exec-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+.exec-list{display:flex;flex-direction:column;gap:3px}
+.exec-item{background:var(--bg2);padding:18px 20px;display:flex;align-items:flex-start;gap:16px;cursor:pointer;transition:background .15s;border-left:4px solid transparent;position:relative}
+.exec-item:hover{background:var(--bg3)}
+.exec-item[data-signal="threat"]      {border-left-color:var(--threat)}
+.exec-item[data-signal="opportunity"] {border-left-color:var(--opportunity)}
+.exec-item[data-signal="watch"]       {border-left-color:var(--watch)}
+.exec-item[data-signal="info"]        {border-left-color:var(--info)}
+.exec-signal{font-size:20px;flex-shrink:0;line-height:1;margin-top:2px}
+.exec-body{flex:1;min-width:0}
+.exec-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;line-height:1.3;color:var(--wh);margin-bottom:5px}
+.exec-reason{font-size:12px;color:var(--mut);font-weight:300;line-height:1.5}
+.exec-meta{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px;display:flex;align-items:center;gap:8px}
+.exec-src{font-weight:700;color:var(--mut)}
+.exec-read{color:var(--acc);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto}
+/* signal summary panel */
+.signal-panel{background:var(--bg2);padding:20px;border-top:3px solid var(--acc)}
+.signal-panel h3{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-bottom:16px}
+.signal-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bdr)}
+.signal-row:last-child{border-bottom:none}
+.signal-emoji{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+.signal-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.signal-count{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;margin-left:auto}
+.signal-row.threat      .signal-label,.signal-row.threat      .signal-count{color:var(--threat)}
+.signal-row.opportunity .signal-label,.signal-row.opportunity .signal-count{color:var(--opportunity)}
+.signal-row.watch       .signal-label,.signal-row.watch       .signal-count{color:var(--watch)}
+.signal-row.info        .signal-label,.signal-row.info        .signal-count{color:var(--info)}
+.signal-filter-hint{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:14px;text-align:center}
+
+/* ── TREND BOARD VIEW (Pinterest grid) ── */
+.trend-board-header{padding:26px 0 18px;border-bottom:1px solid var(--acc);margin-bottom:24px}
+.trend-board-grid{columns:4 220px;column-gap:3px}
+.trend-card{break-inside:avoid;margin-bottom:3px;background:var(--bg2);cursor:pointer;overflow:hidden;transition:background .15s;display:block}
+.trend-card:hover{background:var(--bg3)}
+.trend-card .iw{aspect-ratio:unset}
+.trend-card .ci{width:100%;object-fit:cover;display:block;transition:transform .3s}
+.trend-card:hover .ci{transform:scale(1.03)}
+.trend-card .cb{padding:14px 14px 12px}
+.trend-card .ct{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.3;color:var(--wh);margin-bottom:6px}
+.trend-card .cf{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:6px}
+
+/* ── DEEP DIVE VIEW ── */
+.deep-header{padding:26px 0 18px;border-bottom:1px solid var(--acc);margin-bottom:24px;display:flex;align-items:flex-end;justify-content:space-between}
+.deep-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.df{padding:5px 14px;background:transparent;border:1px solid var(--bdr2);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
+.df:hover{border-color:var(--mut);color:var(--txt)}.df.on{background:var(--acc);color:var(--head);border-color:var(--acc)}
+.deep-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+
+/* ── COMPETITOR HEATMAP ── */
+.heatmap-wrap{background:var(--bg2);padding:20px 24px;margin-top:30px;border-top:3px solid var(--acc)}
+.heatmap-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-bottom:16px}
+.heatmap-bars{display:flex;flex-direction:column;gap:8px}
+.hm-row{display:flex;align-items:center;gap:10px;cursor:pointer}
+.hm-row:hover .hm-bar-fill{filter:brightness(1.2)}
+.hm-name{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txt);width:100px;flex-shrink:0}
+.hm-bar{flex:1;height:14px;background:var(--bdr);border-radius:2px;overflow:hidden}
+.hm-bar-fill{height:100%;background:var(--acc);border-radius:2px;transition:width .4s ease}
+.hm-count{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;color:var(--acc);width:28px;text-align:right;flex-shrink:0}
+
+/* ── AI PANEL (So What + TL;DR) ── */
+.ai-panel{background:var(--bg2);border-top:3px solid var(--acc);padding:0;max-height:0;overflow:hidden;transition:max-height .3s ease}
+.ai-panel.on{max-height:800px}
+.ai-inner{padding:24px 28px}
+.ai-tabs{display:flex;gap:3px;margin-bottom:18px;border-bottom:1px solid var(--bdr);padding-bottom:0}
+.ai-tab{padding:6px 16px 8px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.ai-tab:hover{color:var(--txt)}.ai-tab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.ai-content{font-size:13px;color:var(--txt);line-height:1.7;font-weight:300}
+.ai-content strong{color:var(--wh);font-weight:600}
+.ai-roles{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ai-role{padding:3px 12px;background:transparent;border:1px solid var(--bdr2);border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
+.ai-role:hover{border-color:var(--acc);color:var(--acc)}.ai-role.on{background:var(--acc);color:var(--head);border-color:var(--acc)}
+.ai-loading{display:flex;align-items:center;gap:8px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.ai-spinner{width:14px;height:14px;border:2px solid var(--bdr2);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-trigger{display:flex;gap:6px;margin-top:8px}
+.ai-btn{padding:5px 14px;background:transparent;border:1px solid var(--acc);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);cursor:pointer;transition:all .15s}
+.ai-btn:hover{background:var(--acc);color:var(--head)}
+
+/* ── LIST VIEW ── */
+body.no-images .iw,.body.no-images .hero-main .iw{display:none}
+body.no-images .hero-main{min-height:0}
+body.no-images .hero-main .hero-overlay{position:static;background:none;padding:18px}
+body.no-images .hero-main .ct{font-size:20px;text-shadow:none}
+body.no-images .hero-main .cd{text-shadow:none;color:var(--mut)}
+body.no-images .hero-grid,.body.no-images .hero-side{display:flex;flex-direction:column;gap:1px}
+body.no-images .grid{display:flex;flex-direction:column;gap:1px}
+body.no-images .card,body.no-images .card.s8,body.no-images .card.s6,body.no-images .card.s4,body.no-images .card.s3{grid-column:unset}
+body.no-images .card .cb{padding:13px 18px 11px}
+body.no-images .card .ccat{margin-bottom:4px}
+body.no-images .card .ct{font-size:14px!important;margin-bottom:6px}
+body.no-images .card .cd{max-height:0;margin:0!important;padding-top:0!important;padding-bottom:0!important}
+body.no-images .card.exp .cd{max-height:300px;margin-bottom:8px!important}
+body.no-images .card .xhint{display:inline!important}
+body.no-images .card.s8 .xhint,body.no-images .card.s6 .xhint{display:inline!important}
+
+/* ── OVERLAY ── */
+.overlay{display:none;position:fixed;inset:0;background:var(--overlay-bg);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
+.overlay.on{display:flex}
+.overlay-box{background:var(--bg2);max-width:720px;width:100%;border-radius:4px;overflow:hidden;animation:slideUp .22s ease;position:relative;max-height:90vh;overflow-y:auto}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.overlay-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.overlay-img.hidden{display:none}
+.overlay-body{padding:28px 32px 24px}
+.overlay-cat{margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.overlay-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1.22;color:var(--wh);margin-bottom:14px;transition:color .3s}
+.overlay-desc{font-size:14px;color:var(--txt);line-height:1.72;font-weight:300;margin-bottom:20px}
+.overlay-footer{display:flex;align-items:center;gap:12px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:16px}
+.overlay-src{font-weight:700;color:var(--txt)}
+.overlay-read{margin-left:auto;padding:8px 20px;background:var(--acc);color:var(--head);border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
+.overlay-read:hover{opacity:.85}
+.overlay-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--mut);font-size:24px;cursor:pointer;line-height:1;padding:4px;z-index:1}
+.overlay-close:hover{color:var(--wh)}
+/* AI section inside overlay */
+.overlay-ai{border-top:1px solid var(--bdr);padding-top:16px;margin-top:0}
+
+/* ── SOURCES ── */
+.src-acc{border-top:1px solid var(--bdr)}
+.stog{width:100%;background:none;border:none;padding:11px 52px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.stog:hover{background:var(--bg2)}.stog .hl{color:var(--acc);margin-left:8px}
+.sch{font-size:9px;transition:transform .2s}.src-open .sch{transform:rotate(180deg)}
+.sbody{display:none;padding:22px 52px;background:var(--bg2);border-top:1px solid var(--bdr)}
+.src-open .sbody{display:block}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:20px}
+.sgh{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;margin-bottom:8px}
+.sgr{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--bdr)}.sgr:last-child{border-bottom:none}
+.sn{font-weight:600;color:var(--wh);display:block;font-size:11px}.sd{font-size:10px;color:var(--dim);display:block}
+.src-count{font-size:9px;color:var(--acc);font-weight:700;margin-left:auto;flex-shrink:0}
+
+.stt{position:fixed;bottom:32px;right:32px;width:44px;height:44px;background:var(--acc);color:var(--head);border:none;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:99;transition:transform .2s}
+.stt.on{display:flex}.stt:hover{transform:translateY(-3px)}
+
+footer{background:var(--head);color:var(--mut);padding:15px 52px;display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;border-top:1px solid var(--bdr);transition:background .3s}
+
+@media(max-width:960px){
+  .masthead,.toolbar,.page,.stog,.sbody,footer{padding-left:20px;padding-right:20px}
+  .card,.card.s8,.card.s6,.card.s4,.card.s3,.hero-main,.hero-side{grid-column:span 12}
+  .hero-grid,.hero-side{display:flex;flex-direction:column}
+  .hero-main{min-height:260px}
+  .hero-main .ct{font-size:20px}
+  .card.s4 .cd,.card.s3 .cd{max-height:0}
+  .iw{aspect-ratio:16/9!important}
+  .brand-sub{display:none}
+  .exec-grid{grid-template-columns:1fr}
+  .trend-board-grid{columns:2 180px}
+  .stt{bottom:20px;right:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="overlayBgClick(event)">
+  <div class="overlay-box">
+    <button class="overlay-close" onclick="closeOverlay()">✕</button>
+    <img class="overlay-img" id="ol-img" src="" alt="">
+    <div class="overlay-body">
+      <div class="overlay-cat" id="ol-cat"></div>
+      <div class="overlay-title" id="ol-title"></div>
+      <div class="overlay-desc" id="ol-desc"></div>
+      <div class="overlay-footer">
+        <span class="overlay-src" id="ol-src"></span>
+        <span id="ol-date"></span>
+        <a class="overlay-read" id="ol-link" href="#" target="_blank" rel="noopener">Read full article →</a>
+      </div>
+      <!-- AI Section -->
+      <div class="overlay-ai">
+        <div class="ai-tabs">
+          <button class="ai-tab on" onclick="switchAiTab('sowhat',this)">🧠 So What?</button>
+          <button class="ai-tab" onclick="switchAiTab('tldr',this)">🔄 TL;DR</button>
+        </div>
+        <div id="ai-sowhat-wrap">
+          <div id="ai-sowhat-content" class="ai-content" style="color:var(--dim);font-style:italic">Click to generate analysis for Škoda Auto…</div>
+          <div class="ai-trigger">
+            <button class="ai-btn" onclick="runSoWhat()">Generate ›</button>
+          </div>
+        </div>
+        <div id="ai-tldr-wrap" style="display:none">
+          <div class="ai-roles">
+            <button class="ai-role on" data-role="executive" onclick="selectRole(this)">Executive</button>
+            <button class="ai-role" data-role="marketing" onclick="selectRole(this)">Marketing / PR</button>
+            <button class="ai-role" data-role="product" onclick="selectRole(this)">Product / R&D</button>
+            <button class="ai-role" data-role="sales" onclick="selectRole(this)">Sales</button>
+          </div>
+          <div id="ai-tldr-content" class="ai-content" style="color:var(--dim);font-style:italic">Select a role and generate…</div>
+          <div class="ai-trigger">
+            <button class="ai-btn" onclick="runTldr()">Generate ›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="stt" id="stt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="site-header">
+  <div class="masthead">
+    <div class="mast-top">
+      <div style="display:flex;align-items:baseline">
+        <span class="brand">MOTOR<span>·</span>DESK</span>
+        <span class="brand-sub">Automotive & Mobility Intelligence · Škoda Auto</span>
+      </div>
+      <div class="mast-right">
+        <a href="archive.html" class="archive-link">📁 Archive</a>
+        <button class="tbtn on" id="imgBtn" onclick="toggleImg()">🖼 Images</button>
+        <button class="tbtn" id="themeBtn" onclick="toggleTheme()">☀️ Light</button>
+        <div class="mast-date"><strong>{{UPDATED}}</strong>{{MONTH_LABEL}}</div>
+      </div>
+    </div>
+
+    <!-- View switcher -->
+    <div class="view-nav">
+      <button class="vb on" data-v="standard" onclick="switchView('standard',this)"><span class="vb-dot"></span> News Feed</button>
+      <button class="vb" data-v="exec"     onclick="switchView('exec',this)"><span class="vb-dot"></span> Executive Summary</button>
+      <button class="vb" data-v="trend"    onclick="switchView('trend',this)"><span class="vb-dot"></span> Trend Board</button>
+      <button class="vb" data-v="deep"     onclick="switchView('deep',this)"><span class="vb-dot"></span> Deep Dive</button>
+    </div>
+
+    <!-- Region + topic (standard + deep only) -->
+    <div class="filter-nav" id="filterNav">
+      <div class="rnav">
+        <button class="rb on" data-r="all"    onclick="sR('all')">All</button>
+        <button class="rb"    data-r="world"  onclick="sR('world')">Global</button>
+        <button class="rb"    data-r="europe" onclick="sR('europe')">Europe</button>
+        <button class="rb"    data-r="china"  onclick="sR('china')">China</button>
+        <button class="rb"    data-r="cz"     onclick="sR('cz')">Czech Republic</button>
+      </div>
+      <div class="tnav">
+        <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+        <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV / PHEV</button>
+        <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+        <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+        <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+        <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+        <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery & Charging</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="sw">
+      <input class="si" id="si" type="text" placeholder="🔍  Search: Tesla, BYD, tariffs, solid-state…" oninput="onSearch(this.value)">
+      <button class="sc" id="sc" onclick="clearS()">✕</button>
+    </div>
+    <button class="new-counter" id="newCounter" onclick="showNewOnly()"></button>
+    <span class="cnt" id="cnt">{{ARTICLE_COUNT}} articles</span>
+  </div>
+</div>
+
+<div class="page">
+  <!-- ── STANDARD VIEW ── -->
+  <div class="view-standard" id="viewStandard">
+    <div class="ed-head">
+      <div>
+        <div class="ed-lbl">Automotive & Mobility Intelligence</div>
+        <div class="ed-t">{{MONTH_LABEL}} Edition</div>
+      </div>
+      <div class="ed-m"><strong id="vc">{{ARTICLE_COUNT}} articles</strong> from 20+ sources</div>
+    </div>
+    <div id="trending"></div>
+    <div id="main">{{CONTENT}}</div>
+    <!-- Competitor Heatmap -->
+    <div class="heatmap-wrap" id="heatmapWrap">
+      <div class="heatmap-title">📊 Competitor Media Presence — click to filter</div>
+      <div class="heatmap-bars" id="heatmapBars"></div>
+    </div>
+  </div>
+
+  <!-- ── EXECUTIVE VIEW ── -->
+  <div class="view-exec" id="viewExec">
+    <div class="exec-header">
+      <div>
+        <div class="ed-lbl">Executive Summary · Škoda Auto</div>
+        <div class="ed-t">{{MONTH_LABEL}}</div>
+        <div class="exec-subtitle">Top stories ranked by impact on Škoda Auto</div>
+      </div>
+      <div class="ed-m"><strong id="execCount">—</strong> key stories</div>
+    </div>
+    <div class="exec-grid">
+      <div class="exec-list" id="execList"></div>
+      <div class="signal-panel">
+        <h3>Signal Overview</h3>
+        <div class="signal-row threat">
+          <span class="signal-emoji">🔴</span>
+          <span class="signal-label">Threat</span>
+          <span class="signal-count" id="sig-threat">0</span>
+        </div>
+        <div class="signal-row watch">
+          <span class="signal-emoji">🟡</span>
+          <span class="signal-label">Watch</span>
+          <span class="signal-count" id="sig-watch">0</span>
+        </div>
+        <div class="signal-row opportunity">
+          <span class="signal-emoji">🟢</span>
+          <span class="signal-label">Opportunity</span>
+          <span class="signal-count" id="sig-opportunity">0</span>
+        </div>
+        <div class="signal-row info">
+          <span class="signal-emoji">🔵</span>
+          <span class="signal-label">Info</span>
+          <span class="signal-count" id="sig-info">0</span>
+        </div>
+        <div class="signal-filter-hint">Click a row to filter by signal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TREND BOARD VIEW ── -->
+  <div class="view-trend" id="viewTrend">
+    <div class="trend-board-header">
+      <div class="ed-lbl">Trend Board</div>
+      <div class="ed-t">What's Resonating Now</div>
+    </div>
+    <div class="trend-board-grid" id="trendBoard"></div>
+  </div>
+
+  <!-- ── DEEP DIVE VIEW ── -->
+  <div class="view-deep" id="viewDeep">
+    <div class="deep-header">
+      <div>
+        <div class="ed-lbl">Deep Dive Analytics</div>
+        <div class="ed-t">Technology & Competitive Intelligence</div>
+      </div>
+    </div>
+    <div class="deep-filters">
+      <button class="df on" data-df="all"        onclick="setDeepFilter('all',this)">All</button>
+      <button class="df"    data-df="battery"    onclick="setDeepFilter('battery',this)">🔋 Battery Tech</button>
+      <button class="df"    data-df="regulation" onclick="setDeepFilter('regulation',this)">🏛 Regulation & Tariffs</button>
+      <button class="df"    data-df="competitor" onclick="setDeepFilter('competitor',this)">🏎 Competitor Moves</button>
+      <button class="df"    data-df="autonomy"   onclick="setDeepFilter('autonomy',this)">🤖 Autonomy & SW</button>
+      <button class="df"    data-df="supply"     onclick="setDeepFilter('supply',this)">🔗 Supply Chain</button>
+    </div>
+    <div class="deep-grid" id="deepGrid"></div>
+  </div>
+</div>
+
+<div class="src-acc" id="sA">
+  <button class="stog" onclick="document.getElementById('sA').classList.toggle('src-open')">
+    <span>📰 Sources<span class="hl"> — Electrek · InsideEVs · CleanTechnica · Electrive · Motor1 · The Drive · Automotive News · TechCrunch · The Verge · Autocar · Auto Express · CnEVPost · CarNewsChina · Gasgoo · Hybrid.cz · Auto.cz · iDnes Auto & more</span></span>
+    <span class="sch">▼</span>
+  </button>
+  <div class="sbody">
+    <div class="sgrid">
+      <div>
+        <div class="sgh" style="color:var(--r-global)">Global — EV</div>
+        <div class="sgr"><div><span class="sn">Electrek</span><span class="sd">electrek.co</span></div><span class="src-count" data-src="Electrek"></span></div>
+        <div class="sgr"><div><span class="sn">InsideEVs</span><span class="sd">insideevs.com</span></div><span class="src-count" data-src="InsideEVs"></span></div>
+        <div class="sgr"><div><span class="sn">CleanTechnica</span><span class="sd">cleantechnica.com</span></div><span class="src-count" data-src="CleanTechnica"></span></div>
+        <div class="sgr"><div><span class="sn">Electrive</span><span class="sd">electrive.com</span></div><span class="src-count" data-src="Electrive"></span></div>
+        <div class="sgr"><div><span class="sn">Green Car Reports</span><span class="sd">greencarreports.com</span></div><span class="src-count" data-src="Green Car Reports"></span></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--r-global)">Global — Auto & Tech</div>
+        <div class="sgr"><div><span class="sn">Motor1</span><span class="sd">motor1.com</span></div><span class="src-count" data-src="Motor1"></span></div>
+        <div class="sgr"><div><span class="sn">The Drive</span><span class="sd">thedrive.com</span></div><span class="src-count" data-src="The Drive"></span></div>
+        <div class="sgr"><div><span class="sn">Automotive News</span><span class="sd">autonews.com</span></div><span class="src-count" data-src="Automotive News"></span></div>
+        <div class="sgr"><div><span class="sn">TechCrunch Transport</span><span class="sd">techcrunch.com</span></div><span class="src-count" data-src="TechCrunch Transport"></span></div>
+        <div class="sgr"><div><span class="sn">The Verge</span><span class="sd">theverge.com</span></div><span class="src-count" data-src="The Verge"></span></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--r-europe)">Europe</div>
+        <div class="sgr"><div><span class="sn">Autocar</span><span class="sd">autocar.co.uk</span></div><span class="src-count" data-src="Autocar"></span></div>
+        <div class="sgr"><div><span class="sn">Auto Express</span><span class="sd">autoexpress.co.uk</span></div><span class="src-count" data-src="Auto Express"></span></div>
+        <div class="sgr"><div><span class="sn">Autovista24</span><span class="sd">autovista24.autovistagroup.com</span></div><span class="src-count" data-src="Autovista24"></span></div>
+        <div class="sgh" style="color:var(--r-china);margin-top:12px">China</div>
+        <div class="sgr"><div><span class="sn">CnEVPost</span><span class="sd">cnevpost.com</span></div><span class="src-count" data-src="CnEVPost"></span></div>
+        <div class="sgr"><div><span class="sn">CarNewsChina</span><span class="sd">carnewschina.com</span></div><span class="src-count" data-src="CarNewsChina"></span></div>
+        <div class="sgr"><div><span class="sn">Gasgoo</span><span class="sd">gasgoo.com</span></div><span class="src-count" data-src="Gasgoo"></span></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--r-cz)">Czech Republic</div>
+        <div class="sgr"><div><span class="sn">Hybrid.cz</span><span class="sd">hybrid.cz</span></div><span class="src-count" data-src="Hybrid.cz"></span></div>
+        <div class="sgr"><div><span class="sn">Auto.cz</span><span class="sd">auto.cz</span></div><span class="src-count" data-src="Auto.cz"></span></div>
+        <div class="sgr"><div><span class="sn">AutoRevue.cz</span><span class="sd">autorevue.cz</span></div><span class="src-count" data-src="AutoRevue.cz"></span></div>
+        <div class="sgr"><div><span class="sn">iDnes Auto</span><span class="sd">idnes.cz/auto</span></div><span class="src-count" data-src="iDnes Auto"></span></div>
+        <div class="sgr"><div><span class="sn">Autoforum.cz</span><span class="sd">autoforum.cz</span></div><span class="src-count" data-src="Autoforum.cz"></span></div>
+        <div class="sgr"><div><span class="sn">EV Magazin CZ</span><span class="sd">evmagazin.cz</span></div><span class="src-count" data-src="EV Magazin CZ"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>MOTOR DESK · Škoda Auto · Automotive & Mobility Intelligence · {{MONTH_LABEL}}</span>
+  <span>20+ sources · Auto-updated daily</span>
+</footer>
+
+<script>
+// ── STATE ──
+let aR="all", aT="all", aQ="", curView="standard", showingNewOnly=false;
+let currentArticleData = null; // for AI panel
+let deepFilter = "all";
+
+// ── PREFERENCES ──
+(function(){
+  const t = localStorage.getItem("md-theme") || "dark";
+  document.documentElement.setAttribute("data-theme", t);
+  updateThemeBtn(t);
+  if (localStorage.getItem("md-img") === "off") {
+    document.body.classList.add("no-images");
+    document.getElementById("imgBtn").classList.remove("on");
+  }
+  checkNewArticles();
+})();
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("md-theme", next);
+  updateThemeBtn(next);
+}
+function updateThemeBtn(t) {
+  const b = document.getElementById("themeBtn");
+  b.textContent = t === "dark" ? "☀️ Light" : "🌙 Dark";
+  t === "dark" ? b.classList.remove("on") : b.classList.add("on");
+}
+function toggleImg() {
+  const nowOff = document.body.classList.toggle("no-images");
+  document.getElementById("imgBtn").classList.toggle("on", !nowOff);
+  localStorage.setItem("md-img", nowOff ? "off" : "on");
+}
+
+// ── VIEW SWITCHER ──
+function switchView(v, btn) {
+  curView = v;
+  document.querySelectorAll(".vb").forEach(b => b.classList.toggle("on", b.dataset.v === v));
+  // show/hide views
+  document.getElementById("viewStandard").style.display = v === "standard" ? "block" : "none";
+  document.getElementById("viewExec").style.display     = v === "exec"     ? "block" : "none";
+  document.getElementById("viewTrend").style.display    = v === "trend"    ? "block" : "none";
+  document.getElementById("viewDeep").style.display     = v === "deep"     ? "block" : "none";
+  // hide region/topic filters for exec, trend and deep views
+  document.getElementById("filterNav").style.display = (v === "exec" || v === "trend" || v === "deep") ? "none" : "block";
+  if (v === "exec")  renderExec();
+  if (v === "trend") renderTrendBoard();
+  if (v === "deep")  renderDeep();
+}
+
+// ── FILTERS ──
+function sR(r) { aR=r; document.querySelectorAll(".rb").forEach(b=>b.classList.toggle("on",b.dataset.r===r)); applyFilters(); }
+function sT(t) { aT=t; document.querySelectorAll(".fb").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); applyFilters(); }
+function onSearch(q) { aQ=q.toLowerCase().trim(); document.getElementById("sc").classList.toggle("on",aQ.length>0); applyFilters(); }
+function clearS() { document.getElementById("si").value=""; onSearch(""); }
+
+function applyFilters() {
+  showingNewOnly = false;
+  document.getElementById("newCounter").style.background = "";
+  let v=0;
+  document.querySelectorAll(".card").forEach(c=>{
+    const ok=(aR==="all"||c.dataset.region===aR)&&(aT==="all"||c.dataset.cat===aT)&&(aQ===""||c.dataset.search.includes(aQ));
+    c.classList.toggle("hidden",!ok);
+    if(ok)v++;
+  });
+  updateCounts(v);
+  updateButtonCounts();
+  updateSourceCounts();
+  buildTrending();
+  buildHeatmap();
+  document.querySelectorAll(".rsec").forEach(sec=>{
+    sec.style.display=[...sec.querySelectorAll(".card")].some(c=>!c.classList.contains("hidden"))?"":"none";
+  });
+}
+function updateCounts(v) {
+  if(v===undefined) v=[...document.querySelectorAll(".card:not(.hidden)")].length;
+  const s=v+" article"+(v!==1?"s":"");
+  document.getElementById("vc").textContent=s;
+  document.getElementById("cnt").textContent=s;
+}
+
+// ── BUTTON COUNTS ──
+function updateButtonCounts() {
+  const rc={all:0,world:0,europe:0,china:0,cz:0}, tc={};
+  document.querySelectorAll(".card").forEach(c=>{
+    const r=c.dataset.region,cat=c.dataset.cat;
+    const tOk=aT==="all"||c.dataset.cat===aT,qOk=aQ===""||c.dataset.search.includes(aQ),rOk=aR==="all"||c.dataset.region===aR;
+    if(tOk&&qOk){rc.all++;if(rc[r]!==undefined)rc[r]++;}
+    if(rOk&&qOk){tc[cat]=(tc[cat]||0)+1;}
+  });
+  document.querySelectorAll(".rb").forEach(b=>{
+    const n=rc[b.dataset.r]||0;
+    let s=b.querySelector(".rc");
+    if(!s){s=document.createElement("span");s.className="rc";b.appendChild(s);}
+    s.textContent=n>0?n:"";
+  });
+  const total=Object.values(tc).reduce((a,b)=>a+b,0);
+  document.querySelectorAll(".fb").forEach(b=>{
+    const n=b.dataset.t==="all"?total:(tc[b.dataset.t]||0);
+    let s=b.querySelector(".fc");
+    if(!s){s=document.createElement("span");s.className="fc";b.appendChild(s);}
+    s.textContent=n>0?n:"";
+  });
+}
+function updateSourceCounts() {
+  const counts={};
+  document.querySelectorAll(".card:not(.hidden)").forEach(c=>{const src=c.dataset.source||"";counts[src]=(counts[src]||0)+1;});
+  document.querySelectorAll(".src-count").forEach(el=>{const n=counts[el.dataset.src]||0;el.textContent=n>0?n:"";});
+}
+
+// ── NEW ARTICLES COUNTER ──
+function checkNewArticles() {
+  const lastVisit = localStorage.getItem("md-last-visit");
+  const now = Date.now();
+  localStorage.setItem("md-last-visit", now);
+  if (!lastVisit) return;
+  const newCards = [...document.querySelectorAll(".card")].filter(c=>c.querySelector(".badge-new"));
+  if (newCards.length > 0) {
+    const btn = document.getElementById("newCounter");
+    btn.innerHTML = `⚡ ${newCards.length} new`;
+    btn.classList.add("on");
+  }
+}
+function showNewOnly() {
+  showingNewOnly = !showingNewOnly;
+  const btn = document.getElementById("newCounter");
+  document.querySelectorAll(".card").forEach(c=>{
+    c.classList.toggle("hidden", showingNewOnly && !c.querySelector(".badge-new"));
+  });
+  btn.style.background = showingNewOnly ? "rgba(52,217,181,.25)" : "";
+  updateCounts();
+}
+
+// ── TRENDING ──
+const KW=["Tesla","BYD","Škoda","Skoda","Volkswagen","VW","Rivian","Waymo","BMW","Hyundai","Toyota","Ford","Lucid","Nio","Geely","Mercedes","Stellantis","Kia","Volvo","Porsche","Audi","Renault","Honda","Nissan","Leapmotor","Xpeng","tariff","tariffs","robotaxi","solid-state","charging","recall","Cybercab","autonomous","battery","hybrid"];
+function buildTrending() {
+  const freq={};
+  document.querySelectorAll(".card:not(.hidden)").forEach(c=>{
+    const txt=(c.dataset.search||"").toLowerCase();
+    KW.forEach(k=>{if(txt.includes(k.toLowerCase()))freq[k]=(freq[k]||0)+1;});
+  });
+  if(freq["Škoda"]||freq["Skoda"]){freq["Škoda"]=(freq["Škoda"]||0)+(freq["Skoda"]||0);delete freq["Skoda"];}
+  if(freq["VW"]||freq["Volkswagen"]){freq["Volkswagen"]=(freq["VW"]||0)+(freq["Volkswagen"]||0);delete freq["VW"];}
+  const top=Object.entries(freq).filter(([,n])=>n>=2).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const el=document.getElementById("trending");
+  if(!top.length){el.innerHTML="";return;}
+  const aR2=document.querySelector(".rb.on")?.textContent?.trim()||"";
+  const aT2=document.querySelector(".fb.on")?.textContent?.trim()||"";
+  const lbl=[aR2!=="All"?aR2:"",aT2!=="All Topics"?aT2:""].filter(Boolean).join(" · ");
+  el.innerHTML=`<div class="trending"><span class="trend-lbl">🔥 Trending${lbl?" · "+lbl:""}</span><div class="trend-tags">${top.map(([k,n])=>`<span class="trend-tag" onclick="trendClick('${k}')">${k}<span class="tc">×${n}</span></span>`).join("")}</div></div>`;
+}
+function trendClick(k){document.getElementById("si").value=k;onSearch(k);window.scrollTo({top:0,behavior:"smooth"});}
+
+// ── COMPETITOR HEATMAP ──
+const COMPETITORS_LIST=["Tesla","BYD","Toyota","Hyundai","Kia","Renault","Stellantis","Geely","BMW","Mercedes","Ford","Volvo","Nio","Xpeng","Honda","Rivian"];
+function buildHeatmap() {
+  const counts={};
+  document.querySelectorAll(".card:not(.hidden)").forEach(c=>{
+    const comps=(c.dataset.competitors||"").split(",").filter(Boolean);
+    comps.forEach(comp=>{counts[comp]=(counts[comp]||0)+1;});
+  });
+  const sorted=Object.entries(counts).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  document.getElementById("heatmapWrap").style.display="block";
+  if(!sorted.length){
+    document.getElementById("heatmapBars").innerHTML='<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)">Competitor data will appear after next daily update with API key configured</div>';
+    return;
+  }
+  const max=sorted[0][1];
+  document.getElementById("heatmapBars").innerHTML=sorted.map(([name,n])=>`
+    <div class="hm-row" onclick="filterByCompetitor('${name}')">
+      <span class="hm-name">${name}</span>
+      <div class="hm-bar"><div class="hm-bar-fill" style="width:${(n/max*100).toFixed(0)}%"></div></div>
+      <span class="hm-count">${n}</span>
+    </div>`).join("");
+}
+function filterByCompetitor(name) {
+  document.getElementById("si").value=name;
+  onSearch(name);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ── EXECUTIVE VIEW ──
+const SIG_EMOJI={threat:"🔴",opportunity:"🟢",watch:"🟡",info:"🔵"};
+function renderExec() {
+  const cards=[...document.querySelectorAll(".card")];
+  const sigOrder={threat:0,opportunity:1,watch:2,info:3};
+  const sorted=[...cards].sort((a,b)=>(sigOrder[a.dataset.signal]||3)-(sigOrder[b.dataset.signal]||3));
+  const top=sorted.slice(0,10);
+  const counts={threat:0,opportunity:0,watch:0,info:0};
+  cards.forEach(c=>{const s=c.dataset.signal||"info";if(counts[s]!==undefined)counts[s]++;});
+  ["threat","opportunity","watch","info"].forEach(s=>{document.getElementById("sig-"+s).textContent=counts[s];});
+  document.getElementById("execCount").textContent=top.length;
+  document.getElementById("execList").innerHTML=top.map(c=>`
+    <div class="exec-item" data-signal="${c.dataset.signal||'info'}" onclick="openOverlayFromData(${JSON.stringify({
+      title:c.dataset.title,desc:c.dataset.desc,url:c.dataset.url,
+      img:c.dataset.img,source:c.dataset.source,date:c.dataset.date,
+      cat:c.dataset.cat,signal:c.dataset.signal,signalReason:c.dataset.signalReason
+    }).replace(/"/g,'&quot;')})">
+      <span class="exec-signal">${SIG_EMOJI[c.dataset.signal||"info"]}</span>
+      <div class="exec-body">
+        <div class="exec-title">${esc(c.dataset.title||"")}</div>
+        <div class="exec-reason">${esc(c.dataset.signalReason||"General industry news")}</div>
+        <div class="exec-meta">
+          <span class="exec-src">${esc(c.dataset.source||"")}</span>
+          <span>${esc(c.dataset.date||"")}</span>
+          ${c.dataset.url?`<a class="exec-read" href="${esc(c.dataset.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Read →</a>`:""}
+        </div>
+      </div>
+    </div>`).join("");
+  // signal panel filter
+  document.querySelectorAll(".signal-row").forEach(row=>{
+    row.onclick=()=>{
+      const sig=row.classList[1];
+      document.querySelectorAll(".exec-item").forEach(item=>{
+        item.style.display=(item.dataset.signal===sig)?"flex":"none";
+      });
+    };
+  });
+}
+
+// ── TREND BOARD ──
+function renderTrendBoard() {
+  const cards=[...document.querySelectorAll(".card")].filter(c=>!c.classList.contains("hidden"));
+  const board=document.getElementById("trendBoard");
+  // Sort by recency + signal priority (threats/opportunities first)
+  const sigWeight={threat:3,opportunity:2,watch:1,info:0};
+  const sorted=[...cards].sort((a,b)=>(sigWeight[b.dataset.signal]||0)-(sigWeight[a.dataset.signal]||0));
+  board.innerHTML=sorted.slice(0,40).map(c=>{
+    const img=c.dataset.img||"";
+    const imgHtml=img?`<div class="iw"><img class="ci" src="${esc(img)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`:"";
+    return `<div class="trend-card" onclick="openOverlayFromData(${JSON.stringify({
+      title:c.dataset.title,desc:c.dataset.desc,url:c.dataset.url,
+      img:c.dataset.img,source:c.dataset.source,date:c.dataset.date,
+      cat:c.dataset.cat,signal:c.dataset.signal,signalReason:c.dataset.signalReason
+    }).replace(/"/g,'&quot;')})">
+      ${imgHtml}
+      <div class="cb">
+        <div class="ccat"><span class="pip" style="background:${catColor(c.dataset.cat)}"></span><span style="color:${catColor(c.dataset.cat)}">${catLabel(c.dataset.cat)}</span>${c.dataset.signal&&c.dataset.signal!=="info"?`<span style="margin-left:auto">${SIG_EMOJI[c.dataset.signal]}</span>`:""}</div>
+        <div class="ct">${esc(c.dataset.title||"")}</div>
+        <div class="cf"><span class="cs">${esc(c.dataset.source||"")}</span><span class="ca">${esc(c.dataset.date||"")}</span></div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ── DEEP DIVE ──
+const DEEP_KEYWORDS={
+  battery:["battery","batteries","solid-state","solid state","LFP","NMC","anode","cathode","charging","kWh","range","BYD blade","cell-to-pack"],
+  regulation:["tariff","tariffs","regulation","EU","Euro 7","emission","ban","policy","legislation","carbon","subsidy","incentive"],
+  competitor:["Tesla","BYD","Toyota","Hyundai","Kia","Renault","Stellantis","Geely","BMW","Mercedes","Ford","competitor","competition","rival"],
+  autonomy:["autonomous","self-driving","robotaxi","ADAS","software","OTA","AI","Waymo","neural","FSD","driver assist"],
+  supply:["supply chain","chip","semiconductor","lithium","cobalt","nickel","factory","production","recall","shortage","supplier"]
+};
+function setDeepFilter(f,btn){
+  deepFilter=f;
+  document.querySelectorAll(".df").forEach(b=>b.classList.toggle("on",b.dataset.df===f));
+  renderDeep();
+}
+function renderDeep() {
+  const cards=[...document.querySelectorAll(".card")];
+  let filtered=cards;
+  if(deepFilter!=="all"){
+    const kws=DEEP_KEYWORDS[deepFilter]||[];
+    filtered=cards.filter(c=>{
+      const txt=(c.dataset.search||"").toLowerCase();
+      return kws.some(k=>txt.includes(k.toLowerCase()));
+    });
+  }
+  const grid=document.getElementById("deepGrid");
+  if(!filtered.length){grid.innerHTML='<div style="grid-column:span 12;padding:40px;text-align:center;color:var(--mut);font-family:\'Barlow Condensed\',sans-serif;letter-spacing:.2em;text-transform:uppercase">No articles match this filter</div>';return;}
+  grid.innerHTML=filtered.slice(0,30).map((c,i)=>{
+    const size=i===0?"s8":i===1?"s6":"s4";
+    const img=c.dataset.img||"";
+    const imgHtml=img?`<div class="iw"><img class="ci" src="${esc(img)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"><div class="cfb">📊</div></div>`:`<div class="iw ie"><div class="cfb">📊</div></div>`;
+    const sig=c.dataset.signal||"info";
+    return `<div class="card ${size}" data-signal="${sig}" style="cursor:pointer" onclick="openOverlayFromData(${JSON.stringify({
+      title:c.dataset.title,desc:c.dataset.desc,url:c.dataset.url,
+      img:c.dataset.img,source:c.dataset.source,date:c.dataset.date,
+      cat:c.dataset.cat,signal:sig,signalReason:c.dataset.signalReason
+    }).replace(/"/g,'&quot;')})">
+      <div class="card-signal"></div>
+      ${imgHtml}
+      <div class="cb">
+        <div class="ccat"><span class="pip" style="background:${catColor(c.dataset.cat)}"></span><span style="color:${catColor(c.dataset.cat)}">${catLabel(c.dataset.cat)}</span></div>
+        <div class="ct">${esc(c.dataset.title||"")}</div>
+        ${i<2?`<div class="cd">${esc(c.dataset.desc||"")}…</div>`:""}
+        <div class="cf"><span class="cs">${esc(c.dataset.source||"")}</span><span class="ca">${esc(c.dataset.date||"")}</span>${SIG_EMOJI[sig]?`<span>${SIG_EMOJI[sig]}</span>`:""}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ── HELPERS ──
+const CC={ev:"#34d9b5",auto:"#60a5fa",autonomy:"#fb923c",policy:"#c084fc",industry:"#818cf8",tech:"#fbbf24"};
+const CL={ev:"BEV/PHEV",auto:"Automotive",autonomy:"Autonomous",policy:"Policy",industry:"Industry",tech:"Battery/Tech"};
+function catColor(c){return CC[c]||"#94b8a8";}
+function catLabel(c){return CL[c]||c;}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+// ── EXPAND PEREX ──
+document.addEventListener("click",function(e){
+  if(e.target.closest("a"))return;
+  if(e.target.closest(".overlay"))return;
+  if(e.target.closest(".exec-item"))return;
+  if(e.target.closest(".trend-card"))return;
+  const isListMode=document.body.classList.contains("no-images");
+  const card=isListMode?e.target.closest(".card"):e.target.closest(".card.s4,.card.s3");
+  if(!card)return;
+  card.classList.toggle("exp");
+  const h=card.querySelector(".xhint");
+  if(h)h.textContent=card.classList.contains("exp")?"▲ collapse":"▼ read more";
+});
+
+// ── OVERLAY ──
+function openOverlay(card){
+  openOverlayFromData({
+    title:card.dataset.title,desc:card.dataset.desc,url:card.dataset.url,
+    img:card.dataset.img,source:card.dataset.source,date:card.dataset.date,
+    cat:card.dataset.cat,signal:card.dataset.signal,signalReason:card.dataset.signalReason
+  });
+}
+function openOverlayFromData(data){
+  currentArticleData = data;
+  // reset AI panels
+  document.getElementById("ai-sowhat-content").innerHTML='<span style="color:var(--dim);font-style:italic">Click Generate to analyze for Škoda Auto…</span>';
+  document.getElementById("ai-tldr-content").innerHTML='<span style="color:var(--dim);font-style:italic">Select a role and generate…</span>';
+  switchAiTab("sowhat", document.querySelector(".ai-tab.on"));
+
+  const img=data.img||"";
+  const olImg=document.getElementById("ol-img");
+  if(img){olImg.src=img;olImg.classList.remove("hidden");}else{olImg.src="";olImg.classList.add("hidden");}
+  const sig=data.signal||"info";
+  const sigBadge=sig&&sig!=="info"?`<span class="signal-badge sig-${sig}">${SIG_EMOJI[sig]} ${sig.charAt(0).toUpperCase()+sig.slice(1)}</span>`:"";
+  document.getElementById("ol-cat").innerHTML=`<span style="width:6px;height:6px;border-radius:50%;background:${catColor(data.cat)};display:inline-block;flex-shrink:0"></span><span style="color:${catColor(data.cat)}">${catLabel(data.cat)}</span>${sigBadge}`;
+  document.getElementById("ol-title").textContent=data.title||"";
+  document.getElementById("ol-desc").textContent=(data.desc||"")+"…";
+  document.getElementById("ol-src").textContent=data.source||"";
+  document.getElementById("ol-date").textContent=data.date||"";
+  const link=document.getElementById("ol-link");
+  if(data.url){link.href=data.url;link.style.display="inline-block";}else{link.style.display="none";}
+  document.getElementById("overlay").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+function closeOverlay(){document.getElementById("overlay").classList.remove("on");document.body.style.overflow="";}
+function overlayBgClick(e){if(e.target===document.getElementById("overlay"))closeOverlay();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeOverlay();});
+
+// ── AI: So What? ──
+async function runSoWhat() {
+  if(!currentArticleData)return;
+  const el=document.getElementById("ai-sowhat-content");
+  el.innerHTML='<div class="ai-loading"><div class="ai-spinner"></div>Analyzing for Škoda Auto…</div>';
+  try {
+    const resp=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:400,
+        messages:[{role:"user",content:`You are an automotive industry analyst for Škoda Auto (Czech manufacturer, VW Group member, key competitors: Toyota, Hyundai, Kia, Renault, Tesla, BYD, Chinese brands).
+
+Article: "${currentArticleData.title}"
+Summary: "${currentArticleData.desc}"
+
+Write a concise "So What?" analysis (3-5 sentences) for Škoda Auto. Structure:
+1. What this means for Škoda specifically
+2. Recommended action or watch point
+Be direct and specific. No generic statements.`}]
+      })
+    });
+    const data=await resp.json();
+    el.innerHTML=`<div>${(data.content[0].text||"").replace(/\n/g,"<br>")}</div>`;
+  } catch(err) {
+    el.innerHTML=`<span style="color:var(--breaking-c)">API error: ${err.message}</span>`;
+  }
+}
+
+// ── AI: TL;DR ──
+let selectedRole="executive";
+function selectRole(btn){
+  selectedRole=btn.dataset.role;
+  document.querySelectorAll(".ai-role").forEach(b=>b.classList.toggle("on",b.dataset.role===selectedRole));
+}
+async function runTldr() {
+  if(!currentArticleData)return;
+  const el=document.getElementById("ai-tldr-content");
+  const roleLabels={executive:"a CEO/executive",marketing:"a Marketing/PR manager",product:"a Product Manager or R&D engineer",sales:"a Sales manager"};
+  el.innerHTML='<div class="ai-loading"><div class="ai-spinner"></div>Generating TL;DR…</div>';
+  try {
+    const resp=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:300,
+        messages:[{role:"user",content:`You are summarizing automotive news for ${roleLabels[selectedRole]} at Škoda Auto.
+
+Article: "${currentArticleData.title}"
+Summary: "${currentArticleData.desc}"
+
+Write a TL;DR (2-3 sentences max) tailored to this person's perspective and what matters to them. Be specific and actionable.`}]
+      })
+    });
+    const data=await resp.json();
+    el.innerHTML=`<div>${(data.content[0].text||"").replace(/\n/g,"<br>")}</div>`;
+  } catch(err) {
+    el.innerHTML=`<span style="color:var(--breaking-c)">API error: ${err.message}</span>`;
+  }
+}
+
+function switchAiTab(tab, btn) {
+  document.querySelectorAll(".ai-tab").forEach(b=>b.classList.remove("on"));
+  if(btn)btn.classList.add("on");
+  else document.querySelector(`.ai-tab[onclick*="${tab}"]`)?.classList.add("on");
+  document.getElementById("ai-sowhat-wrap").style.display=tab==="sowhat"?"block":"none";
+  document.getElementById("ai-tldr-wrap").style.display=tab==="tldr"?"block":"none";
+}
+
+// ── SCROLL TO TOP ──
+window.addEventListener("scroll",()=>{document.getElementById("stt").classList.toggle("on",window.scrollY>500);});
+
+// ── INIT ──
+updateButtonCounts();
+updateSourceCounts();
+buildTrending();
+buildHeatmap();
+// default to standard view
+switchView("standard", document.querySelector(".vb.on"));
+</script>
+</body>
+</html>
