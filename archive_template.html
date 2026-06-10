@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ŠKODA DIGEST — Archive</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0f0d'/><text y='72' x='8' font-size='60' font-family='monospace' font-weight='bold' fill='%2334d9b5'>M</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+[data-theme="light"]{--bg:#f0ede8;--bg2:#faf8f5;--bg3:#e8e4dd;--bdr:#cdc8c0;--bdr2:#b8b2a8;--acc:#0e3a2f;--grn:#0e3a2f;--mut:#5a5550;--dim:#8a8580;--wh:#0a1a12;--txt:#1a2a20;--head:#e4e0d8;--sbg:#faf8f5;--sbdr:#b8b2a8;--stxt:#1a2a20;--overlay-bg:rgba(14,58,47,.8);--r-global:#0e3a2f;--r-europe:#1d4ed8;--r-china:#b91c1c;--r-cz:#6d28d9}
+[data-theme="dark"]{--bg:#081510;--bg2:#0e2018;--bg3:#122a20;--bdr:#1a3028;--bdr2:#224035;--acc:#78faae;--grn:#78faae;--mut:#7ab898;--dim:#4a7860;--wh:#e8f5ee;--txt:#b0cfc0;--head:#050f0a;--sbg:#122a20;--sbdr:#224035;--stxt:#b0cfc0;--overlay-bg:rgba(5,15,10,.92);--r-global:#78faae;--r-europe:#60a5fa;--r-china:#f87171;--r-cz:#c084fc}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;min-height:100vh;transition:background .25s,color .25s}
+.site-header{position:sticky;top:0;z-index:100;background:var(--head);transition:background .25s;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.masthead{padding:0 48px;border-bottom:2px solid var(--acc)}
+.mast-top{display:flex;align-items:center;justify-content:space-between;padding:13px 0 10px;border-bottom:1px solid var(--bdr);gap:12px;flex-wrap:wrap}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;letter-spacing:.1em;color:var(--wh);text-transform:uppercase;text-decoration:none}
+.brand span{color:var(--acc)}
+.brand-sub{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--bdr2);padding-left:14px;margin-left:14px}
+.mast-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.tbtn{display:flex;align-items:center;gap:5px;padding:5px 12px;background:transparent;border:1px solid var(--bdr2);border-radius:20px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s;white-space:nowrap;user-select:none}
+.tbtn:hover{border-color:var(--acc);color:var(--acc)}.tbtn.on{border-color:var(--acc);color:var(--acc);background:rgba(52,217,181,.1)}
+.back-btn{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);text-decoration:none;border:1px solid var(--bdr2);border-radius:2px;padding:4px 12px;transition:all .15s}
+.back-btn:hover{border-color:var(--acc);color:var(--acc)}
+.rnav{display:flex;border-bottom:1px solid var(--bdr);overflow-x:auto}
+.rb{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:8px 16px;cursor:pointer;transition:all .15s;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.rb:hover{color:var(--txt)}.rb.on{color:var(--acc);border-bottom-color:var(--acc)}
+.tnav{display:flex;flex-wrap:wrap;gap:5px;padding:7px 0 9px}
+.fb{padding:3px 12px;background:transparent;border:1px solid var(--bdr2);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
+.fb:hover{border-color:var(--mut);color:var(--txt)}.fb.on{background:var(--acc);color:var(--head);border-color:var(--acc)}
+.toolbar{background:var(--head);border-bottom:1px solid var(--bdr);padding:8px 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:background .25s}
+.sw{flex:1;min-width:180px;max-width:380px;position:relative}
+.si{width:100%;background:var(--sbg);border:1px solid var(--sbdr);border-radius:3px;padding:7px 30px 7px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--stxt);outline:none;transition:border-color .15s}
+.si:focus{border-color:var(--acc)}.si::placeholder{color:var(--dim)}
+.sc{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px;display:none}
+.sc.on{display:block}
+.cnt{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);background:rgba(52,217,181,.08);border:1px solid rgba(52,217,181,.2);padding:5px 12px;border-radius:3px;margin-left:auto}
+.page{max-width:1280px;margin:0 auto;padding:0 48px 80px}
+.arch-head{padding:22px 0 14px;border-bottom:1px solid var(--acc);margin-bottom:28px;display:flex;align-items:flex-end;justify-content:space-between}
+.arch-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+.arch-t{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--wh);line-height:1}
+.arch-m{text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--mut);letter-spacing:.12em;text-transform:uppercase;line-height:1.8}
+.arch-m strong{color:var(--txt)}
+/* Month sections */
+.month-sec{margin-bottom:48px}
+.month-hd{display:flex;align-items:center;gap:16px;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--acc)}
+.month-hd-t{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--wh)}
+.month-hd-c{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-left:auto}
+/* Region subsections */
+.rsec{margin-bottom:32px}
+.rh{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--bdr2)}
+.rsec[data-region="world"]  .rh{border-bottom-color:var(--r-global)}
+.rsec[data-region="europe"] .rh{border-bottom-color:var(--r-europe)}
+.rsec[data-region="china"]  .rh{border-bottom-color:var(--r-china)}
+.rsec[data-region="cz"]     .rh{border-bottom-color:var(--r-cz)}
+.rh-t{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.rsec[data-region="world"]  .rh-t{color:var(--r-global)}
+.rsec[data-region="europe"] .rh-t{color:var(--r-europe)}
+.rsec[data-region="china"]  .rh-t{color:var(--r-china)}
+.rsec[data-region="cz"]     .rh-t{color:var(--r-cz)}
+.rh-c{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px}
+.card{background:var(--bg2);position:relative;display:flex;flex-direction:column;transition:background .14s;overflow:hidden}
+.card.s8{grid-column:span 8}.card.s6{grid-column:span 6}.card.s4{grid-column:span 4}
+.card:hover{background:var(--bg3)}.card.hidden{display:none!important}
+.iw{width:100%;overflow:hidden;position:relative;flex-shrink:0}
+.card.s8 .iw,.card.s6 .iw{aspect-ratio:16/9}.card.s4 .iw{aspect-ratio:3/2}
+.ci{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.card:hover .ci{transform:scale(1.03)}
+.cfb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;opacity:.3;background:linear-gradient(135deg,var(--bg3) 0%,var(--bdr) 100%)}
+.ie .ci{display:none}
+.cb{padding:16px 16px 13px;flex:1;display:flex;flex-direction:column}
+.ccat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block}
+.ct{font-family:'Playfair Display',serif;font-weight:700;line-height:1.25;margin-bottom:8px;color:var(--wh)}
+.card.s8 .ct{font-size:20px}.card.s6 .ct{font-size:17px}.card.s4 .ct{font-size:14px}
+.cd{font-size:13px;color:var(--mut);line-height:1.65;font-weight:300;overflow:hidden;transition:max-height .3s ease,margin .2s ease;margin-bottom:0}
+.card.s8 .cd,.card.s6 .cd{max-height:300px;margin-bottom:10px}
+.card.s4 .cd{max-height:0}.card.s4.exp .cd{max-height:300px;margin-bottom:10px}
+.cf{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.cs{font-weight:700;color:var(--mut)}.ca{margin-left:auto}
+.cl{color:var(--acc);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
+.cl:hover{text-decoration:underline}
+.xhint{font-size:9px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;user-select:none;flex-shrink:0}
+.card.s8 .xhint,.card.s6 .xhint{display:none}
+/* list view */
+body.no-images .iw{display:none}
+body.no-images .grid{display:flex;flex-direction:column;gap:1px}
+body.no-images .card,body.no-images .card.s8,body.no-images .card.s6,body.no-images .card.s4{grid-column:unset}
+body.no-images .card .cb{padding:13px 18px 11px}
+body.no-images .card .ccat{margin-bottom:4px}
+body.no-images .card .ct{font-size:14px!important;margin-bottom:6px}
+body.no-images .card .cd{max-height:0;margin:0}
+body.no-images .card.exp .cd{max-height:300px;margin-bottom:8px}
+body.no-images .card .xhint{display:inline!important}
+body.no-images .card.s8 .xhint,body.no-images .card.s6 .xhint{display:inline!important}
+/* overlay */
+.overlay{display:none;position:fixed;inset:0;background:var(--overlay-bg);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.overlay.on{display:flex}
+.overlay-box{background:var(--bg2);max-width:680px;width:100%;border-radius:4px;overflow:hidden;animation:slideUp .2s ease;position:relative}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.overlay-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.overlay-img.hidden{display:none}
+.overlay-body{padding:28px 32px 24px}
+.overlay-cat{margin-bottom:12px;display:flex;align-items:center;gap:7px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.overlay-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1.25;color:var(--wh);margin-bottom:14px}
+.overlay-desc{font-size:14px;color:var(--txt);line-height:1.7;font-weight:300;margin-bottom:20px}
+.overlay-footer{display:flex;align-items:center;gap:12px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.overlay-src{font-weight:700;color:var(--txt)}
+.overlay-read{margin-left:auto;padding:8px 20px;background:var(--acc);color:var(--head);border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
+.overlay-read:hover{opacity:.85}
+.overlay-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;padding:4px;z-index:1}
+.overlay-close:hover{color:var(--wh)}
+.no-results{text-align:center;padding:80px 20px;color:var(--mut);font-family:'Playfair Display',serif;font-size:20px}
+.stt{position:fixed;bottom:32px;right:32px;width:42px;height:42px;background:var(--acc);color:var(--head);border:none;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:99}
+.stt.on{display:flex}.stt:hover{transform:translateY(-2px)}
+footer{background:var(--head);color:var(--mut);padding:14px 48px;display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
+@media(max-width:900px){
+  .masthead,.toolbar,.page,footer{padding-left:20px;padding-right:20px}
+  .card,.card.s8,.card.s6,.card.s4{grid-column:span 12}
+  .card.s4 .cd{max-height:0}
+  .iw{aspect-ratio:16/9!important}
+  .brand-sub{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="overlayBgClick(event)">
+  <div class="overlay-box">
+    <button class="overlay-close" onclick="closeOverlay()">✕</button>
+    <img class="overlay-img" id="ol-img" src="" alt="">
+    <div class="overlay-body">
+      <div class="overlay-cat" id="ol-cat"></div>
+      <div class="overlay-title" id="ol-title"></div>
+      <div class="overlay-desc" id="ol-desc"></div>
+      <div class="overlay-footer">
+        <span class="overlay-src" id="ol-src"></span>
+        <span id="ol-date"></span>
+        <a class="overlay-read" id="ol-link" href="#" target="_blank" rel="noopener">Read full article →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="stt" id="stt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="site-header">
+  <div class="masthead">
+    <div class="mast-top">
+      <div style="display:flex;align-items:baseline">
+        <a href="motor-desk.html" style="text-decoration:none;font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--wh)"><span style="color:var(--acc)">ŠKODA</span><span style="color:var(--bdr2);font-weight:400"> / </span><span style="font-style:italic">Digest</span></a>
+        <span class="brand-sub">Archive</span>
+      </div>
+      <div class="mast-right">
+        <a href="motor-desk.html" class="back-btn" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);text-decoration:none;border:1px solid var(--bdr2);border-radius:2px;padding:4px 12px;transition:all .15s">← Latest</a>
+        <button class="tbtn on" id="imgBtn" onclick="toggleImg()">🖼 Images</button>
+        <button class="tbtn" id="themeBtn" onclick="toggleTheme()">☀️ Light</button>
+      </div>
+    </div>
+    <div class="rnav">
+      <button class="rb on" data-r="all"    onclick="sR('all')">All</button>
+      <button class="rb"    data-r="world"  onclick="sR('world')">Global</button>
+      <button class="rb"    data-r="europe" onclick="sR('europe')">Europe</button>
+      <button class="rb"    data-r="china"  onclick="sR('china')">China</button>
+      <button class="rb"    data-r="cz"     onclick="sR('cz')">Czech Republic</button>
+    </div>
+    <div class="tnav">
+      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+      <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV / PHEV</button>
+      <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+      <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+      <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+      <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+      <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery & Charging</button>
+    </div>
+  </div>
+  <div class="toolbar">
+    <div class="sw">
+      <input class="si" id="si" type="text" placeholder="🔍  Search archive: Tesla, BYD, Škoda…" oninput="onSearch(this.value)">
+      <button class="sc" id="sc" onclick="clearS()">✕</button>
+    </div>
+    <span class="cnt" id="cnt">{{ARCHIVE_COUNT}} articles</span>
+  </div>
+</div>
+
+<div class="page">
+  <!-- AI Natural Language Search -->
+  <div id="aiSearchWrap" style="background:var(--bg2);border-bottom:1px solid var(--bdr);padding:16px 0;margin-bottom:0">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px;position:relative">
+        <input id="aiQuery" style="width:100%;background:var(--sbg);border:1px solid var(--sbdr);border-radius:3px;padding:10px 16px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--stxt);outline:none;transition:border-color .15s" placeholder="🧠 Ask in natural language: What happened with EU tariffs last month? Who did Toyota announce partnerships with?" oninput="document.getElementById('aiQuery').style.borderColor='var(--sbdr)'">
+      </div>
+      <button onclick="runArchiveSearch()" style="padding:10px 20px;background:var(--acc);color:var(--head);border:none;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;white-space:nowrap">🧠 Search with AI</button>
+    </div>
+    <div id="aiSearchResult" style="margin-top:14px;font-size:13px;color:var(--txt);line-height:1.7;display:none"></div>
+  </div>
+
+  <div class="arch-head">
+    <div>
+      <div class="arch-lbl">Automotive & Mobility Intelligence</div>
+      <div class="arch-t">Archive</div>
+    </div>
+    <div class="arch-m"><strong id="vc">{{ARCHIVE_COUNT}} articles</strong> · {{MONTH_COUNT}} months</div>
+  </div>
+  <div id="main">{{ARCHIVE_CONTENT}}</div>
+</div>
+
+<footer>
+  <span>ŠKODA DIGEST · Archive · {{ARCHIVE_COUNT}} articles</span>
+  <span>25+ sources · Auto-updated daily</span>
+</footer>
+
+<script>
+let aR="all", aT="all", aQ="";
+
+(function(){
+  const t = localStorage.getItem("md-theme") || "light";
+  document.documentElement.setAttribute("data-theme", t);
+  updateThemeBtn(t);
+  if (localStorage.getItem("md-img") === "off") {
+    document.body.classList.add("no-images");
+    document.getElementById("imgBtn").classList.remove("on");
+  }
+})();
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("md-theme", next);
+  updateThemeBtn(next);
+}
+function updateThemeBtn(t) {
+  const b = document.getElementById("themeBtn");
+  b.textContent = t === "dark" ? "☀️ Light" : "🌙 Dark";
+  t === "light" ? b.classList.remove("on") : b.classList.add("on");
+}
+function toggleImg() {
+  const nowOff = document.body.classList.toggle("no-images");
+  document.getElementById("imgBtn").classList.toggle("on", !nowOff);
+  localStorage.setItem("md-img", nowOff ? "off" : "on");
+}
+
+function sR(r) { aR=r; document.querySelectorAll(".rb").forEach(b=>b.classList.toggle("on",b.dataset.r===r)); applyFilters(); }
+function sT(t) { aT=t; document.querySelectorAll(".fb").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); applyFilters(); }
+function onSearch(q) { aQ=q.toLowerCase().trim(); document.getElementById("sc").classList.toggle("on",aQ.length>0); applyFilters(); }
+function clearS() { document.getElementById("si").value=""; onSearch(""); }
+
+function applyFilters() {
+  let v=0;
+  document.querySelectorAll(".card").forEach(c=>{
+    const ok=(aR==="all"||c.dataset.region===aR)&&(aT==="all"||c.dataset.cat===aT)&&(aQ===""||c.dataset.search.includes(aQ));
+    c.classList.toggle("hidden",!ok);
+    if(ok)v++;
+  });
+  const s=v+" article"+(v!==1?"s":"");
+  document.getElementById("vc").textContent=s;
+  document.getElementById("cnt").textContent=s;
+  document.querySelectorAll(".month-sec,.rsec").forEach(sec=>{
+    sec.style.display=[...sec.querySelectorAll(".card")].some(c=>!c.classList.contains("hidden"))?"":"none";
+  });
+}
+
+document.addEventListener("click",function(e){
+  if(e.target.closest("a"))return;
+  if(e.target.closest(".overlay"))return;
+  const isListMode=document.body.classList.contains("no-images");
+  const card=isListMode?e.target.closest(".card"):e.target.closest(".card.s4");
+  if(!card)return;
+  card.classList.toggle("exp");
+  const h=card.querySelector(".xhint");
+  if(h)h.textContent=card.classList.contains("exp")?"▲ collapse":"▼ read more";
+});
+
+const CC={ev:"#34d9b5",auto:"#60a5fa",autonomy:"#fb923c",policy:"#c084fc",industry:"#818cf8",tech:"#fbbf24"};
+const CL={ev:"BEV/PHEV",auto:"Automotive",autonomy:"Autonomous",policy:"Policy",industry:"Industry",tech:"Battery/Tech"};
+function openOverlay(card){
+  const img=card.dataset.img||"";
+  const cat=card.dataset.cat||"";
+  const olImg=document.getElementById("ol-img");
+  if(img){olImg.src=img;olImg.classList.remove("hidden");}else{olImg.src="";olImg.classList.add("hidden");}
+  document.getElementById("ol-cat").innerHTML=`<span style="width:6px;height:6px;border-radius:50%;background:${CC[cat]||"#94b8a8"};display:inline-block;flex-shrink:0"></span><span style="color:${CC[cat]||"#94b8a8"}">${CL[cat]||cat}</span>`;
+  document.getElementById("ol-title").textContent=card.dataset.title||"";
+  document.getElementById("ol-desc").textContent=(card.dataset.desc||"")+"…";
+  document.getElementById("ol-src").textContent=card.dataset.source||"";
+  document.getElementById("ol-date").textContent=card.dataset.date||"";
+  const link=document.getElementById("ol-link");
+  const url=card.dataset.url||"";
+  if(url){link.href=url;link.style.display="inline-block";}else{link.style.display="none";}
+  document.getElementById("overlay").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+function closeOverlay(){document.getElementById("overlay").classList.remove("on");document.body.style.overflow="";}
+function overlayBgClick(e){if(e.target===document.getElementById("overlay"))closeOverlay();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeOverlay();});
+window.addEventListener("scroll",()=>{document.getElementById("stt").classList.toggle("on",window.scrollY>400);});
+
+// ── NATURAL LANGUAGE ARCHIVE SEARCH ──
+async function runArchiveSearch() {
+  const query = document.getElementById("aiQuery").value.trim();
+  if (!query) return;
+  const resultEl = document.getElementById("aiSearchResult");
+  resultEl.style.display = "block";
+  resultEl.innerHTML = "<div style='font-size:11px;color:var(--dim)'>Searching archive…</div>";
+
+  // Collect all article titles + dates for context
+  const articles = [...document.querySelectorAll(".card")].map(c=>({
+    title: c.dataset.title||"",
+    source: c.dataset.source||"",
+    date: c.dataset.date||"",
+    desc: c.dataset.desc||"",
+    url: c.dataset.url||""
+  }));
+
+  // Send to Claude with article context
+  const context = articles.slice(0,200).map((a,i)=>`[${i+1}] ${a.date} · ${a.source}: ${a.title}`).join("
+");
+
+  try {
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 600,
+        messages: [{role:"user", content:`You are a research assistant for Škoda Auto with access to an automotive news archive.
+
+User query: "${query}"
+
+Available articles (numbered):
+${context}
+
+Answer the query based on the articles. Be specific, cite article numbers in [brackets]. If no relevant articles found, say so clearly. Keep answer to 4-6 sentences max.`}]
+      })
+    });
+    const data = await resp.json();
+    const text = (data.content[0].text||"").replace(/
+/g,"<br>");
+    resultEl.innerHTML = `<div style="background:var(--bg3);border-left:3px solid var(--acc);padding:14px 18px;border-radius:2px">${text}</div>`;
+  } catch(err) {
+    resultEl.innerHTML = `<span style="color:var(--breaking-c)">Search error: ${err.message}</span>`;
+  }
+}
+document.getElementById("aiQuery").addEventListener("keydown", e=>{if(e.key==="Enter")runArchiveSearch();});
+</script>
+</body>
+</html>
