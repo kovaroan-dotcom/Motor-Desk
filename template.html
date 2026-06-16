@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en" data-section="automotive">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ŠKODA INTELLIGENCE HUB — {{MONTH_LABEL}}</title>
+<meta property="og:title" content="Škoda Intelligence Hub — {{MONTH_LABEL}}">
+<meta property="og:description" content="Automotive & World Intelligence for Škoda Auto">
+<meta name="theme-color" content="#f0ede8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0ede8'/><text y='72' x='12' font-size='58' font-family='Georgia' font-weight='900' fill='%231a6b4a'>SD</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600&family=Barlow+Condensed:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── THEMES ── */
+[data-theme="light"]{
+  --bg:#f0ede8;--bg2:#faf8f5;--bg3:#e8e4dd;
+  --bdr:#cdc8c0;--bdr2:#b8b2a8;
+  --acc:#0e3a2f;--acc2:#0a2d24;--grn:#0e3a2f;
+  --mut:#5a5550;--dim:#8a8580;
+  --wh:#0a1a12;--txt:#1a2a20;--head:#e4e0d8;
+  --sbg:#faf8f5;--sbdr:#b8b2a8;--stxt:#1a2a20;
+  --overlay-bg:rgba(14,58,47,.8);
+  --hero-grad:linear-gradient(to top,rgba(240,237,232,.98) 0%,rgba(240,237,232,.6) 55%,transparent 100%);
+  --r-global:#0e3a2f;--r-europe:#1d4ed8;--r-china:#b91c1c;--r-cz:#6d28d9;
+  --r-ctx-world:#b45309;--r-ctx-eu:#1d4ed8;--r-ctx-cz:#6d28d9;
+  --new-bg:rgba(14,58,47,.1);--new-c:#0e3a2f;
+  --breaking-c:#b91c1c;--mustread-c:#b45309;
+  --threat:#b91c1c;--opportunity:#0e3a2f;--watch:#b45309;--info:#1d4ed8;
+}
+[data-theme="dark"]{
+  --bg:#081510;--bg2:#0e2018;--bg3:#122a20;--bdr:#1a3028;--bdr2:#224035;
+  --acc:#78faae;--acc2:#5ef59a;--grn:#78faae;--mut:#7ab898;--dim:#4a7860;
+  --wh:#e8f5ee;--txt:#b0cfc0;--head:#050f0a;
+  --sbg:#122a20;--sbdr:#224035;--stxt:#b0cfc0;
+  --overlay-bg:rgba(5,15,10,.92);
+  --hero-grad:linear-gradient(to top,rgba(5,15,10,.98) 0%,rgba(5,15,10,.55) 55%,transparent 100%);
+  --r-global:#78faae;--r-europe:#60a5fa;--r-china:#f87171;--r-cz:#c084fc;
+  --r-ctx-world:#fb923c;--r-ctx-eu:#60a5fa;--r-ctx-cz:#c084fc;
+  --new-bg:rgba(120,250,174,.12);--new-c:#78faae;
+  --breaking-c:#f87171;--mustread-c:#fb923c;
+  --threat:#f87171;--opportunity:#78faae;--watch:#fbbf24;--info:#60a5fa;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Source Serif 4',Georgia,serif;min-height:100vh;transition:background .3s,color .3s}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.025;mix-blend-mode:multiply;z-index:0;background-image:var(--grain)}
+
+/* ── STICKY HEADER ── */
+.site-header{position:sticky;top:0;z-index:100;background:var(--head);transition:background .3s;box-shadow:0 2px 16px rgba(0,0,0,.12);border-bottom:2px solid var(--acc)}
+
+/* LAYER 1 — Identity bar */
+.mast-top{display:flex;align-items:center;justify-content:space-between;padding:10px 52px;border-bottom:1px solid var(--bdr);gap:12px;flex-wrap:wrap;background:var(--head)}
+.brand-wrap{display:flex;flex-direction:column;gap:1px}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:baseline;gap:0}
+.brand-škoda{color:var(--acc)}
+.brand-sep{color:var(--acc);font-weight:300;padding:0 4px;opacity:.4}
+.brand-digest{color:var(--acc)}
+.brand-hub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);opacity:.5}
+.mast-right{display:flex;align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap}
+.mast-date{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:right;line-height:1.6;padding-left:10px;border-left:1px solid var(--bdr2)}
+.mast-date strong{display:block;font-size:11px;color:var(--txt)}
+.tbtn{display:flex;align-items:center;gap:4px;padding:3px 9px;background:transparent;border:1px solid var(--bdr2);cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s;white-space:nowrap;user-select:none}
+.tbtn:hover{border-color:var(--acc);color:var(--acc)}.tbtn.on{border-color:var(--acc);color:var(--acc);background:rgba(26,107,74,.08)}
+.archive-link{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-decoration:none;border:1px solid var(--bdr2);padding:3px 9px;transition:all .15s}
+.archive-link:hover{border-color:var(--acc);color:var(--acc)}
+/* inline lang selector in identity bar */
+.lang-inline{display:flex;gap:1px;border:1px solid var(--bdr2)}
+.li{padding:3px 7px;background:transparent;border:none;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);cursor:pointer;transition:all .15s}
+.li:hover{color:var(--mut);background:var(--bg3)}.li.on{color:var(--acc);background:rgba(26,107,74,.08)}
+
+/* LAYER 2 — Main section (dominant) */
+.section-nav{display:flex;border-bottom:1px solid var(--bdr);padding:0 52px;background:var(--head)}
+.snb{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;font-style:italic;color:var(--dim);padding:14px 24px 12px;cursor:pointer;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:8px}
+.snb:hover{color:var(--txt)}.snb.on{color:var(--acc);border-bottom-color:var(--acc)}
+.snb-dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0}
+.snb.on .snb-dot{opacity:1;background:var(--acc)}
+
+/* LAYER 3 — View switcher (smaller) */
+.view-nav{display:flex;overflow-x:auto;padding:0 52px;background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.vb{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:7px 14px;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all .15s}
+.vb:hover{color:var(--mut)}.vb.on{color:var(--acc);border-bottom-color:var(--acc);font-weight:700}
+
+/* LAYER 4 — Region + Topic filters (subtle) */
+.filter-bar{background:var(--bg);border-bottom:1px solid var(--bdr);padding:6px 52px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.rb{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:3px 10px;cursor:pointer;border:1px solid transparent;background:none;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:3px}
+.rb:hover{color:var(--mut);border-color:var(--bdr2)}.rb.on{color:var(--acc);border-color:var(--acc);background:rgba(26,107,74,.06)}
+.rb .rc{font-size:7px;opacity:.6}
+.filter-sep{width:1px;height:16px;background:var(--bdr2);margin:0 4px;flex-shrink:0}
+.fb{padding:3px 10px;background:transparent;border:1px solid transparent;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:3px}
+.fb:hover{border-color:var(--bdr2);color:var(--mut)}.fb.on{color:var(--acc);border-color:var(--acc);background:rgba(26,107,74,.06)}
+.fb .fc{font-size:7px;opacity:.6}
+/* lang filter inside filter bar */
+.lang-filter{display:flex;gap:1px;margin-left:auto;border-left:1px solid var(--bdr2);padding-left:10px}
+.lf{padding:2px 7px;background:transparent;border:1px solid transparent;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);cursor:pointer;transition:all .15s}
+.lf:hover{color:var(--mut)}.lf.on{color:var(--acc);border-color:var(--bdr2)}
+
+/* ── TOOLBAR ── */
+.toolbar{background:var(--head);border-bottom:1px solid var(--bdr);padding:8px 52px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;transition:background .3s}
+.sw{flex:1;min-width:180px;max-width:380px;position:relative}
+.si{width:100%;background:var(--sbg);border:1px solid var(--sbdr);padding:7px 30px 7px 12px;font-family:'Source Serif 4',serif;font-size:13px;color:var(--stxt);outline:none;transition:border-color .15s}
+.si:focus{border-color:var(--acc)}.si::placeholder{color:var(--dim)}
+.sc{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px;display:none}
+.sc.on{display:block}
+.new-counter{display:none;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--acc);border:none;padding:4px 12px;cursor:pointer;transition:all .15s}
+.new-counter.on{display:flex}
+.new-counter:hover{opacity:.85}
+.cnt{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.15);padding:4px 11px;margin-left:auto}
+
+/* ── PAGE ── */
+.page{max-width:1320px;margin:0 auto;padding:0 52px 80px;position:relative;z-index:1}
+
+/* ── EDITION HEADER ── */
+.ed-head{padding:24px 0 14px;margin-bottom:0;display:flex;align-items:flex-end;justify-content:space-between}
+.ed-rule{height:1px;background:var(--wh);margin-bottom:20px}
+.ed-rule-double{border-top:2px solid var(--acc);border-bottom:1px solid var(--bdr);height:5px;margin-bottom:20px}
+.ed-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.ed-t{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--wh);line-height:1;font-style:italic}
+.ed-m{text-align:right;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:.1em;text-transform:uppercase;line-height:1.8}
+.ed-m strong{color:var(--txt)}
+
+/* ── TRENDING ── */
+.trending{border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:10px 0;margin:18px 0 0;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.trend-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);flex-shrink:0;padding-top:3px}
+.trend-tags{display:flex;flex-wrap:wrap;gap:6px;flex:1}
+.trend-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.06em;padding:2px 10px;border:1px solid var(--bdr2);cursor:pointer;color:var(--mut);transition:all .15s;white-space:nowrap}
+.trend-tag:hover{background:var(--wh);color:var(--bg);border-color:var(--wh)}
+.trend-tag .tc{font-size:8px;opacity:.55;margin-left:3px}
+
+/* ── SECTIONS ── */
+.rsec{margin-top:28px}.ctx-section{margin-top:28px}
+.rh{display:flex;align-items:center;gap:16px;margin-bottom:3px;padding-bottom:10px;border-bottom:2px solid var(--bdr)}
+.rsec[data-region="world"]    .rh{border-bottom-color:var(--r-global)}
+.rsec[data-region="europe"]   .rh{border-bottom-color:var(--r-europe)}
+.rsec[data-region="china"]    .rh{border-bottom-color:var(--r-china)}
+.rsec[data-region="cz"]       .rh{border-bottom-color:var(--r-cz)}
+.rsec[data-region="ctx-world"].rh{border-bottom-color:var(--r-ctx-world)}
+.rsec[data-region="ctx-eu"]   .rh{border-bottom-color:var(--r-ctx-eu)}
+.rsec[data-region="ctx-cz"]   .rh{border-bottom-color:var(--r-ctx-cz)}
+.rh-t{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.rsec[data-region="world"]    .rh-t{color:var(--r-global)}
+.rsec[data-region="europe"]   .rh-t{color:var(--r-europe)}
+.rsec[data-region="china"]    .rh-t{color:var(--r-china)}
+.rsec[data-region="cz"]       .rh-t{color:var(--r-cz)}
+.rsec[data-region="ctx-world"].rh-t{color:var(--r-ctx-world)}
+.rsec[data-region="ctx-eu"]   .rh-t{color:var(--r-ctx-eu)}
+.rsec[data-region="ctx-cz"]   .rh-t{color:var(--r-ctx-cz)}
+.rh-c{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-left:auto}
+
+/* ── GRID — clean 2-column like Brífink ── */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px}
+.card{background:var(--bg2);position:relative;display:flex;flex-direction:column;transition:background .15s,transform .2s,box-shadow .2s;overflow:hidden;cursor:pointer}
+.card.s8,.card.s6,.card.s4,.card.s3{grid-column:span 1}
+.card:hover{background:var(--bg3);transform:translateY(-2px);box-shadow:0 8px 24px -8px rgba(14,58,47,.2)}
+.card.hidden{display:none!important}
+/* first card in each section spans full width */
+.grid .card:first-child{grid-column:span 2}
+.section-wrap{margin-top:1px}
+
+/* ── IMAGE ── */
+.iw{width:100%;overflow:hidden;position:relative;flex-shrink:0;aspect-ratio:16/9}
+.grid .card:first-child .iw{aspect-ratio:21/9}
+.ci{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.card:hover .ci{transform:scale(1.03)}
+.cfb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;opacity:.18;background:linear-gradient(135deg,var(--bg3),var(--bdr))}
+.ie .ci{display:none}
+
+/* ── BADGES ── */
+.badge-wrap{position:absolute;top:0;left:0;display:flex;gap:1px;z-index:2;flex-wrap:wrap}
+.badge{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:1px}
+.badge-new{background:var(--new-c);color:#fff;border:none}
+.badge-breaking{background:var(--breaking-c);color:#fff;border:none;animation:pulse 1.5s infinite}
+.badge-mustread{background:var(--mustread-c);color:#fff;border:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* badges in list view */
+body.no-images .iw{display:none!important}
+body.no-images .card .badge-wrap{position:static!important;display:flex!important;margin-bottom:6px;gap:4px;flex-wrap:wrap}
+body.no-images .badge{font-size:9px;padding:2px 8px}
+
+/* signal strip */
+.card-signal{position:absolute;top:0;right:0;width:3px;height:100%;opacity:.5}
+.card[data-signal="threat"]      .card-signal{background:var(--threat)}
+.card[data-signal="opportunity"] .card-signal{background:var(--opportunity)}
+.card[data-signal="watch"]       .card-signal{background:var(--watch)}
+
+/* ── CARD BODY ── */
+.cb{padding:16px 16px 13px;flex:1;display:flex;flex-direction:column}
+.ccat{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block}
+.ct{font-family:'Playfair Display',serif;font-weight:700;line-height:1.24;margin-bottom:8px;color:var(--wh);transition:color .3s;font-size:16px}
+.grid .card:first-child .ct{font-size:20px}
+.cd{font-size:13px;color:var(--mut);line-height:1.65;font-weight:300;overflow:hidden;transition:max-height .3s,margin .2s;margin-bottom:0;font-family:'Source Serif 4',serif}
+.card .cd{max-height:0}
+.card.exp .cd{max-height:300px;margin-bottom:10px}
+.grid .card:first-child .cd{max-height:300px;margin-bottom:10px}
+.cf{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.cs{font-weight:700;color:var(--mut)}.ca{margin-left:auto}
+.cl{color:var(--acc);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
+.cl:hover{text-decoration:underline}
+.xhint{font-size:8px;color:var(--dim);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;user-select:none;flex-shrink:0}
+.grid .card:first-child .xhint{display:none}
+
+/* ── LIST VIEW ── */
+body.no-images .iw{display:none}
+body.no-images .grid{display:flex;flex-direction:column;gap:1px}
+body.no-images .card,body.no-images .grid .card:first-child{grid-column:unset;transform:none!important}
+body.no-images .card .cb{padding:12px 16px 10px}
+body.no-images .card .ccat{margin-bottom:4px}
+body.no-images .card .ct{font-size:14px!important;margin-bottom:5px}
+body.no-images .card .cd{max-height:0;margin:0!important}
+body.no-images .card.exp .cd{max-height:300px;margin-bottom:8px!important}
+body.no-images .card .xhint{display:inline!important}
+body.no-images .grid .card:first-child .xhint{display:inline!important}
+
+/* ── SIGNAL BADGES ── */
+.signal-badge{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px}
+.sig-threat{color:var(--threat);background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2)}
+.sig-opportunity{color:var(--opportunity);background:rgba(26,107,74,.08);border:1px solid rgba(26,107,74,.2)}
+.sig-watch{color:var(--watch);background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.18)}
+.sig-info{color:var(--info);background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.18)}
+
+/* ── EXECUTIVE VIEW ── */
+.exec-header{padding:24px 0 16px;border-bottom:2px solid var(--wh);margin-bottom:20px;display:flex;align-items:flex-end;justify-content:space-between}
+.exec-subtitle{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-top:6px}
+.exec-grid{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+.exec-list{display:flex;flex-direction:column;gap:2px}
+.exec-item{background:var(--bg2);padding:16px 18px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;transition:background .15s,transform .15s;border-left:4px solid transparent;position:relative}
+.exec-item:hover{background:var(--bg3);transform:translateX(2px)}
+.exec-item[data-signal="threat"]      {border-left-color:var(--threat)}
+.exec-item[data-signal="opportunity"] {border-left-color:var(--opportunity)}
+.exec-item[data-signal="watch"]       {border-left-color:var(--watch)}
+.exec-item[data-signal="info"]        {border-left-color:var(--info)}
+.exec-signal{font-size:18px;flex-shrink:0;line-height:1;margin-top:2px}
+.exec-body{flex:1;min-width:0}
+.exec-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.3;color:var(--wh);margin-bottom:4px}
+.exec-reason{font-size:12px;color:var(--mut);font-weight:300;line-height:1.5;font-family:'Source Serif 4',serif}
+.exec-meta{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px;display:flex;align-items:center;gap:8px}
+.exec-src{font-weight:700;color:var(--mut)}
+.exec-read{color:var(--acc);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto}
+.signal-panel{background:var(--bg2);padding:18px;border-top:3px solid var(--acc)}
+.signal-panel h3{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
+.signal-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bdr);cursor:pointer;transition:background .1s}
+.signal-row:hover{background:var(--bg3);margin:0 -18px;padding:9px 18px}
+.signal-row:last-child{border-bottom:none}
+.signal-emoji{font-size:16px;width:24px;text-align:center;flex-shrink:0}
+.signal-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.signal-count{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-left:auto}
+.signal-row.threat      .signal-label,.signal-row.threat      .signal-count{color:var(--threat)}
+.signal-row.opportunity .signal-label,.signal-row.opportunity .signal-count{color:var(--opportunity)}
+.signal-row.watch       .signal-label,.signal-row.watch       .signal-count{color:var(--watch)}
+.signal-row.info        .signal-label,.signal-row.info        .signal-count{color:var(--info)}
+.signal-filter-hint{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:12px;text-align:center}
+
+/* ── TREND BOARD ── */
+.trend-board-header{padding:24px 0 16px;border-bottom:2px solid var(--wh);margin-bottom:20px}
+.trend-board-grid{columns:4 200px;column-gap:2px}
+.trend-card{break-inside:avoid;margin-bottom:2px;background:var(--bg2);cursor:pointer;overflow:hidden;transition:background .15s,transform .2s,box-shadow .2s;display:block}
+.trend-card:hover{background:var(--bg3);transform:translateY(-2px);box-shadow:0 8px 24px -8px rgba(26,23,20,.15)}
+.trend-card .iw{aspect-ratio:unset}
+.trend-card .ci{width:100%;object-fit:cover;display:block;transition:transform .3s}
+.trend-card:hover .ci{transform:scale(1.03)}
+.trend-card .cb{padding:12px 14px 10px}
+.trend-card .ct{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;line-height:1.28;color:var(--wh);margin-bottom:5px}
+.trend-card .cf{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:6px}
+
+/* ── DEEP DIVE ── */
+.deep-header{padding:24px 0 16px;border-bottom:2px solid var(--wh);margin-bottom:16px;display:flex;align-items:flex-end;justify-content:space-between}
+.deep-filters{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.df{padding:4px 12px;background:transparent;border:1px solid var(--bdr2);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
+.df:hover{border-color:var(--mut);color:var(--txt)}.df.on{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+.deep-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px}
+
+/* ── COMPETITOR HEATMAP ── */
+/* Heatmap sidebar */
+.heatmap-sidebar{position:fixed;top:0;right:-340px;width:320px;height:100vh;background:var(--bg2);border-left:1px solid var(--bdr);z-index:150;transition:right .3s ease;overflow-y:auto;padding:24px 20px;box-shadow:-4px 0 20px rgba(0,0,0,.15)}
+.heatmap-sidebar.open{right:0}
+.heatmap-close{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--mut);font-size:20px;cursor:pointer;padding:4px}
+.heatmap-close:hover{color:var(--wh)}
+.heatmap-title{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:14px;padding-right:24px}
+.heatmap-bars{display:flex;flex-direction:column;gap:7px}
+.hm-row{display:flex;align-items:center;gap:10px;cursor:pointer}
+.hm-row:hover .hm-bar-fill{filter:brightness(1.15)}
+.hm-name{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt);width:80px;flex-shrink:0}
+.hm-bar{flex:1;height:12px;background:var(--bdr);overflow:hidden}
+.hm-bar-fill{height:100%;background:var(--acc);transition:width .5s ease}
+.hm-count{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--acc);width:24px;text-align:right;flex-shrink:0}
+.heatmap-btn{display:flex;align-items:center;gap:5px;padding:4px 10px;background:transparent;border:1px solid var(--bdr2);cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s}
+.heatmap-btn:hover{border-color:var(--acc);color:var(--acc)}
+.heatmap-overlay{display:none;position:fixed;inset:0;z-index:149}
+.heatmap-overlay.on{display:block}
+
+/* ── AI PANEL ── */
+.overlay-ai{border-top:1px solid var(--bdr);padding-top:14px;margin-top:0}
+.ai-tabs{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid var(--bdr);padding-bottom:0}
+.ai-tab{padding:5px 14px 7px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.ai-tab:hover{color:var(--txt)}.ai-tab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.ai-content{font-size:13px;color:var(--txt);line-height:1.7;font-weight:300;font-family:'Source Serif 4',serif}
+.ai-roles{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.ai-role{padding:3px 10px;background:transparent;border:1px solid var(--bdr2);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);cursor:pointer;transition:all .15s}
+.ai-role:hover{border-color:var(--acc);color:var(--acc)}.ai-role.on{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+.ai-loading{display:flex;align-items:center;gap:8px;color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+.ai-spinner{width:13px;height:13px;border:2px solid var(--bdr);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-trigger{display:flex;gap:5px;margin-top:8px}
+.ai-btn{padding:5px 13px;background:transparent;border:1px solid var(--acc);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);cursor:pointer;transition:all .15s}
+.ai-btn:hover{background:var(--acc);color:var(--bg)}
+
+/* ── OVERLAY ── */
+.overlay{display:none;position:fixed;inset:0;background:var(--overlay-bg);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
+.overlay.on{display:flex}
+.overlay-box{background:var(--bg2);max-width:700px;width:100%;overflow:hidden;animation:slideUp .22s ease;position:relative;max-height:90vh;overflow-y:auto}
+@keyframes slideUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.overlay-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.overlay-img.hidden{display:none}
+.overlay-body{padding:26px 30px 22px}
+.overlay-cat{margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.overlay-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1.22;color:var(--wh);margin-bottom:12px}
+.overlay-desc{font-size:14px;color:var(--txt);line-height:1.72;font-weight:300;margin-bottom:18px;font-family:'Source Serif 4',serif}
+.overlay-footer{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
+.overlay-src{font-weight:700;color:var(--txt)}
+.overlay-read{margin-left:auto;padding:8px 18px;background:var(--acc);color:var(--bg);border:none;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
+.overlay-read:hover{background:var(--acc2)}
+.overlay-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;padding:4px;z-index:1}
+.overlay-close:hover{color:var(--wh)}
+
+/* ── SOURCES ── */
+.src-acc{border-top:1px solid var(--bdr)}
+.stog{width:100%;background:none;border:none;padding:10px 52px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.stog:hover{background:var(--bg2)}.stog .hl{color:var(--acc);margin-left:8px}
+.sch{font-size:9px;transition:transform .2s}.src-open .sch{transform:rotate(180deg)}
+.sbody{display:none;padding:20px 52px;background:var(--bg2);border-top:1px solid var(--bdr)}
+.src-open .sbody{display:block}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px}
+.sgh{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px}
+.sgr{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--bdr)}.sgr:last-child{border-bottom:none}
+.sn{font-weight:600;color:var(--wh);display:block;font-size:11px;font-family:'Source Serif 4',serif}.sd{font-size:10px;color:var(--dim);display:block;font-family:'JetBrains Mono',monospace}
+.src-count{font-size:9px;color:var(--acc);font-weight:700;margin-left:auto;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+
+/* ── SCROLL TO TOP ── */
+.stt{position:fixed;bottom:32px;right:32px;width:42px;height:42px;background:var(--acc);color:var(--bg);border:none;font-size:17px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:99;transition:transform .2s}
+.stt.on{display:flex}.stt:hover{transform:translateY(-3px)}
+
+footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;border-top:1px solid var(--bdr);transition:background .3s}
+
+@media(max-width:960px){
+  .masthead,.toolbar,.page,.stog,.sbody,footer,.view-nav,.rnav,.tnav,.lang-sel,.section-nav{padding-left:20px;padding-right:20px}
+  .card.s4 .cd,.card.s3 .cd{max-height:0!important}
+  .iw{aspect-ratio:16/9!important}
+  .brand-sub{display:none}
+  .exec-grid{grid-template-columns:1fr}
+  .trend-board-grid{columns:2 160px}
+  .stt{bottom:20px;right:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEATMAP SIDEBAR -->
+<div class="heatmap-overlay" id="heatmapOverlay" onclick="toggleHeatmap()"></div>
+<div class="heatmap-sidebar" id="heatmapSidebar">
+  <button class="heatmap-close" onclick="toggleHeatmap()">✕</button>
+  <div class="heatmap-title">📊 Mediální přítomnost konkurence</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:.08em;margin-bottom:14px">Kliknutím filtrovat články</div>
+  <div class="heatmap-bars" id="heatmapBars"></div>
+</div>
+
+<!-- API KEY DIALOG -->
+<div id="apiDialog" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:var(--bg2);max-width:440px;width:100%;padding:32px;position:relative">
+    <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--wh);margin-bottom:8px">Anthropic API Key</div>
+    <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:20px">Pro funkce So What? a TL;DR zadej svůj Anthropic API klíč. Uloží se pouze v tvém prohlížeči.</div>
+    <input id="apiKeyInput" type="password" placeholder="sk-ant-..." style="width:100%;background:var(--sbg);border:1px solid var(--sbdr);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--stxt);outline:none;margin-bottom:12px;transition:border-color .15s" onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--sbdr)'" onkeydown="if(event.key==='Enter')saveApiKey()">
+    <div style="display:flex;gap:8px">
+      <button onclick="saveApiKey()" style="flex:1;padding:10px;background:var(--acc);color:var(--bg);border:none;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Uložit klíč</button>
+      <button onclick="document.getElementById('apiDialog').style.display='none'" style="padding:10px 16px;background:transparent;color:var(--mut);border:1px solid var(--bdr2);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Zrušit</button>
+    </div>
+    <div id="apiKeyStatus" style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-top:10px;display:none"></div>
+  </div>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="overlayBgClick(event)">
+  <div class="overlay-box">
+    <button class="overlay-close" onclick="closeOverlay()">✕</button>
+    <img class="overlay-img" id="ol-img" src="" alt="">
+    <div class="overlay-body">
+      <div class="overlay-cat" id="ol-cat"></div>
+      <div class="overlay-title" id="ol-title"></div>
+      <div class="overlay-desc" id="ol-desc"></div>
+      <div class="overlay-footer">
+        <span class="overlay-src" id="ol-src"></span>
+        <span id="ol-date"></span>
+        <a class="overlay-read" id="ol-link" href="#" target="_blank" rel="noopener" data-i18n="read_article">Read full article →</a>
+      </div>
+      <div class="overlay-ai">
+        <div class="ai-tabs">
+          <button class="ai-tab on" onclick="switchAiTab('sowhat',this)">🧠 So What?</button>
+          <button class="ai-tab" onclick="switchAiTab('tldr',this)">🔄 TL;DR</button>
+        </div>
+        <div id="ai-sowhat-wrap">
+          <div id="ai-sowhat-content" class="ai-content" style="color:var(--dim);font-style:italic" data-i18n-placeholder="sowhat_placeholder">Click Generate to analyze for Škoda Auto…</div>
+          <div class="ai-trigger"><button class="ai-btn" onclick="runSoWhat()" data-i18n="generate">Generate ›</button></div>
+        </div>
+        <div id="ai-tldr-wrap" style="display:none">
+          <div class="ai-roles">
+            <button class="ai-role on" data-role="executive">Executive</button>
+            <button class="ai-role" data-role="marketing">Marketing / PR</button>
+            <button class="ai-role" data-role="product">Product / R&D</button>
+            <button class="ai-role" data-role="sales">Sales</button>
+          </div>
+          <div id="ai-tldr-content" class="ai-content" style="color:var(--dim);font-style:italic">Select a role and generate…</div>
+          <div class="ai-trigger"><button class="ai-btn" onclick="runTldr()" data-i18n="generate">Generate ›</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="stt" id="stt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="site-header">
+  <!-- LAYER 1: Identity -->
+  <div class="mast-top">
+    <div class="brand-wrap">
+      <span class="brand">
+        <span class="brand-škoda">ŠKODA</span>
+        <span class="brand-sep"> </span>
+        <span class="brand-digest">DIGEST</span>
+      </span>
+      <span class="brand-hub">Intelligence Hub</span>
+    </div>
+    <div class="mast-right">
+      <a href="archive.html" class="archive-link">📁 Archive</a>
+      <button class="tbtn" id="apiKeyBtn" onclick="showApiDialog()">🔑 API</button>
+      <button class="tbtn on" id="imgBtn" onclick="toggleImg()">🖼 Images</button>
+      <button class="tbtn" id="themeBtn" onclick="toggleTheme()">🌙 Dark</button>
+      <div class="lang-inline">
+        <button class="li" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="li on" data-lang="cs" onclick="setLang('cs')">CZ</button>
+        <button class="li" data-lang="de" onclick="setLang('de')">DE</button>
+      </div>
+      <div class="mast-date"><strong>{{UPDATED}}</strong>{{MONTH_LABEL}}</div>
+    </div>
+  </div>
+
+  <!-- LAYER 2: Main sections (dominant) -->
+  <div class="section-nav">
+    <button class="snb on" data-sec="automotive" onclick="setSection('automotive',this)">
+      <span class="snb-dot"></span>Automotive
+    </button>
+    <button class="snb" data-sec="world" onclick="setSection('world',this)">
+      <span class="snb-dot"></span>Svět &amp; Kontext
+    </button>
+  </div>
+
+  <!-- LAYER 3: View switcher -->
+  <div class="view-nav" id="viewNav">
+    <button class="vb on" data-v="standard" onclick="switchView('standard',this)">News Feed</button>
+    <button class="vb" data-v="exec"        onclick="switchView('exec',this)">Pro management</button>
+    <button class="vb" data-v="trend"       onclick="switchView('trend',this)">Trendy</button>
+    <button class="vb" data-v="deep"        onclick="switchView('deep',this)">Deep Dive</button>
+    <button class="vb" style="margin-left:auto;opacity:.6" onclick="toggleHelp()">? Nápověda</button>
+  </div>
+
+  <!-- LAYER 4: Filters (region + topic + lang) -->
+  <div class="filter-bar" id="filterBar">
+    <div id="rnav" style="display:flex;flex-wrap:wrap;gap:0;align-items:center">
+      <button class="rb on" data-r="all"    onclick="sR('all')">All</button>
+      <button class="rb"    data-r="world"  onclick="sR('world')">Global</button>
+      <button class="rb"    data-r="europe" onclick="sR('europe')">Europe</button>
+      <button class="rb"    data-r="china"  onclick="sR('china')">China</button>
+      <button class="rb"    data-r="cz"     onclick="sR('cz')">Czech Republic</button>
+    </div>
+    <div class="filter-sep" id="topicSep"></div>
+    <div id="tnav" style="display:flex;flex-wrap:wrap;gap:0;align-items:center">
+      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+      <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
+      <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+      <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+      <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+      <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+      <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
+    </div>
+    <div class="lang-filter">
+      <button class="lf on" data-lf="all" onclick="setLangFilter('all')">All</button>
+      <button class="lf"    data-lf="en"  onclick="setLangFilter('en')">EN</button>
+      <button class="lf"    data-lf="cs"  onclick="setLangFilter('cs')">CZ</button>
+      <button class="lf"    data-lf="de"  onclick="setLangFilter('de')">DE</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="sw">
+      <input class="si" id="si" type="text" oninput="onSearch(this.value)" data-i18n-placeholder="search_placeholder">
+      <button class="sc" id="sc" onclick="clearS()">✕</button>
+    </div>
+    <button class="new-counter" id="newCounter" onclick="showNewOnly()"></button>
+    <button class="heatmap-btn" onclick="toggleHeatmap()">📊 Konkurence</button>
+    <span class="cnt" id="cnt">{{ARTICLE_COUNT}} articles</span>
+  </div>
+</div>
+
+<div class="page">
+  <!-- ── STANDARD VIEW ── -->
+  <div id="viewStandard">
+    <div class="ed-head">
+      <div>
+        <div class="ed-lbl">Škoda Intelligence Hub · {{MONTH_LABEL}}</div>
+        <div class="ed-t" id="edTitle">{{MONTH_LABEL}} Edition</div>
+      </div>
+      <div class="ed-m"><strong id="vc">{{ARTICLE_COUNT}} articles</strong> <span data-i18n="from_sources">from 20+ sources</span></div>
+    </div>
+    <div class="ed-rule-double"></div>
+    <div id="trending"></div>
+    <div id="main">{{CONTENT}}</div>
+    <div id="ctxMain" style="display:none">{{CTX_CONTENT}}</div>
+
+  </div>
+
+  <!-- ── EXECUTIVE VIEW ── -->
+  <div id="viewExec" style="display:none">
+    <div class="exec-header">
+      <div>
+        <div class="ed-lbl" data-i18n="exec_label">Executive Summary · Škoda Auto</div>
+        <div class="ed-t" style="font-style:italic">{{MONTH_LABEL}}</div>
+        <div class="exec-subtitle" data-i18n="exec_subtitle">Top stories ranked by impact on Škoda Auto</div>
+      </div>
+      <div class="ed-m"><strong id="execCount">—</strong> <span data-i18n="key_stories">key stories</span></div>
+    </div>
+    <div class="exec-grid">
+      <div class="exec-list" id="execList"></div>
+      <div class="signal-panel">
+        <h3 data-i18n="signal_overview">Signal Overview</h3>
+        <div class="signal-row threat" onclick="filterBySignal('threat')">
+          <span class="signal-emoji">🔴</span>
+          <span class="signal-label" data-i18n="threat">Threat</span>
+          <span class="signal-count" id="sig-threat">0</span>
+        </div>
+        <div class="signal-row watch" onclick="filterBySignal('watch')">
+          <span class="signal-emoji">🟡</span>
+          <span class="signal-label" data-i18n="watch">Watch</span>
+          <span class="signal-count" id="sig-watch">0</span>
+        </div>
+        <div class="signal-row opportunity" onclick="filterBySignal('opportunity')">
+          <span class="signal-emoji">🟢</span>
+          <span class="signal-label" data-i18n="opportunity">Opportunity</span>
+          <span class="signal-count" id="sig-opportunity">0</span>
+        </div>
+        <div class="signal-row info" onclick="filterBySignal('info')">
+          <span class="signal-emoji">🔵</span>
+          <span class="signal-label">Info</span>
+          <span class="signal-count" id="sig-info">0</span>
+        </div>
+        <div class="signal-filter-hint" data-i18n="click_to_filter">Click to filter</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TREND BOARD ── -->
+  <div id="viewTrend" style="display:none">
+    <div class="trend-board-header">
+      <div class="ed-lbl" data-i18n="trend_board_label">Trend Board</div>
+      <div class="ed-t" style="font-style:italic" data-i18n="resonating_now">What's Resonating Now</div>
+    </div>
+    <div class="trend-board-grid" id="trendBoard"></div>
+  </div>
+
+  <!-- ── DEEP DIVE ── -->
+  <div id="viewDeep" style="display:none">
+    <div class="deep-header">
+      <div>
+        <div class="ed-lbl">Deep Dive — Technology & Competitive Intelligence</div>
+        <div class="ed-t" style="font-style:italic">Technology & Competitive Intelligence</div>
+      </div>
+    </div>
+    <div class="deep-filters">
+      <button class="df on" data-df="all" onclick="setDeepFilter('all',this)" data-i18n="all">All</button>
+      <button class="df" data-df="battery"    onclick="setDeepFilter('battery',this)">🔋 Battery Tech</button>
+      <button class="df" data-df="regulation" onclick="setDeepFilter('regulation',this)">🏛 Regulation & Tariffs</button>
+      <button class="df" data-df="competitor" onclick="setDeepFilter('competitor',this)">🏎 Competitor Moves</button>
+      <button class="df" data-df="autonomy"   onclick="setDeepFilter('autonomy',this)">🤖 Autonomy & SW</button>
+      <button class="df" data-df="supply"     onclick="setDeepFilter('supply',this)">🔗 Supply Chain</button>
+    </div>
+    <div class="deep-grid" id="deepGrid"></div>
+  </div>
+</div>
+
+<!-- ── HELP / LEGEND ── -->
+<div id="helpSection" style="display:none">
+  <div style="max-width:1320px;margin:0 auto;padding:32px 52px;border-top:1px solid var(--bdr)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+      
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:12px">📋 News Feed</div>
+        <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--txt);line-height:1.7">Hlavní přehled všech zpráv v magazínovém layoutu. Největší karta vlevo = nejnovější zpráva. Kliknutím na kartu otevřeš detail s perexem, analýzou a odkazem na originál.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:8px;letter-spacing:.08em">Pro: všechny</div>
+      </div>
+
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:12px">📊 Pro management</div>
+        <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--txt);line-height:1.7">Top 10 zpráv seřazených podle dopadu na Škoda Auto. Každá zpráva má semafor: 🔴 Ohrožení · 🟡 Sledovat · 🟢 Příležitost · 🔵 Info. AI vyhodnotí dopad automaticky při každé aktualizaci.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:8px;letter-spacing:.08em">Pro: CEO, management, ředitelé</div>
+      </div>
+
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:12px">🔥 Trendy</div>
+        <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--txt);line-height:1.7">Vizuální přehled toho, co nejvíce rezonuje. Články seřazené podle relevance — ohrožení a příležitosti jsou nahoře. Pinterest-style layout pro rychlou orientaci.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:8px;letter-spacing:.08em">Pro: Marketing, PR, Social Media</div>
+      </div>
+
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:12px">🔬 Hloubková analýza</div>
+        <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--txt);line-height:1.7">Filtrování podle technických témat: baterie, regulace a cla, kroky konkurence, autonomní řízení, dodavatelský řetězec. Ideální pro detailní výzkum konkrétního tématu.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:8px;letter-spacing:.08em">Pro: produktoví manažeři, R&amp;D, nákup</div>
+      </div>
+
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:12px">🧠 So What? &amp; TL;DR</div>
+        <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--txt);line-height:1.7">AI funkce dostupné po kliknutí na libovolný článek. <strong style="color:var(--wh)">So What?</strong> — co zpráva znamená konkrétně pro Škoda Auto. <strong style="color:var(--wh)">TL;DR</strong> — shrnutí přizpůsobené tvé roli (Executive / Marketing / Product / Sales). Vyžaduje Anthropic API klíč (tlačítko 🔑 vpravo nahoře).</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:8px;letter-spacing:.08em">Pro: všechny</div>
+      </div>
+
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:12px">🏷️ Označení článků</div>
+        <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--txt);line-height:1.7">
+          <span style="background:var(--breaking-c);color:#fff;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;padding:1px 6px;margin-right:6px">BREAKING</span>Vydáno před méně než 6 hodinami<br><br>
+          <span style="background:var(--acc);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;padding:1px 6px;margin-right:6px">NEW</span>Vydáno před méně než 48 hodinami<br><br>
+          <span style="background:var(--mustread-c);color:#fff;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;padding:1px 6px;margin-right:6px">MUST READ</span>Klíčová zpráva (akvizice, rekord, recall…)
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="src-acc" id="sA">
+  <button class="stog" onclick="document.getElementById('sA').classList.toggle('src-open')">
+    <span data-i18n="sources">📰 Sources</span><span class="hl"> — Electrek · InsideEVs · Autocar · CnEVPost · iRozhlas · BBC · Der Spiegel · Financial Times · Politico & more</span>
+    <span class="sch">▼</span>
+  </button>
+  <div class="sbody">
+    <div class="sgrid">
+      <div>
+        <div class="sgh" style="color:var(--r-global)">🚗 Automotive — EV</div>
+        <div class="sgr"><div><span class="sn">Electrek</span><span class="sd">EN · electrek.co</span></div><span class="src-count" data-src="Electrek"></span></div>
+        <div class="sgr"><div><span class="sn">InsideEVs</span><span class="sd">EN · insideevs.com</span></div><span class="src-count" data-src="InsideEVs"></span></div>
+        <div class="sgr"><div><span class="sn">CleanTechnica</span><span class="sd">EN · cleantechnica.com</span></div><span class="src-count" data-src="CleanTechnica"></span></div>
+        <div class="sgr"><div><span class="sn">Electrive</span><span class="sd">EN · electrive.com</span></div><span class="src-count" data-src="Electrive"></span></div>
+        <div class="sgr"><div><span class="sn">Green Car Reports</span><span class="sd">EN · greencarreports.com</span></div><span class="src-count" data-src="Green Car Reports"></span></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--r-global)">🚗 Automotive — Global</div>
+        <div class="sgr"><div><span class="sn">Motor1</span><span class="sd">EN · motor1.com</span></div><span class="src-count" data-src="Motor1"></span></div>
+        <div class="sgr"><div><span class="sn">The Drive</span><span class="sd">EN · thedrive.com</span></div><span class="src-count" data-src="The Drive"></span></div>
+        <div class="sgr"><div><span class="sn">Automotive News</span><span class="sd">EN · autonews.com</span></div><span class="src-count" data-src="Automotive News"></span></div>
+        <div class="sgr"><div><span class="sn">TechCrunch</span><span class="sd">EN · techcrunch.com</span></div><span class="src-count" data-src="TechCrunch Transport"></span></div>
+        <div class="sgr"><div><span class="sn">Autocar</span><span class="sd">EN · autocar.co.uk</span></div><span class="src-count" data-src="Autocar"></span></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--r-china)">🇨🇳 China</div>
+        <div class="sgr"><div><span class="sn">CnEVPost</span><span class="sd">EN · cnevpost.com</span></div><span class="src-count" data-src="CnEVPost"></span></div>
+        <div class="sgr"><div><span class="sn">CarNewsChina</span><span class="sd">EN · carnewschina.com</span></div><span class="src-count" data-src="CarNewsChina"></span></div>
+        <div class="sgh" style="color:var(--r-ctx-world);margin-top:12px">🌍 World & Context</div>
+        <div class="sgr"><div><span class="sn">BBC News</span><span class="sd">EN · bbc.com</span></div><span class="src-count" data-src="BBC News"></span></div>
+        <div class="sgr"><div><span class="sn">Financial Times</span><span class="sd">EN · ft.com</span></div><span class="src-count" data-src="Financial Times"></span></div>
+        <div class="sgr"><div><span class="sn">Politico</span><span class="sd">EN · politico.com</span></div><span class="src-count" data-src="Politico"></span></div>
+        <div class="sgr"><div><span class="sn">Wired</span><span class="sd">EN · wired.com</span></div><span class="src-count" data-src="Wired"></span></div>
+      </div>
+      <div>
+        <div class="sgh" style="color:var(--r-ctx-eu)">🇪🇺 Europe / DE</div>
+        <div class="sgr"><div><span class="sn">Der Spiegel</span><span class="sd">DE · spiegel.de</span></div><span class="src-count" data-src="Der Spiegel"></span></div>
+        <div class="sgr"><div><span class="sn">Politico Europe</span><span class="sd">EN · politico.eu</span></div><span class="src-count" data-src="Politico Europe"></span></div>
+        <div class="sgr"><div><span class="sn">Auto Express</span><span class="sd">EN · autoexpress.co.uk</span></div><span class="src-count" data-src="Auto Express"></span></div>
+        <div class="sgh" style="color:var(--r-cz);margin-top:12px">🇨🇿 Czech Republic</div>
+        <div class="sgr"><div><span class="sn">iRozhlas</span><span class="sd">CZ · irozhlas.cz</span></div><span class="src-count" data-src="iRozhlas"></span></div>
+        <div class="sgr"><div><span class="sn">Hospodářské noviny</span><span class="sd">CZ · hn.cz</span></div><span class="src-count" data-src="Hospodářské noviny"></span></div>
+        <div class="sgr"><div><span class="sn">Hybrid.cz</span><span class="sd">CZ · hybrid.cz</span></div><span class="src-count" data-src="Hybrid.cz"></span></div>
+        <div class="sgr"><div><span class="sn">Auto.cz</span><span class="sd">CZ · auto.cz</span></div><span class="src-count" data-src="Auto.cz"></span></div>
+        <div class="sgr"><div><span class="sn">iDnes Auto</span><span class="sd">CZ · idnes.cz</span></div><span class="src-count" data-src="iDnes Auto"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>ŠKODA INTELLIGENCE HUB · Škoda Auto · {{MONTH_LABEL}}</span>
+  <span data-i18n="footer_note">25+ sources · Auto-updated daily</span>
+</footer>
+
+<script>
+const SIG_EMOJI={threat:"🔴",opportunity:"🟢",watch:"🟡",info:"🔵"};
+const LANG_INSTRUCTION={
+  en:"Respond in English.",
+  cs:"Odpověz v češtině.",
+  de:"Antworte auf Deutsch."
+};
+const KW=["Tesla","BYD","Škoda","Skoda","Volkswagen","VW","Rivian","Waymo","BMW","Hyundai","Toyota","Ford","Lucid","Nio","Geely","Mercedes","Stellantis","Kia","Volvo","Porsche","Audi","Renault","Honda","Nissan","Leapmotor","Xpeng","tariff","tariffs","robotaxi","solid-state","charging","recall","Cybercab","autonomous","battery","hybrid","EU","NATO","Ukraine","energy","inflation","sanctions"];
+
+// ── I18N ──
+const I18N = {
+  en: {
+    automotive:"Automotive", world_context:"World & Context",
+    news_feed:"News Feed", exec_summary:"Executive Summary",
+    trend_board:"Trend Board", deep_dive:"Deep Dive",
+    all:"All", global:"Global", czech:"Czech Republic",
+    all_topics:"All Topics", autonomous:"Autonomous", policy:"Policy",
+    industry:"Industry", battery:"Battery & Charging", automotive_short:"Automotive",
+    archive:"📁 Archive", images:"Images", light:"Light", dark:"Dark",
+    read_article:"Read full article →", generate:"Generate ›",
+    sowhat_placeholder:"Click Generate to analyze for Škoda Auto…",
+    search_placeholder:"🔍  Search: Tesla, BYD, tariffs, EU…",
+    automotive_intelligence:"Automotive & Mobility Intelligence · Škoda Auto",
+    from_sources:"from 25+ sources", key_stories:"key stories",
+    signal_overview:"Signal Overview", threat:"Threat", watch:"Watch",
+    opportunity:"Opportunity", click_to_filter:"Click to filter",
+    trend_board_label:"Trend Board", resonating_now:"What's Resonating Now",
+    deep_dive_label:"Deep Dive Analytics", tech_competitive:"Technology & Competitive Intelligence",
+    exec_label:"Executive Summary · Škoda Auto",
+    exec_subtitle:"Top stories ranked by impact on Škoda Auto",
+    competitor_presence:"📊 Competitor Media Presence — click to filter",
+    sources:"📰 Sources", footer_note:"25+ sources · Auto-updated daily",
+    all_sources:"All sources", filter_by_lang:"Filter by source language",
+  },
+  cs: {
+    automotive:"Automotive", world_context:"Svět & Kontext",
+    news_feed:"Přehled zpráv", exec_summary:"Pro management",
+    trend_board:"Trendy", deep_dive:"Hloubková analýza",
+    all:"Vše", global:"Globálně", czech:"Česká republika",
+    all_topics:"Všechna témata", autonomous:"Autonomní vozidla", policy:"Politika",
+    industry:"Průmysl", battery:"Baterie & Nabíjení", automotive_short:"Automotive",
+    archive:"📁 Archiv", images:"Obrázky", light:"Světlý", dark:"Tmavý",
+    read_article:"Číst celý článek →", generate:"Generovat ›",
+    sowhat_placeholder:"Klikněte pro analýzu dopadu na Škoda Auto…",
+    search_placeholder:"🔍  Hledat: Tesla, BYD, cla, EU…",
+    automotive_intelligence:"Automotive & Mobilita · Škoda Auto",
+    from_sources:"z 25+ zdrojů", key_stories:"klíčových zpráv",
+    signal_overview:"Přehled signálů", threat:"Ohrožení", watch:"Sledovat",
+    opportunity:"Příležitost", click_to_filter:"Kliknutím filtrovat",
+    trend_board_label:"Přehled trendů", resonating_now:"Co teď rezonuje",
+    deep_dive_label:"Hloubková analytika", tech_competitive:"Technologie & Konkurenční zpravodajství",
+    exec_label:"Pro management · Škoda Auto",
+    exec_subtitle:"Top zprávy seřazené podle dopadu na Škoda Auto",
+    competitor_presence:"📊 Mediální přítomnost konkurence — kliknutím filtrovat",
+    sources:"📰 Zdroje", footer_note:"25+ zdrojů · Aktualizováno denně",
+    all_sources:"Všechny zdroje", filter_by_lang:"Filtrovat dle jazyka zdroje",
+  },
+  de: {
+    automotive:"Automotive", world_context:"Welt & Kontext",
+    news_feed:"Newsfeed", exec_summary:"Management-Übersicht",
+    trend_board:"Trends", deep_dive:"Tiefenanalyse",
+    all:"Alle", global:"Global", czech:"Tschechien",
+    all_topics:"Alle Themen", autonomous:"Autonomes Fahren", policy:"Politik",
+    industry:"Industrie", battery:"Batterie & Laden", automotive_short:"Automotive",
+    archive:"📁 Archiv", images:"Bilder", light:"Hell", dark:"Dunkel",
+    read_article:"Ganzen Artikel lesen →", generate:"Generieren ›",
+    sowhat_placeholder:"Klicken um Analyse für Škoda Auto zu generieren…",
+    search_placeholder:"🔍  Suchen: Tesla, BYD, Zölle, EU…",
+    automotive_intelligence:"Automotive & Mobilität · Škoda Auto",
+    from_sources:"aus 25+ Quellen", key_stories:"wichtige Meldungen",
+    signal_overview:"Signal-Übersicht", threat:"Bedrohung", watch:"Beobachten",
+    opportunity:"Chance", click_to_filter:"Klicken zum Filtern",
+    trend_board_label:"Trend-Board", resonating_now:"Was gerade resoniert",
+    deep_dive_label:"Tiefenanalyse", tech_competitive:"Technologie & Wettbewerbs-Intelligence",
+    exec_label:"Management-Übersicht · Škoda Auto",
+    exec_subtitle:"Top-Meldungen nach Auswirkung auf Škoda Auto",
+    competitor_presence:"📊 Medienpräsenz der Konkurrenz — klicken zum Filtern",
+    sources:"📰 Quellen", footer_note:"25+ Quellen · Täglich aktualisiert",
+    all_sources:"Alle Quellen", filter_by_lang:"Nach Quellensprache filtern",
+  }
+};
+
+// Source language mapping
+const SOURCE_LANG = {
+  "Electrek":"en","InsideEVs":"en","CleanTechnica":"en","Electrive":"en",
+  "Green Car Reports":"en","Motor1":"en","The Drive":"en","Automotive News":"en",
+  "TechCrunch Transport":"en","The Verge":"en","Autocar":"en","Auto Express":"en",
+  "Autovista24":"en","CnEVPost":"en","CarNewsChina":"en","Gasgoo":"en",
+  "BBC News":"en","Associated Press":"en","Financial Times":"en","Politico":"en",
+  "Wired":"en","Politico Europe":"en",
+  "Der Spiegel":"de",
+  "iRozhlas":"cs","ČT24":"cs","Seznam Zprávy":"cs","Deník N":"cs",
+  "Hospodářské noviny":"cs","CzechCrunch":"cs","Hybrid.cz":"cs",
+  "Auto.cz":"cs","AutoRevue.cz":"cs","iDnes Auto":"cs","Autoforum.cz":"cs","EV Magazin CZ":"cs",
+};
+
+// ── STATE ──
+let aR="all", aT="all", aQ="", curView="standard", curSection="automotive";
+let curLang="cs", curLangFilter="all", showingNewOnly=false, deepFilter="all";
+let execCards=[], trendCards=[], deepCards=[];
+let currentArticleData=null;
+
+// ── INIT ──
+(function(){
+  const t = localStorage.getItem("md-theme") || "light";
+  document.documentElement.setAttribute("data-theme", t);
+  updateThemeBtn(t);
+  const l = localStorage.getItem("md-lang") || "cs";
+  curLang = l;
+  document.documentElement.setAttribute("data-lang", l);
+  document.querySelectorAll(".li[data-lang]").forEach(b=>b.classList.toggle("on",b.dataset.lang===l));
+  applyI18n(l);
+  if (localStorage.getItem("md-img") === "off") {
+    document.body.classList.add("no-images");
+    document.getElementById("imgBtn").classList.remove("on");
+  }
+  checkNewArticles();
+})();
+
+// ── I18N ──
+function applyI18n(lang) {
+  const t = I18N[lang] || I18N.en;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if (t[key]) el.textContent = t[key];
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
+  });
+  // Search placeholder
+  const si = document.getElementById("si");
+  if (si && t.search_placeholder) si.placeholder = t.search_placeholder;
+  // Theme button
+  updateThemeBtn(document.documentElement.getAttribute("data-theme"));
+}
+function setLang(lang) {
+  curLang = lang;
+  localStorage.setItem("md-lang", lang);
+  document.documentElement.setAttribute("data-lang", lang);
+  document.querySelectorAll(".li[data-lang]").forEach(b=>b.classList.toggle("on",b.dataset.lang===lang));
+  applyI18n(lang);
+}
+
+// ── THEME ──
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("md-theme", next);
+  updateThemeBtn(next);
+}
+function updateThemeBtn(t) {
+  const b = document.getElementById("themeBtn");
+  if (!b) return;
+  b.textContent = t === "light" ? "🌙 Dark" : "☀️ Light";
+  t === "light" ? b.classList.remove("on") : b.classList.add("on");
+}
+function toggleImg() {
+  const nowOff = document.body.classList.toggle("no-images");
+  document.getElementById("imgBtn").classList.toggle("on", !nowOff);
+  localStorage.setItem("md-img", nowOff ? "off" : "on");
+}
+
+// ── SECTION (Automotive / World) ──
+function setSection(sec, btn) {
+  curSection = sec;
+  document.querySelectorAll(".snb").forEach(b=>b.classList.toggle("on",b.dataset.sec===sec));
+  const isAuto = sec === "automotive";
+  document.getElementById("main").style.display    = isAuto ? "" : "none";
+  document.getElementById("ctxMain").style.display = isAuto ? "none" : "";
+  // Always switch to standard view when changing section
+  switchView("standard", document.querySelector(".vb[data-v=\"standard\"]"));
+  document.getElementById("heatmapWrap").style.display = isAuto ? "" : "none";
+  // Update region nav for world section
+  const rnavEl = document.getElementById("rnav");
+  const tnavEl = document.getElementById("tnav");
+  if (!isAuto) {
+    rnavEl.innerHTML = `
+      <button class="rb on" data-r="all" onclick="sR('all')">All</button>
+      <button class="rb" data-r="ctx-world" onclick="sR('ctx-world')">Global</button>
+      <button class="rb" data-r="ctx-eu"    onclick="sR('ctx-eu')">Europe</button>
+      <button class="rb" data-r="ctx-cz"    onclick="sR('ctx-cz')">Czech Republic</button>`;
+    tnavEl.innerHTML = `
+      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+      <button class="fb" data-t="politics"   onclick="sT('politics')">🏛 Politics</button>
+      <button class="fb" data-t="economy"    onclick="sT('economy')">📈 Economy</button>
+      <button class="fb" data-t="tech"       onclick="sT('tech')">💡 Technology</button>
+      <button class="fb" data-t="culture"    onclick="sT('culture')">🎭 Culture</button>`;
+  } else {
+    rnavEl.innerHTML = `
+      <button class="rb on" data-r="all" onclick="sR('all')">All</button>
+      <button class="rb" data-r="world"  onclick="sR('world')">Global</button>
+      <button class="rb" data-r="europe" onclick="sR('europe')">Europe</button>
+      <button class="rb" data-r="china"  onclick="sR('china')">China</button>
+      <button class="rb" data-r="cz"     onclick="sR('cz')">Czech Republic</button>`;
+    tnavEl.innerHTML = `
+      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+      <button class="fb" data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
+      <button class="fb" data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+      <button class="fb" data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+      <button class="fb" data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+      <button class="fb" data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+      <button class="fb" data-t="tech"     onclick="sT('tech')">🔋 Battery</button>`;
+  }
+  aR = "all"; aT = "all";
+  applyFilters();
+}
+
+// ── LANGUAGE FILTER ──
+function setLangFilter(lf) {
+  curLangFilter = lf;
+  document.querySelectorAll(".lf[data-lf]").forEach(b=>b.classList.toggle("on",b.dataset.lf===lf));
+  applyFilters();
+}
+
+// ── VIEW SWITCHER ──
+function switchView(v, btn) {
+  curView = v;
+  document.querySelectorAll(".vb").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  // Keep main/ctxMain always in DOM (just visually hidden via viewStandard)
+  // Show the right view panel
+  // viewStandard stays in DOM always (cards must be queryable)
+  // Use visibility+overflow to hide it visually when not active
+  const vs = document.getElementById("viewStandard");
+  if (v === "standard") {
+    vs.style.position = ""; vs.style.left = ""; vs.style.width = ""; vs.style.height = "";
+  } else {
+    vs.style.position = "absolute"; vs.style.left = "-9999px"; vs.style.width = "1px"; vs.style.height = "1px";
+  }
+  document.getElementById("viewExec").style.display  = v === "exec"  ? "block" : "none";
+  document.getElementById("viewTrend").style.display = v === "trend" ? "block" : "none";
+  document.getElementById("viewDeep").style.display  = v === "deep"  ? "block" : "none";
+  // Show/hide region+topic in filter bar
+  const hideTopicRegion = v === "exec" || v === "trend";
+  const rnav = document.getElementById("rnav");
+  const tnav = document.getElementById("tnav");
+  const sep  = document.getElementById("topicSep");
+  if (rnav) rnav.style.display = hideTopicRegion ? "none" : "flex";
+  if (tnav) tnav.style.display = hideTopicRegion ? "none" : "flex";
+  if (sep)  sep.style.display  = hideTopicRegion ? "none" : "block";
+  if (v === "exec")  renderExec();
+  if (v === "trend") renderTrendBoard();
+  if (v === "deep")  renderDeep();
+}
+
+// ── FILTERS ──
+function sR(r) { aR=r; document.querySelectorAll(".rb").forEach(b=>b.classList.toggle("on",b.dataset.r===r)); applyFilters(); }
+function sT(t) { aT=t; document.querySelectorAll(".fb").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); applyFilters(); }
+function onSearch(q) { aQ=q.toLowerCase().trim(); document.getElementById("sc").classList.toggle("on",aQ.length>0); applyFilters(); }
+function clearS() { document.getElementById("si").value=""; onSearch(""); }
+
+function getActiveCards() {
+  const container = curSection === "world" ? "#ctxMain .card" : "#main .card";
+  return [...document.querySelectorAll(container)];
+}
+
+function applyFilters() {
+  showingNewOnly = false;
+  document.getElementById("newCounter").style.background = "";
+  let v=0;
+  // Filter in source divs (for exec/trend/deep queries) AND display divs (for visual)
+  const allCards = [...document.querySelectorAll(".card")];
+  allCards.forEach(c=>{
+    const regionOk = aR==="all" || c.dataset.region===aR;
+    const topicOk  = aT==="all" || c.dataset.cat===aT;
+    const searchOk = aQ===""    || c.dataset.search.includes(aQ);
+    const langOk   = curLangFilter==="all" || SOURCE_LANG[c.dataset.source]===curLangFilter;
+    const ok = regionOk && topicOk && searchOk && langOk;
+    c.classList.toggle("hidden",!ok);
+    if(ok)v++;
+  });
+  const s = v+" article"+(v!==1?"s":"");
+  document.getElementById("vc").textContent  = s;
+  document.getElementById("cnt").textContent = s;
+  document.querySelectorAll(".rsec,.ctx-section").forEach(sec=>{
+    sec.style.display=[...sec.querySelectorAll(".card")].some(c=>!c.classList.contains("hidden"))?"":"none";
+  });
+  updateButtonCounts();
+  updateSourceCounts();
+  buildTrending();
+  buildHeatmap();
+}
+
+function updateButtonCounts() {
+  const rc={all:0,world:0,europe:0,china:0,cz:0,"ctx-world":0,"ctx-eu":0,"ctx-cz":0}, tc={};
+  document.querySelectorAll(".card").forEach(c=>{
+    const r=c.dataset.region,cat=c.dataset.cat;
+    const tOk=aT==="all"||c.dataset.cat===aT;
+    const qOk=aQ===""||c.dataset.search.includes(aQ);
+    const lOk=curLangFilter==="all"||SOURCE_LANG[c.dataset.source]===curLangFilter;
+    const rOk=aR==="all"||c.dataset.region===aR;
+    if(tOk&&qOk&&lOk){rc.all++;if(rc[r]!==undefined)rc[r]++;}
+    if(rOk&&qOk&&lOk){tc[cat]=(tc[cat]||0)+1;}
+  });
+  document.querySelectorAll(".rb").forEach(b=>{
+    const n=rc[b.dataset.r]||0;
+    let s=b.querySelector(".rc");
+    if(!s){s=document.createElement("span");s.className="rc";b.appendChild(s);}
+    s.textContent=n>0?n:"";
+  });
+  const total=Object.values(tc).reduce((a,b)=>a+b,0);
+  document.querySelectorAll(".fb").forEach(b=>{
+    const n=b.dataset.t==="all"?total:(tc[b.dataset.t]||0);
+    let s=b.querySelector(".fc");
+    if(!s){s=document.createElement("span");s.className="fc";b.appendChild(s);}
+    s.textContent=n>0?n:"";
+  });
+}
+function updateSourceCounts() {
+  const counts={};
+  document.querySelectorAll(".card:not(.hidden)").forEach(c=>{counts[c.dataset.source||""]=(counts[c.dataset.source||""]||0)+1;});
+  document.querySelectorAll(".src-count").forEach(el=>{el.textContent=counts[el.dataset.src]||"";});
+}
+
+// ── NEW ARTICLES ──
+function checkNewArticles() {
+  const last = localStorage.getItem("md-last-visit");
+  localStorage.setItem("md-last-visit", Date.now());
+  if (!last) return;
+  const newCards = [...document.querySelectorAll(".card")].filter(c=>c.querySelector(".badge-new"));
+  if (newCards.length > 0) {
+    const btn = document.getElementById("newCounter");
+    btn.innerHTML = `⚡ ${newCards.length} new`;
+    btn.classList.add("on");
+  }
+}
+function showNewOnly() {
+  showingNewOnly = !showingNewOnly;
+  const btn = document.getElementById("newCounter");
+  document.querySelectorAll(".card").forEach(c=>{
+    c.classList.toggle("hidden", showingNewOnly && !c.querySelector(".badge-new"));
+  });
+  btn.style.background = showingNewOnly ? "rgba(26,107,74,.2)" : "";
+}
+
+// ── TRENDING ──
+function buildTrending() {
+  const freq={};
+  document.querySelectorAll(".card:not(.hidden)").forEach(c=>{
+    const txt=(c.dataset.search||"").toLowerCase();
+    KW.forEach(k=>{if(txt.includes(k.toLowerCase()))freq[k]=(freq[k]||0)+1;});
+  });
+  if(freq["Škoda"]||freq["Skoda"]){freq["Škoda"]=(freq["Škoda"]||0)+(freq["Skoda"]||0);delete freq["Skoda"];}
+  if(freq["VW"]||freq["Volkswagen"]){freq["Volkswagen"]=(freq["VW"]||0)+(freq["Volkswagen"]||0);delete freq["VW"];}
+  const top=Object.entries(freq).filter(([,n])=>n>=2).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const el=document.getElementById("trending");
+  if(!top.length){el.innerHTML="";return;}
+  el.innerHTML=`<div class="trending"><span class="trend-lbl">🔥 Trending</span><div class="trend-tags">${top.map(([k,n])=>`<span class="trend-tag" onclick="trendClick('${k}')">${k}<span class="tc">×${n}</span></span>`).join("")}</div></div>`;
+}
+function trendClick(k){document.getElementById("si").value=k;onSearch(k);window.scrollTo({top:0,behavior:"smooth"});}
+
+// ── COMPETITOR HEATMAP ──
+const COMP_LIST=["Tesla","BYD","Toyota","Hyundai","Kia","Renault","Stellantis","Geely","BMW","Mercedes","Ford","Volvo","Nio","Xpeng","Honda","Rivian"];
+function buildHeatmap() {
+  const counts={};
+  document.querySelectorAll(".card:not(.hidden)").forEach(c=>{
+    (c.dataset.competitors||"").split(",").filter(Boolean).forEach(comp=>{counts[comp]=(counts[comp]||0)+1;});
+  });
+  const sorted=Object.entries(counts).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  if(!sorted.length){
+    document.getElementById("heatmapBars").innerHTML="<div style=\"font-size:11px;color:var(--dim)\">Data se načtou po dalším update</div>";
+    return;
+  }
+  const max=sorted[0][1];
+  document.getElementById("heatmapBars").innerHTML=sorted.map(([name,n])=>`
+    <div class="hm-row" onclick="filterByComp('${name}')">
+      <span class="hm-name">${name}</span>
+      <div class="hm-bar"><div class="hm-bar-fill" style="width:${(n/max*100).toFixed(0)}%"></div></div>
+      <span class="hm-count">${n}</span>
+    </div>`).join("");
+}
+function filterByComp(name){document.getElementById("si").value=name;onSearch(name);window.scrollTo({top:0,behavior:"smooth"});}
+
+// ── HELPERS ──
+const CC={ev:"#1a6b4a",auto:"#2563eb",autonomy:"#d97706",policy:"#7c3aed",industry:"#b45309",tech:"#0891b2",politics:"#c026d3",economy:"#ea580c",science:"#0891b2",culture:"#7c3aed",sport:"#16a34a"};
+const CL={ev:"BEV/PHEV",auto:"Automotive",autonomy:"Autonomous",policy:"Policy",industry:"Industry",tech:"Technology",politics:"Politics",economy:"Economy",science:"Science",culture:"Culture",sport:"Sport"};
+function catColor(c){return CC[c]||"#6b6560";}
+function catLabel(c){return CL[c]||c;}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+
+// ── EXECUTIVE VIEW ──
+function renderExec() {
+  const cards=[...document.querySelectorAll(".card")];
+  const sigOrder={threat:0,opportunity:1,watch:2,info:3};
+  execCards=[...cards].sort((a,b)=>(sigOrder[a.dataset.signal]||3)-(sigOrder[b.dataset.signal]||3)).slice(0,10);
+  const counts={threat:0,opportunity:0,watch:0,info:0};
+  cards.forEach(c=>{const s=c.dataset.signal||"info";if(counts[s]!==undefined)counts[s]++;});
+  ["threat","opportunity","watch","info"].forEach(s=>{document.getElementById("sig-"+s).textContent=counts[s];});
+  document.getElementById("execCount").textContent=execCards.length;
+  document.getElementById("execList").innerHTML=execCards.map((c,idx)=>`
+    <div class="exec-item" data-signal="${c.dataset.signal||'info'}" onclick="openOverlay(execCards[${idx}])">
+      <span class="exec-signal">${SIG_EMOJI[c.dataset.signal||"info"]}</span>
+      <div class="exec-body">
+        <div class="exec-title">${esc(c.dataset.title||"")}</div>
+        <div class="exec-reason">${esc(c.dataset.signalReason||"General industry news")}</div>
+        <div class="exec-meta">
+          <span class="exec-src">${esc(c.dataset.source||"")}</span>
+          <span>${esc(c.dataset.date||"")}</span>
+          ${c.dataset.url?`<a class="exec-read" href="${esc(c.dataset.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Read →</a>`:""}
+        </div>
+      </div>
+    </div>`).join("");
+}
+function filterBySignal(sig) {
+  document.querySelectorAll(".exec-item").forEach(item=>{
+    item.style.display=(item.dataset.signal===sig)?"flex":"none";
+  });
+}
+
+// ── TREND BOARD ──
+function renderTrendBoard() {
+  const cards=[...document.querySelectorAll(".card:not(.hidden)")];
+  const sigWeight={threat:3,opportunity:2,watch:1,info:0};
+  trendCards=[...cards].sort((a,b)=>(sigWeight[b.dataset.signal]||0)-(sigWeight[a.dataset.signal]||0)).slice(0,40);
+  document.getElementById("trendBoard").innerHTML=trendCards.map((c,idx)=>{
+    const img=c.dataset.img||"";
+    const imgHtml=img?`<div class="iw"><img class="ci" src="${esc(img)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`:"";
+    return `<div class="trend-card" onclick="openOverlay(trendCards[${idx}])">
+      ${imgHtml}
+      <div class="cb">
+        <div class="ccat"><span class="pip" style="background:${catColor(c.dataset.cat)}"></span><span style="color:${catColor(c.dataset.cat)}">${catLabel(c.dataset.cat)}</span>${c.dataset.signal&&c.dataset.signal!=="info"?`<span style="margin-left:auto">${SIG_EMOJI[c.dataset.signal]}</span>`:""}</div>
+        <div class="ct">${esc(c.dataset.title||"")}</div>
+        <div class="cf"><span class="cs">${esc(c.dataset.source||"")}</span><span class="ca">${esc(c.dataset.date||"")}</span></div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ── DEEP DIVE ──
+const DEEP_KW={
+  battery:["battery","batteries","solid-state","LFP","NMC","charging","kWh","range","blade","cell-to-pack"],
+  regulation:["tariff","tariffs","regulation","EU","Euro 7","emission","ban","policy","legislation","carbon","subsidy"],
+  competitor:["Tesla","BYD","Toyota","Hyundai","Kia","Renault","Stellantis","Geely","BMW","Mercedes","Ford","competitor"],
+  autonomy:["autonomous","self-driving","robotaxi","ADAS","software","OTA","AI","Waymo","FSD","neural"],
+  supply:["supply chain","chip","semiconductor","lithium","cobalt","factory","production","recall","shortage","supplier"]
+};
+function setDeepFilter(f,btn){deepFilter=f;document.querySelectorAll(".df").forEach(b=>b.classList.toggle("on",b.dataset.df===f));renderDeep();}
+function renderDeep() {
+  const cards=[...document.querySelectorAll(".card")];
+  let filtered=cards;
+  if(deepFilter!=="all"){
+    const kws=DEEP_KW[deepFilter]||[];
+    filtered=cards.filter(c=>kws.some(k=>(c.dataset.search||"").toLowerCase().includes(k.toLowerCase())));
+  }
+  deepCards=filtered.slice(0,30);
+  const grid=document.getElementById("deepGrid");
+  if(!deepCards.length){grid.innerHTML="<div style=\"grid-column:span 12;padding:40px;text-align:center;color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase\">No articles match this filter</div>";return;}
+  grid.innerHTML=deepCards.map((c,i)=>{
+    const size=i===0?"s8":i===1?"s6":"s4";
+    const sig=c.dataset.signal||"info";
+    const img=c.dataset.img||"";
+    const imgHtml=img?`<div class="iw"><img class="ci" src="${esc(img)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"><div class="cfb">📊</div></div>`:`<div class="iw ie"><div class="cfb">📊</div></div>`;
+    return `<div class="card ${size}" data-signal="${sig}" onclick="openOverlay(deepCards[${i}])">
+      <div class="card-signal"></div>
+      ${imgHtml}
+      <div class="cb">
+        <div class="ccat"><span class="pip" style="background:${catColor(c.dataset.cat)}"></span><span style="color:${catColor(c.dataset.cat)}">${catLabel(c.dataset.cat)}</span></div>
+        <div class="ct">${esc(c.dataset.title||"")}</div>
+        ${i<2?`<div class="cd">${esc(c.dataset.desc||"")}…</div>`:""}
+        <div class="cf"><span class="cs">${esc(c.dataset.source||"")}</span><span class="ca">${esc(c.dataset.date||"")}</span>${SIG_EMOJI[sig]?`<span>${SIG_EMOJI[sig]}</span>`:""}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ── EXPAND PEREX ──
+document.addEventListener("click",function(e){
+  if(e.target.closest("a"))return;
+  if(e.target.closest(".overlay"))return;
+  if(e.target.closest(".exec-item"))return;
+  if(e.target.closest(".trend-card"))return;
+  if(e.target.closest("[data-idx]")&&!e.target.closest(".card.s4")&&!e.target.closest(".card.s3"))return;
+  const isListMode=document.body.classList.contains("no-images");
+  const card = e.target.closest(".card");
+  if(!card)return;
+  card.classList.toggle("exp");
+  const h=card.querySelector(".xhint");
+  if(h)h.textContent=card.classList.contains("exp")?"▲ collapse":"▼ read more";
+});
+
+// ── OVERLAY ──
+function openOverlay(card) {
+  if (!card) return;
+  currentArticleData = {
+    title:card.dataset.title, desc:card.dataset.desc, url:card.dataset.url,
+    img:card.dataset.img, source:card.dataset.source, date:card.dataset.date,
+    cat:card.dataset.cat, signal:card.dataset.signal, signalReason:card.dataset.signalReason
+  };
+  document.getElementById("ai-sowhat-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">"+(I18N[curLang]||I18N.en).sowhat_placeholder+"</span>";
+  document.getElementById("ai-tldr-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">Select a role and generate…</span>";
+  switchAiTab("sowhat", document.querySelector(".ai-tab"));
+
+  const img=currentArticleData.img||"";
+  const olImg=document.getElementById("ol-img");
+  if(img){olImg.src=img;olImg.classList.remove("hidden");}else{olImg.src="";olImg.classList.add("hidden");}
+  const sig=currentArticleData.signal||"info";
+  const col=catColor(currentArticleData.cat);
+  const sigBadge=sig&&sig!=="info"?`<span class="signal-badge sig-${sig}">${SIG_EMOJI[sig]} ${sig}</span>`:"";
+  document.getElementById("ol-cat").innerHTML=`<span style="width:6px;height:6px;border-radius:50%;background:${col};display:inline-block;flex-shrink:0"></span><span style="color:${col};font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase">${catLabel(currentArticleData.cat)}</span>${sigBadge}`;
+  document.getElementById("ol-title").textContent=currentArticleData.title||"";
+  document.getElementById("ol-desc").textContent=(currentArticleData.desc||"")+"…";
+  document.getElementById("ol-src").textContent=currentArticleData.source||"";
+  document.getElementById("ol-date").textContent=currentArticleData.date||"";
+  const link=document.getElementById("ol-link");
+  if(currentArticleData.url){link.href=currentArticleData.url;link.style.display="inline-block";}else{link.style.display="none";}
+  document.getElementById("overlay").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+function closeOverlay(){document.getElementById("overlay").classList.remove("on");document.body.style.overflow="";}
+function overlayBgClick(e){if(e.target===document.getElementById("overlay"))closeOverlay();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeOverlay();});
+
+// ── AI: So What? ──
+async function runSoWhat() {
+  if(!currentArticleData)return;
+  const apiKey = localStorage.getItem("md-api-key");
+  if(!apiKey){showApiDialog();return;}
+  const el=document.getElementById("ai-sowhat-content");
+  el.innerHTML="<div class=\"ai-loading\"><div class=\"ai-spinner\"></div>Analyzing for Škoda Auto…</div>";
+  try {
+    const resp=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true","x-api-key":apiKey},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",max_tokens:400,
+        messages:[{role:"user",content:`You are an automotive industry analyst for Škoda Auto (Czech manufacturer, VW Group member. Competitors: Toyota, Hyundai, Kia, Renault, Tesla, BYD, Chinese brands).\n\nArticle: "${currentArticleData.title}"\nSummary: "${currentArticleData.desc}"\n\nWrite a concise "So What?" (3-5 sentences) for Škoda Auto. 1) What this means specifically for Škoda. 2) Recommended action. Be direct, no generic statements.\n\n${LANG_INSTRUCTION[curLang]||LANG_INSTRUCTION.en}`}]
+      })
+    });
+    const data=await resp.json();
+    el.innerHTML=`<div>${(data.content[0].text||"").replace(/\n/g,"<br>")}</div>`;
+  } catch(err){el.innerHTML=`<span style="color:var(--breaking-c)">Error: ${err.message}</span>`;}
+}
+
+// ── AI: TL;DR ──
+let selectedRole="executive";
+document.querySelectorAll(".ai-role").forEach(b=>b.addEventListener("click",function(){
+  selectedRole=this.dataset.role;
+  document.querySelectorAll(".ai-role").forEach(x=>x.classList.toggle("on",x===this));
+}));
+async function runTldr() {
+  if(!currentArticleData)return;
+  const apiKey = localStorage.getItem("md-api-key");
+  if(!apiKey){showApiDialog();return;}
+  const el=document.getElementById("ai-tldr-content");
+  const roleLabels={executive:"a CEO/executive",marketing:"a Marketing/PR manager",product:"a Product Manager or R&D engineer",sales:"a Sales manager"};
+  el.innerHTML="<div class=\"ai-loading\"><div class=\"ai-spinner\"></div>Generating TL;DR…</div>";
+  try {
+    const resp=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true","x-api-key":apiKey},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",max_tokens:300,
+        messages:[{role:"user",content:`Summarize this automotive news for ${roleLabels[selectedRole]} at Škoda Auto.\n\nArticle: "${currentArticleData.title}"\nSummary: "${currentArticleData.desc}"\n\nTL;DR (2-3 sentences max), tailored to this person's perspective. Be specific and actionable.\n\n${LANG_INSTRUCTION[curLang]||LANG_INSTRUCTION.en}`}]
+      })
+    });
+    const data=await resp.json();
+    el.innerHTML=`<div>${(data.content[0].text||"").replace(/\n/g,"<br>")}</div>`;
+  } catch(err){el.innerHTML=`<span style="color:var(--breaking-c)">Error: ${err.message}</span>`;}
+}
+function switchAiTab(tab,btn) {
+  document.querySelectorAll(".ai-tab").forEach(b=>b.classList.remove("on"));
+  document.querySelector(`.ai-tab[onclick*="${tab}"]`)?.classList.add("on");
+  document.getElementById("ai-sowhat-wrap").style.display=tab==="sowhat"?"block":"none";
+  document.getElementById("ai-tldr-wrap").style.display=tab==="tldr"?"block":"none";
+}
+
+// ── API KEY ──
+function showApiDialog() {
+  const existing = localStorage.getItem("md-api-key");
+  if(existing) document.getElementById("apiKeyInput").value = existing;
+  document.getElementById("apiDialog").style.display = "flex";
+  setTimeout(()=>document.getElementById("apiKeyInput").focus(), 100);
+}
+function saveApiKey() {
+  const key = document.getElementById("apiKeyInput").value.trim();
+  if(!key){return;}
+  localStorage.setItem("md-api-key", key);
+  const status = document.getElementById("apiKeyStatus");
+  status.style.display = "block";
+  status.textContent = "✓ Klíč uložen";
+  setTimeout(()=>{
+    document.getElementById("apiDialog").style.display = "none";
+    status.style.display = "none";
+  }, 1200);
+}
+
+// ── HELP ──
+function toggleHelp() {
+  const h = document.getElementById("helpSection");
+  const isOpen = h.style.display !== "none";
+  h.style.display = isOpen ? "none" : "block";
+  if (!isOpen) h.scrollIntoView({behavior:"smooth"});
+}
+
+// ── HEATMAP SIDEBAR ──
+function toggleHeatmap() {
+  document.getElementById("heatmapSidebar").classList.toggle("open");
+  document.getElementById("heatmapOverlay").classList.toggle("on");
+}
+
+// ── SCROLL TO TOP ──
+window.addEventListener("scroll",()=>{document.getElementById("stt").classList.toggle("on",window.scrollY>500);});
+
+// ── INIT ──
+updateButtonCounts();
+updateSourceCounts();
+buildTrending();
+buildHeatmap();
+switchView("standard", document.querySelector(".vb.on"));
+</script>
+</body>
+</html>
