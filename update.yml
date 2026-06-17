@@ -1,0 +1,38 @@
+name: Update Motor Desk
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # every day at 05:00 UTC = 07:00 CZ (Morning Brief)
+    - cron: "0 13 * * *"  # every day at 13:00 UTC = 15:00 CZ (Afternoon Brief)
+  workflow_dispatch:        # manual trigger from Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests --break-system-packages 2>/dev/null || true
+
+      - name: Run generator
+        run: python generate.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit updated files
+        run: |
+          git config user.name  "Škoda Digest Bot"
+          git config user.email "bot@skoda-digest"
+          git add motor-desk.html archive.html articles.json
+          # Always create a commit to keep workflow active
+          git diff --cached --quiet && echo "# $(date +'%Y-%m-%d')" > .last-update && git add .last-update
+          git commit -m "Škoda Digest: $(date +'%d %B %Y') update" || true
+          git push
