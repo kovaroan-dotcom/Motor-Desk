@@ -4,39 +4,56 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Zdroje — Škoda Digest</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0e3a2f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230e3a2f'/><text x='50' y='68' font-size='56' font-family='Arial,Helvetica,sans-serif' font-weight='900' fill='%2378faae' text-anchor='middle'>S</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600&family=Barlow+Condensed:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="header.css">
 <style>
+[data-theme="light"]{--pg-bg:#fff;--pg-txt:#1a3020;--pg-panel:#f0f5f0;--pg-bdr:#d0e0d0;--pg-bdr2:#b8d0b8;--pg-mut:#4a6a4a;--pg-dim:#7a9a7a;--pg-h1:#071a0f;--pg-card:#fff}
+[data-theme="dark"]{--pg-bg:#081510;--pg-txt:#b0cfc0;--pg-panel:#0e2018;--pg-bdr:#1a3028;--pg-bdr2:#224035;--pg-mut:#7ab898;--pg-dim:#6a9880;--pg-h1:#e8f5ee;--pg-card:#0e2018}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#fff;color:#1a3020;font-family:'JetBrains Mono',monospace;line-height:1.6}
-.header{background:#f0f5f0;border-bottom:2px solid #0e3a2f;padding:16px 52px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0e3a2f;text-decoration:none}
-.back{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#4a6a4a;text-decoration:none;border:1px solid #b8d0b8;padding:4px 12px;transition:all .15s}
-.back:hover{border-color:#0e3a2f;color:#0e3a2f}
+body{background:var(--pg-bg);color:var(--pg-txt);font-family:'JetBrains Mono',monospace;line-height:1.6;transition:background .25s,color .25s}
 .page{max-width:1100px;margin:0 auto;padding:48px 52px}
-h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#071a0f;margin-bottom:8px}
-.subtitle{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#8aa08a;margin-bottom:48px}
+h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--pg-h1);margin-bottom:8px}
+.subtitle{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--pg-dim);margin-bottom:48px}
 .group{margin-bottom:40px}
-.group-title{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#0e3a2f;padding-bottom:10px;border-bottom:2px solid #0e3a2f;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:#d0e0d0}
-.source-item{background:#fff;padding:14px 16px;display:flex;flex-direction:column;gap:3px}
-.source-name{font-size:12px;font-weight:600;color:#071a0f;letter-spacing:.04em}
-.source-url{font-size:9px;color:#8aa08a;letter-spacing:.06em}
+.group-title{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);padding-bottom:10px;border-bottom:2px solid var(--acc);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--pg-bdr)}
+.source-item{background:var(--pg-card);padding:14px 16px;display:flex;flex-direction:column;gap:3px}
+.source-name{font-size:12px;font-weight:600;color:var(--pg-h1);letter-spacing:.04em}
+.source-url{font-size:9px;color:var(--pg-dim);letter-spacing:.06em}
 .source-lang{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:1px 6px;border:1px solid;display:inline-block;margin-top:2px;width:fit-content}
 .lang-en{color:#1d4ed8;border-color:#1d4ed8}
-.lang-cs{color:#0e3a2f;border-color:#0e3a2f}
+.lang-cs{color:var(--acc);border-color:var(--acc)}
 .lang-de{color:#b45309;border-color:#b45309}
-.total{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8aa08a;margin-top:4px}
-footer{background:#f0f5f0;border-top:1px solid #d0e0d0;padding:14px 52px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8aa08a;display:flex;justify-content:space-between}
+.total{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--pg-dim);margin-top:4px}
+footer{background:var(--pg-panel);border-top:1px solid var(--pg-bdr);padding:14px 52px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--pg-dim);display:flex;justify-content:space-between}
 </style>
 </head>
 <body>
-<div class="header">
-  <a href="motor-desk.html" class="brand">Škoda Digest</a>
-  <a href="motor-desk.html" class="back">← Zpět na Digest</a>
+<div class="site-header">
+  <div class="mast-top">
+    <div class="brand-wrap">
+      <a href="motor-desk.html">
+        <span class="brand">
+          <span class="brand-škoda">ŠKODA</span>
+          <span class="brand-sep"> </span>
+          <span class="brand-digest">DIGEST</span>
+        </span>
+      </a>
+      <span class="brand-hub">Zdroje</span>
+    </div>
+    <div class="mast-right">
+      <a href="motor-desk.html" class="archive-link">← Zpět na Digest</a>
+      <a href="archive.html" class="archive-link">📁 Archiv</a>
+      <a href="help.html" class="archive-link">? Nápověda</a>
+      <button class="tbtn" id="themeBtn" onclick="toggleTheme()">🌙 Dark</button>
+    </div>
+  </div>
 </div>
 <div class="page">
   <h1>Zdroje</h1>
-  <div class="subtitle">25+ sledovaných zdrojů · automaticky aktualizováno denně</div>
+  <div class="subtitle">43 sledovaných zdrojů · automaticky aktualizováno 2× denně (7:00 a 15:00 CET)</div>
 
   <div class="group">
     <div class="group-title">🚗 Automotive — Elektromobilita</div>
@@ -54,12 +71,21 @@ footer{background:#f0f5f0;border-top:1px solid #d0e0d0;padding:14px 52px;font-si
     <div class="sources-grid">
       <div class="source-item"><span class="source-name">Motor1</span><span class="source-url">motor1.com</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">The Drive</span><span class="source-url">thedrive.com</span><span class="source-lang lang-en">EN</span></div>
-      <div class="source-item"><span class="source-name">Automotive News</span><span class="source-url">autonews.com</span><span class="source-lang lang-en">EN</span></div>
+      <div class="source-item"><span class="source-name">Automotive News 🔒</span><span class="source-url">autonews.com</span><span class="source-lang lang-en">EN</span></div>
+      <div class="source-item"><span class="source-name">Reuters Autos</span><span class="source-url">reuters.com</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">TechCrunch Transport</span><span class="source-url">techcrunch.com</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">The Verge</span><span class="source-url">theverge.com</span><span class="source-lang lang-en">EN</span></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">🇪🇺 Automotive — Evropa</div>
+    <div class="sources-grid">
       <div class="source-item"><span class="source-name">Autocar</span><span class="source-url">autocar.co.uk</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">Auto Express</span><span class="source-url">autoexpress.co.uk</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">Autovista24</span><span class="source-url">autovista24.autovistagroup.com</span><span class="source-lang lang-en">EN</span></div>
+      <div class="source-item"><span class="source-name">Politico EU Autos</span><span class="source-url">politico.eu</span><span class="source-lang lang-en">EN</span></div>
+      <div class="source-item"><span class="source-name">Transport &amp; Env.</span><span class="source-url">transportenvironment.org</span><span class="source-lang lang-en">EN</span></div>
     </div>
   </div>
 
@@ -79,7 +105,18 @@ footer{background:#f0f5f0;border-top:1px solid #d0e0d0;padding:14px 52px;font-si
       <div class="source-item"><span class="source-name">Auto.cz</span><span class="source-url">auto.cz</span><span class="source-lang lang-cs">CZ</span></div>
       <div class="source-item"><span class="source-name">AutoRevue.cz</span><span class="source-url">autorevue.cz</span><span class="source-lang lang-cs">CZ</span></div>
       <div class="source-item"><span class="source-name">iDnes Auto</span><span class="source-url">idnes.cz/auto</span><span class="source-lang lang-cs">CZ</span></div>
+      <div class="source-item"><span class="source-name">Autoforum.cz</span><span class="source-url">autoforum.cz</span><span class="source-lang lang-cs">CZ</span></div>
       <div class="source-item"><span class="source-name">EV Magazin CZ</span><span class="source-url">evmagazin.cz</span><span class="source-lang lang-cs">CZ</span></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">📋 Oficiální tiskové zprávy</div>
+    <div class="sources-grid">
+      <div class="source-item"><span class="source-name">Škoda Auto Novinky</span><span class="source-url">skoda-auto.cz/novinky</span><span class="source-lang lang-cs">CZ</span></div>
+      <div class="source-item"><span class="source-name">Škoda Storyboard</span><span class="source-url">skoda-storyboard.com</span><span class="source-lang lang-cs">CZ</span></div>
+      <div class="source-item"><span class="source-name">Volkswagen Newsroom</span><span class="source-url">volkswagen-newsroom.com</span><span class="source-lang lang-en">EN</span></div>
+      <div class="source-item"><span class="source-name">Toyota Newsroom</span><span class="source-url">global.toyota</span><span class="source-lang lang-en">EN</span></div>
     </div>
   </div>
 
@@ -88,7 +125,7 @@ footer{background:#f0f5f0;border-top:1px solid #d0e0d0;padding:14px 52px;font-si
     <div class="sources-grid">
       <div class="source-item"><span class="source-name">BBC News</span><span class="source-url">bbc.com/news</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">Associated Press</span><span class="source-url">apnews.com</span><span class="source-lang lang-en">EN</span></div>
-      <div class="source-item"><span class="source-name">Financial Times</span><span class="source-url">ft.com</span><span class="source-lang lang-en">EN</span></div>
+      <div class="source-item"><span class="source-name">Financial Times 🔒</span><span class="source-url">ft.com</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">Politico</span><span class="source-url">politico.com</span><span class="source-lang lang-en">EN</span></div>
       <div class="source-item"><span class="source-name">Wired</span><span class="source-url">wired.com</span><span class="source-lang lang-en">EN</span></div>
     </div>
@@ -99,9 +136,7 @@ footer{background:#f0f5f0;border-top:1px solid #d0e0d0;padding:14px 52px;font-si
     <div class="sources-grid">
       <div class="source-item"><span class="source-name">Der Spiegel</span><span class="source-url">spiegel.de</span><span class="source-lang lang-de">DE</span></div>
       <div class="source-item"><span class="source-name">Politico Europe</span><span class="source-url">politico.eu</span><span class="source-lang lang-en">EN</span></div>
-      <div class="source-item"><span class="source-name">Der Spiegel</span><span class="source-url">spiegel.de</span><span class="source-lang lang-de">DE</span></div>
       <div class="source-item"><span class="source-name">Euronews</span><span class="source-url">euronews.com</span><span class="source-lang lang-en">EN</span></div>
-      <div class="source-item"><span class="source-name">Transport & Environment</span><span class="source-url">transportenvironment.org</span><span class="source-lang lang-en">EN</span></div>
     </div>
   </div>
 
@@ -120,7 +155,27 @@ footer{background:#f0f5f0;border-top:1px solid #d0e0d0;padding:14px 52px;font-si
 </div>
 <footer>
   <span>Škoda Digest · Přehled zdrojů</span>
-  <span>Škoda Auto · Intelligence Hub · 25+ zdrojů</span>
+  <span>Škoda Auto · Intelligence Hub · 43 zdrojů</span>
 </footer>
+<script>
+(function(){
+  var t = localStorage.getItem("md-theme") || "light";
+  document.documentElement.setAttribute("data-theme", t);
+  updateThemeBtn(t);
+})();
+function updateThemeBtn(t){
+  var b = document.getElementById("themeBtn");
+  if(!b) return;
+  b.textContent = t === "light" ? "🌙 Dark" : "☀️ Light";
+  t === "light" ? b.classList.remove("on") : b.classList.add("on");
+}
+function toggleTheme(){
+  var cur = document.documentElement.getAttribute("data-theme");
+  var next = cur === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("md-theme", next);
+  updateThemeBtn(next);
+}
+</script>
 </body>
 </html>

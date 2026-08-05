@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
 Motor Desk – RSS generator
-Runs on the 1st of each month via GitHub Actions.
-Fetches up to 5 articles per source published in the previous calendar month,
-then renders motor-desk.html from template.html.
+Runs twice daily via GitHub Actions (07:00 and 15:00 CET, see .github/workflows/update.yml).
+Fetches up to 5 articles per source published in the last 30 days from each of the
+43 configured feeds, then renders motor-desk.html and archive.html from
+template.html / archive_template.html.
 """
 
 import os
@@ -36,9 +37,15 @@ Key competitors: Toyota, Hyundai, Kia, Renault, Stellantis, Tesla, BYD, Geely an
 Main markets: Europe, India, China. Key topics: EV transition, battery tech, EU regulations, 
 tariffs on Chinese EVs, VW Group strategy, supply chain."""
 
-def generate_monthly_digest(all_articles: list) -> str:
+CZ_MONTHS = {
+    1: "Leden", 2: "Únor", 3: "Březen", 4: "Duben", 5: "Květen", 6: "Červen",
+    7: "Červenec", 8: "Srpen", 9: "Září", 10: "Říjen", 11: "Listopad", 12: "Prosinec",
+}
+
+def generate_monthly_digest(all_articles: list, month_dt: datetime) -> str:
     """Generate Monthly Digest HTML summary."""
     from collections import Counter
+    month_label_cs = f"{CZ_MONTHS[month_dt.month]} {month_dt.year}"
     signals = Counter(a.get("signal","info") for a in all_articles)
     sig_order = {"threat":0,"opportunity":1,"watch":2,"info":3}
     top = sorted(all_articles, key=lambda a: sig_order.get(a.get("signal","info"),3))[:10]
@@ -75,7 +82,8 @@ def generate_monthly_digest(all_articles: list) -> str:
     )
     return (
         '<div style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#0e3a2f;margin-bottom:6px">MONTHLY DIGEST</div>'
-        '<div style="font-size:22px;font-weight:900;margin-bottom:16px;color:#212529">Přehled měsíce</div>'
+        f'<div style="font-size:22px;font-weight:900;margin-bottom:4px;color:#212529">Přehled měsíce — {html.escape(month_label_cs)}</div>'
+        f'<div style="font-size:11px;color:#868e96;margin-bottom:16px">Statistiky za {html.escape(month_label_cs)}</div>'
         f'<div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">{stats}</div>'
         '<div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0e3a2f;margin-bottom:12px">🏆 TOP UDÁLOSTI MĚSÍCE</div>'
         '<table style="width:100%;border-collapse:collapse">'
@@ -707,12 +715,12 @@ def main():
         signal_reason = html.escape(a.get("signal_reason",""))
         competitors_str = html.escape(",".join(a.get("competitors",[])))
         return f"""
-        <div class="card" data-region="{html.escape(a['region'])}" data-is-pr="{'1' if a.get('is_pr') else ''}" data-cat="{html.escape(a['cat'])}" data-search="{html.escape(search_str)}" data-source="{html.escape(a['source'])}" data-title="{html.escape(a['title'])}" data-desc="{html.escape(a['desc'])}" data-url="{html.escape(a.get('url',''))}" data-img="{html.escape(img_url)}" data-date="{html.escape(a['date'])}" data-signal="{signal}" data-signal-reason="{signal_reason}" data-competitors="{competitors_str}" data-reputation="{a.get('reputation',75)}" data-ts="{a.get('ts',0)}">
+        <div class="card" tabindex="0" role="button" aria-label="{html.escape(a['title'])}" data-region="{html.escape(a['region'])}" data-is-pr="{'1' if a.get('is_pr') else ''}" data-cat="{html.escape(a['cat'])}" data-search="{html.escape(search_str)}" data-source="{html.escape(a['source'])}" data-title="{html.escape(a['title'])}" data-desc="{html.escape(a['desc'])}" data-url="{html.escape(a.get('url',''))}" data-img="{html.escape(img_url)}" data-date="{html.escape(a['date'])}" data-signal="{signal}" data-signal-reason="{signal_reason}" data-competitors="{competitors_str}" data-reputation="{a.get('reputation',75)}" data-ts="{a.get('ts',0)}">
           {img_block}
           <div class="cb">
             <div class="ccat">
               <span class="pip" style="background:{col}"></span>
-              <span style="color:{col}">{label}</span>
+              <span class="cat-{a['cat']}">{label}</span>
             </div>
             <div class="ct">{html.escape(a["title"])}</div>
             <div class="cd">{html.escape(a["desc"])}…</div>
@@ -742,11 +750,6 @@ def main():
         </div>
         <div class="grid">{cards}</div>
       </div>"""
-
-    europe = diverse_limit(sorted([a for a in display_articles if a['region']=='europe'], key=lambda a:a['ts'],reverse=True), 80, 8)
-    china  = diverse_limit(sorted([a for a in display_articles if a['region']=='china'],  key=lambda a:a['ts'],reverse=True), 60, 6)
-
-
 
     world_section  = section_html(world,  "🌍", "Global")
     europe_section = section_html(europe, "🇪🇺", "Europe")
@@ -780,16 +783,14 @@ def main():
     from datetime import timezone as _tz
     now_utc = datetime.now(_tz.utc)
     
-    # Monthly Digest - always show, updated daily
-    is_month_end = True  # always generate; last 3 days trigger AI summary
     is_morning = now_utc.hour < 12
     brief_type_label = "Morning Brief" if is_morning else "Afternoon Brief"
 
-    # 24h articles for brief
-    cutoff_24h = (now_utc.timestamp() - 43200)  # 12 hours
-    auto_24h  = [a for a in (world + europe + china + cz) if a.get("ts",0) >= cutoff_24h]
-    world_24h = [a for a in (ctx_world + ctx_eu + ctx_cz) if a.get("ts",0) >= cutoff_24h]
-    brief_content = generate_brief(auto_24h, world_24h, is_morning)
+    # 12h articles for brief
+    cutoff_12h = (now_utc.timestamp() - 43200)  # 12 hours
+    auto_recent  = [a for a in (world + europe + china + cz) if a.get("ts",0) >= cutoff_12h]
+    world_recent = [a for a in (ctx_world + ctx_eu + ctx_cz) if a.get("ts",0) >= cutoff_12h]
+    brief_content = generate_brief(auto_recent, world_recent, is_morning)
 
     output = (
         template
@@ -801,10 +802,10 @@ def main():
         .replace("{{CTX_CONTENT}}", ctx_content)
         .replace("{{CTX_COUNT}}", str(len(ctx_world) + len(ctx_eu) + len(ctx_cz)))
         .replace("{{BRIEF_CONTENT}}", brief_content)
-        .replace("{{MONTHLY_CONTENT}}", generate_monthly_digest([a for a in all_articles if a.get("region","") not in ("ctx-world","ctx-eu","ctx-cz")]) if is_month_end else "")
+        .replace("{{MONTHLY_CONTENT}}", generate_monthly_digest([a for a in all_articles if a.get("region","") not in ("ctx-world","ctx-eu","ctx-cz")], today))
         .replace("{{BRIEF_TITLE}}", brief_type_label)
         .replace("{{BRIEF_NAV_TITLE}}", brief_type_label)
-        .replace("{{BRIEF_META}}", f"Top zprávy za posledních 24h · {updated}")
+        .replace("{{BRIEF_META}}", f"Top zprávy za posledních 12h · {updated}")
     )
 
     try:

@@ -1,0 +1,34 @@
+/* ── SHARED HEADER — used by motor-desk.html, archive.html, help.html, sources.html ──
+   Single source of truth for the top identity bar so all pages share the same
+   font, brand mark, and layout. Loaded via <link rel="stylesheet" href="header.css">
+   before each page's own <style> block, so page-specific rules can still override. */
+
+[data-theme="light"]{
+  --bg:#ffffff;--bg2:#f8f9fa;--bg3:#f1f3f5;
+  --bdr:#e9ecef;--bdr2:#dee2e6;
+  --acc:#0e3a2f;--acc2:#0a2d24;--grn:#78faae;
+  --mut:#495057;--dim:#6c7580;
+  --wh:#212529;--txt:#343a40;--head:#ffffff;
+}
+[data-theme="dark"]{
+  --bg:#081510;--bg2:#0e2018;--bg3:#122a20;--bdr:#1a3028;--bdr2:#224035;
+  --acc:#78faae;--acc2:#5ef59a;--grn:#78faae;
+  --mut:#7ab898;--dim:#6a9880;
+  --wh:#e8f5ee;--txt:#b0cfc0;--head:#050f0a;
+}
+
+.site-header{position:sticky;top:0;z-index:100;background:var(--head);transition:background .3s;box-shadow:0 4px 20px rgba(0,0,0,.08);border-bottom:1px solid var(--bdr)}
+.mast-top{display:flex;align-items:center;justify-content:space-between;padding:10px 52px;border-bottom:1px solid var(--bdr);gap:12px;flex-wrap:wrap;background:var(--head)}
+.brand-wrap{display:flex;flex-direction:column;gap:1px}
+.brand-wrap a{text-decoration:none}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:baseline;gap:0}
+.brand-škoda{color:var(--acc)}
+.brand-sep{color:var(--acc);font-weight:300;padding:0 4px;opacity:.4}
+.brand-digest{color:var(--acc)}
+.brand-hub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);opacity:.5}
+.mast-right{display:flex;align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap}
+.tbtn{display:flex;align-items:center;gap:4px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bdr2);border-radius:20px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s;white-space:nowrap;user-select:none}
+.tbtn:hover{border-color:var(--acc);color:var(--acc);box-shadow:0 2px 8px rgba(14,58,47,.1)}
+.tbtn.on{border-color:var(--acc);color:var(--bg);background:var(--acc)}
+.archive-link{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-decoration:none;border:1px solid var(--bdr2);border-radius:20px;padding:5px 12px;background:var(--bg2);transition:all .15s}
+.archive-link:hover{border-color:var(--acc);color:var(--acc)}

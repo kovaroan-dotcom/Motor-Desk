@@ -6,17 +6,13 @@
 <title>ŠKODA INTELLIGENCE HUB — {{MONTH_LABEL}}</title>
 <meta property="og:title" content="Škoda Intelligence Hub — {{MONTH_LABEL}}">
 <meta property="og:description" content="Automotive & World Intelligence for Škoda Auto">
-<meta name="theme-color" content="#f0ede8">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0ede8'/><text y='72' x='12' font-size='58' font-family='Georgia' font-weight='900' fill='%231a6b4a'>SD</text></svg>">
+<meta name="theme-color" content="#0e3a2f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230e3a2f'/><text x='50' y='68' font-size='56' font-family='Arial,Helvetica,sans-serif' font-weight='900' fill='%2378faae' text-anchor='middle'>S</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600&family=Barlow+Condensed:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="header.css">
 <style>
-/* ── THEMES ── */
+/* ── THEMES (app-specific vars beyond the shared header — see header.css for --bg/--acc/etc.) ── */
 [data-theme="light"]{
-  --bg:#ffffff;--bg2:#f8f9fa;--bg3:#f1f3f5;
-  --bdr:#e9ecef;--bdr2:#dee2e6;
-  --acc:#0e3a2f;--acc2:#0a2d24;--grn:#78faae;
-  --mut:#495057;--dim:#868e96;
-  --wh:#212529;--txt:#343a40;--head:#ffffff;
   --sbg:#ffffff;--sbdr:#dee2e6;--stxt:#212529;
   --overlay-bg:rgba(0,0,0,.6);
   --hero-grad:linear-gradient(to top,rgba(248,249,250,.98) 0%,rgba(248,249,250,.6) 55%,transparent 100%);
@@ -25,11 +21,11 @@
   --new-bg:rgba(14,58,47,.1);--new-c:#0e3a2f;
   --breaking-c:#b91c1c;--mustread-c:#b45309;
   --threat:#b91c1c;--opportunity:#0e3a2f;--watch:#b45309;--info:#1d4ed8;
+  --cat-ev:#19846d;--cat-auto:#086ff0;--cat-autonomy:#be5704;--cat-policy:#9d40fa;
+  --cat-industry:#5664f6;--cat-tech:#976e03;--cat-ai:#048096;--cat-politics:#c60ae3;
+  --cat-economy:#be5704;--cat-science:#19846d;--cat-culture:#7e55f8;--cat-sport:#198641;
 }
 [data-theme="dark"]{
-  --bg:#081510;--bg2:#0e2018;--bg3:#122a20;--bdr:#1a3028;--bdr2:#224035;
-  --acc:#78faae;--acc2:#5ef59a;--grn:#78faae;--mut:#7ab898;--dim:#4a7860;
-  --wh:#e8f5ee;--txt:#b0cfc0;--head:#050f0a;
   --sbg:#122a20;--sbdr:#224035;--stxt:#b0cfc0;
   --overlay-bg:rgba(5,15,10,.92);
   --hero-grad:linear-gradient(to top,rgba(5,15,10,.98) 0%,rgba(5,15,10,.55) 55%,transparent 100%);
@@ -38,30 +34,21 @@
   --new-bg:rgba(120,250,174,.12);--new-c:#78faae;
   --breaking-c:#f87171;--mustread-c:#fb923c;
   --threat:#f87171;--opportunity:#78faae;--watch:#fbbf24;--info:#60a5fa;
+  --cat-ev:#34d9b5;--cat-auto:#60a5fa;--cat-autonomy:#fb923c;--cat-policy:#c084fc;
+  --cat-industry:#818cf8;--cat-tech:#fbbf24;--cat-ai:#06b6d4;--cat-politics:#e879f9;
+  --cat-economy:#fb923c;--cat-science:#34d9b5;--cat-culture:#a78bfa;--cat-sport:#4ade80;
 }
+.cat-ev{color:var(--cat-ev)}.cat-auto{color:var(--cat-auto)}.cat-autonomy{color:var(--cat-autonomy)}
+.cat-policy{color:var(--cat-policy)}.cat-industry{color:var(--cat-industry)}.cat-tech{color:var(--cat-tech)}
+.cat-ai{color:var(--cat-ai)}.cat-politics{color:var(--cat-politics)}.cat-economy{color:var(--cat-economy)}
+.cat-science{color:var(--cat-science)}.cat-culture{color:var(--cat-culture)}.cat-sport{color:var(--cat-sport)}
 
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--txt);font-family:'Source Serif 4',Georgia,serif;min-height:100vh;transition:background .3s,color .3s}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.025;mix-blend-mode:multiply;z-index:0;background-image:var(--grain)}
 
-/* ── STICKY HEADER ── */
-.site-header{position:sticky;top:0;z-index:100;background:var(--head);transition:background .3s;box-shadow:0 4px 20px rgba(0,0,0,.08);border-bottom:1px solid var(--bdr)}
-
-/* LAYER 1 — Identity bar */
-.mast-top{display:flex;align-items:center;justify-content:space-between;padding:10px 52px;border-bottom:1px solid var(--bdr);gap:12px;flex-wrap:wrap;background:var(--head)}
-.brand-wrap{display:flex;flex-direction:column;gap:1px}
-.brand{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:baseline;gap:0}
-.brand-škoda{color:var(--acc)}
-.brand-sep{color:var(--acc);font-weight:300;padding:0 4px;opacity:.4}
-.brand-digest{color:var(--acc)}
-.brand-hub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);opacity:.5}
-.mast-right{display:flex;align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap}
+/* Header identity bar, brand mark, .tbtn/.archive-link come from header.css (shared across all pages) */
 .mast-date{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:right;line-height:1.6;padding-left:10px;border-left:1px solid var(--bdr2)}
 .mast-date strong{display:block;font-size:11px;color:var(--txt)}
-.tbtn{display:flex;align-items:center;gap:4px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bdr2);border-radius:20px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s;white-space:nowrap;user-select:none}
-.tbtn:hover{border-color:var(--acc);color:var(--acc);box-shadow:0 2px 8px rgba(14,58,47,.1)}.tbtn.on{border-color:var(--acc);color:var(--bg);background:var(--acc)}
-.archive-link{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-decoration:none;border:1px solid var(--bdr2);border-radius:20px;padding:5px 12px;background:var(--bg2);transition:all .15s}
-.archive-link:hover{border-color:var(--acc);color:var(--acc)}
 /* inline lang selector in identity bar */
 .lang-inline{display:flex;gap:1px;border:1px solid var(--bdr2)}
 .li{padding:3px 7px;background:transparent;border:none;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);cursor:pointer;transition:all .15s}
@@ -152,6 +139,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.025;
 .card{background:var(--bg2);position:relative;display:flex;flex-direction:column;transition:background .15s,transform .2s,box-shadow .2s;overflow:hidden;cursor:pointer;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
 .card.s8,.card.s6,.card.s4,.card.s3{grid-column:span 1}
 .card:hover{background:var(--bg3);transform:translateY(-3px);box-shadow:0 12px 28px -8px rgba(14,58,47,.18);border-color:var(--bdr2)}
+.card:focus-visible,.exec-item:focus-visible,.trend-card:focus-visible,.deep-item:focus-visible,.research-card:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .card.hidden{display:none!important}
 /* first card spans 2 cols, rest are equal */
 .grid .card:first-child{grid-column:span 2}
@@ -451,7 +439,8 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
 <div id="apiDialog" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
   <div style="background:var(--bg2);max-width:440px;width:100%;padding:32px;position:relative">
     <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--wh);margin-bottom:8px">Anthropic API Key</div>
-    <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:20px">Pro funkce So What? a TL;DR zadej svůj Anthropic API klíč. Uloží se pouze v tvém prohlížeči.</div>
+    <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:12px">Pro funkce So What? a TL;DR zadej svůj Anthropic API klíč. Uloží se pouze v tvém prohlížeči (localStorage) a odesílá se přímo z prohlížeče na api.anthropic.com — nikdy neprochází přes žádný server tohoto webu.</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--breaking-c);line-height:1.6;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);border-radius:6px;padding:8px 12px;margin-bottom:20px">⚠ Klíč zůstává v čitelné podobě v tomto prohlížeči. Nepoužívej ho na sdíleném/veřejném počítači a nikdy nepoužívej klíč s vysokým limitem útraty.</div>
     <input id="apiKeyInput" type="password" placeholder="sk-ant-..." style="width:100%;background:var(--sbg);border:1px solid var(--sbdr);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--stxt);outline:none;margin-bottom:12px;transition:border-color .15s" onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--sbdr)'" onkeydown="if(event.key==='Enter')saveApiKey()">
     <div style="display:flex;gap:8px">
       <button onclick="saveApiKey()" style="flex:1;padding:10px;background:var(--acc);color:var(--bg);border:none;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Uložit klíč</button>
@@ -463,8 +452,8 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
 
 <!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="overlayBgClick(event)">
-  <div class="overlay-box">
-    <button class="overlay-close" onclick="closeOverlay()">✕</button>
+  <div class="overlay-box" role="dialog" aria-modal="true" aria-labelledby="ol-title">
+    <button class="overlay-close" id="ol-close" onclick="closeOverlay()">✕</button>
     <img class="overlay-img" id="ol-img" src="" alt="">
     <div class="overlay-body">
       <div class="overlay-cat" id="ol-cat"></div>
@@ -678,7 +667,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
         <div class="ed-lbl">Škoda Intelligence Hub · {{MONTH_LABEL}}</div>
         <div class="ed-t" id="edTitle">{{MONTH_LABEL}} Edition</div>
       </div>
-      <div class="ed-m"><strong id="vc">{{ARTICLE_COUNT}} articles</strong> <span data-i18n="from_sources">from 20+ sources</span></div>
+      <div class="ed-m"><strong id="vc">{{ARTICLE_COUNT}} articles</strong> <span data-i18n="from_sources">from 43 sources</span></div>
     </div>
     <div class="ed-rule-double"></div>
     <div id="trending"></div>
@@ -1014,11 +1003,11 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
 
 <footer>
   <span>ŠKODA INTELLIGENCE HUB · Škoda Auto · {{MONTH_LABEL}}</span>
-  <span data-i18n="footer_note">25+ sources · Auto-updated daily</span>
+  <span data-i18n="footer_note">43 sources · Auto-updated twice daily</span>
 </footer>
 
 <script>
-let curSection = "brief";
+let curSection = "automotive";
 const SIG_EMOJI={threat:"🔴",opportunity:"🟢",watch:"🟡",info:"🔵"};
 const LANG_INSTRUCTION={
   en:"Respond in English.",
@@ -1042,7 +1031,7 @@ const I18N = {
     sowhat_placeholder:"Click Generate to analyze for Škoda Auto…",
     search_placeholder:"🔍  Search: Tesla, BYD, tariffs, EU…",
     automotive_intelligence:"Automotive & Mobility Intelligence · Škoda Auto",
-    from_sources:"from 25+ sources", key_stories:"key stories",
+    from_sources:"from 43 sources", key_stories:"key stories",
     signal_overview:"Signal Overview", threat:"Threat", watch:"Watch",
     opportunity:"Opportunity", click_to_filter:"Click to filter",
     trend_board_label:"Market Pulse", resonating_now:"Co rezonuje v médiích",
@@ -1050,7 +1039,7 @@ const I18N = {
     exec_label:"Management Summary · Škoda Auto",
     exec_subtitle:"Top stories ranked by impact on Škoda Auto",
     competitor_presence:"📊 Competitor Media Presence — click to filter",
-    sources:"📰 Sources", footer_note:"25+ sources · Auto-updated daily",
+    sources:"📰 Sources", footer_note:"43 sources · Auto-updated twice daily",
     all_sources:"All sources", filter_by_lang:"Filter by source language",
   },
   cs: {
@@ -1065,7 +1054,7 @@ const I18N = {
     sowhat_placeholder:"Klikněte pro analýzu dopadu na Škoda Auto…",
     search_placeholder:"🔍  Hledat: Tesla, BYD, cla, EU…",
     automotive_intelligence:"Automotive & Mobilita · Škoda Auto",
-    from_sources:"z 25+ zdrojů", key_stories:"klíčových zpráv",
+    from_sources:"z 43 zdrojů", key_stories:"klíčových zpráv",
     signal_overview:"Přehled signálů", threat:"Riziko", watch:"Sledovat",
     opportunity:"Příležitost", click_to_filter:"Kliknutím filtrovat",
     trend_board_label:"Přehled trendů", resonating_now:"Co teď rezonuje",
@@ -1073,7 +1062,7 @@ const I18N = {
     exec_label:"Pro management · Škoda Auto",
     exec_subtitle:"Top zprávy seřazené podle dopadu na Škoda Auto",
     competitor_presence:"📊 Mediální přítomnost konkurence — kliknutím filtrovat",
-    sources:"📰 Zdroje", footer_note:"25+ zdrojů · Aktualizováno denně",
+    sources:"📰 Zdroje", footer_note:"43 zdrojů · Aktualizováno 2× denně",
     all_sources:"Všechny zdroje", filter_by_lang:"Filtrovat dle jazyka zdroje",
   },
   de: {
@@ -1088,7 +1077,7 @@ const I18N = {
     sowhat_placeholder:"Klicken um Analyse für Škoda Auto zu generieren…",
     search_placeholder:"🔍  Suchen: Tesla, BYD, Zölle, EU…",
     automotive_intelligence:"Automotive & Mobilität · Škoda Auto",
-    from_sources:"aus 25+ Quellen", key_stories:"wichtige Meldungen",
+    from_sources:"aus 43 Quellen", key_stories:"wichtige Meldungen",
     signal_overview:"Signal-Übersicht", threat:"Bedrohung", watch:"Beobachten",
     opportunity:"Chance", click_to_filter:"Klicken zum Filtern",
     trend_board_label:"Trend-Board", resonating_now:"Was gerade resoniert",
@@ -1096,7 +1085,7 @@ const I18N = {
     exec_label:"Management-Übersicht · Škoda Auto",
     exec_subtitle:"Top-Meldungen nach Auswirkung auf Škoda Auto",
     competitor_presence:"📊 Medienpräsenz der Konkurrenz — klicken zum Filtern",
-    sources:"📰 Quellen", footer_note:"25+ Quellen · Täglich aktualisiert",
+    sources:"📰 Quellen", footer_note:"43 Quellen · 2× täglich aktualisiert",
     all_sources:"Alle Quellen", filter_by_lang:"Nach Quellensprache filtern",
   }
 };
@@ -1113,6 +1102,8 @@ const SOURCE_LANG = {
   "iRozhlas":"cs","ČT24":"cs","Seznam Zprávy":"cs","Deník N":"cs",
   "Hospodářské noviny":"cs","CzechCrunch":"cs","Hybrid.cz":"cs",
   "Auto.cz":"cs","AutoRevue.cz":"cs","iDnes Auto":"cs","Autoforum.cz":"cs","EV Magazin CZ":"cs",
+  "Reuters Autos":"en","Green Car Reports":"en","Politico EU Autos":"en","Transport & Env.":"en",
+  "Škoda Auto Novinky":"cs","Škoda Storyboard":"cs","Volkswagen Newsroom":"en","Toyota Newsroom":"en",
 };
 
 // ── STATE ──
@@ -1547,7 +1538,7 @@ function renderExec() {
   if(!execCards.length) execCards=cards.slice(0,10);
   document.getElementById("execCount").textContent=execCards.length;
   document.getElementById("execList").innerHTML=execCards.map((a,idx)=>`
-    <div class="exec-item" data-signal="${a.signal||'info'}" onclick="openOverlay(execCards[${idx}].el)">
+    <div class="exec-item" tabindex="0" role="button" aria-label="${esc(a.title)}" data-signal="${a.signal||'info'}" onclick="openOverlay(execCards[${idx}].el)">
       <span class="exec-signal">${SIG_EMOJI[a.signal||"info"]}</span>
       <div class="exec-body">
         <div class="exec-title">${esc(a.title)}</div>
@@ -1591,7 +1582,7 @@ function renderTrendBoard() {
     const img=a.img||"";
     const imgHtml=img?`<div class="iw"><img class="ci" src="${esc(img)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`:"";
     const sigColor={threat:"var(--threat)",opportunity:"var(--opportunity)",watch:"var(--watch)",info:"transparent"};
-    return `<div class="trend-card" style="border-left:3px solid ${sigColor[a.signal]||"transparent"}" onclick="openOverlay(trendCards[${idx}].el)">
+    return `<div class="trend-card" tabindex="0" role="button" aria-label="${esc(a.title)}" style="border-left:3px solid ${sigColor[a.signal]||"transparent"}" onclick="openOverlay(trendCards[${idx}].el)">
       ${imgHtml}
       <div class="cb">
         <div class="ccat">
@@ -1647,7 +1638,7 @@ function renderDeep() {
     topicCards.forEach(a=>{if(sigC[a.signal]!==undefined)sigC[a.signal]++;});
     const sigBar = [sigC.threat?`<span style="color:var(--threat)">🔴 ${sigC.threat}</span>`:"",sigC.opportunity?`<span style="color:var(--opportunity)">🟢 ${sigC.opportunity}</span>`:"",sigC.watch?`<span style="color:var(--watch)">🟡 ${sigC.watch}</span>`:""].filter(Boolean).join(" · ");
     const arts = topCards.map(a=>`<li class="research-article-item"><span class="research-article-sig">${SIG_EMOJI[a.signal]||"·"}</span><span class="research-article-title">${esc(a.title)}</span></li>`).join("");
-    return `<div class="research-card" style="border-top-color:${topic.color}" onclick="openResearchTopic('${topic.id}')">
+    return `<div class="research-card" tabindex="0" role="button" aria-label="${esc(topic.label)}" style="border-top-color:${topic.color}" onclick="openResearchTopic('${topic.id}')">
       <div class="research-card-header"><span class="research-card-icon">${topic.icon}</span><span class="research-card-title">${topic.label}</span><span class="research-card-count">${total} čl.</span></div>
       <div class="research-sparkline">${spark}</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:9px;margin-bottom:10px;color:var(--dim)">${sigBar||"info only"}</div>
@@ -1672,7 +1663,7 @@ function openResearchTopic(id) {
   grid.innerHTML = deepCards.map((a,i)=>{
     const sig=a.signal||"info";
     const sigCol={threat:"var(--threat)",opportunity:"var(--opportunity)",watch:"var(--watch)",info:"var(--bdr2)"};
-    return `<div class="deep-item" style="border-left:4px solid ${sigCol[sig]}" onclick="openOverlay(deepCards[${i}].el)">
+    return `<div class="deep-item" tabindex="0" role="button" aria-label="${esc(a.title)}" style="border-left:4px solid ${sigCol[sig]}" onclick="openOverlay(deepCards[${i}].el)">
       <div class="deep-item-meta"><span class="deep-item-cat" style="color:${catColor(a.cat)}">${catLabel(a.cat)}</span><span class="deep-item-sig">${SIG_EMOJI[sig]||""}</span></div>
       <div class="deep-item-title">${esc(a.title)}</div>
       <div class="deep-item-desc">${esc(a.desc)}</div>
@@ -1694,7 +1685,7 @@ async function analyzeResearchTopic(){
     const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:600,messages:[{role:"user",content:prompt}]})});
     const data=await resp.json();
     if(data.error)throw new Error(data.error.message);
-    const txt=(data.content[0].text||"").replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/^[*-] (.+)$/gm,"<li style='margin:3px 0'>$1</li>").replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>");
+    const txt=esc(data.content[0].text||"").replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/^[*-] (.+)$/gm,"<li style='margin:3px 0'>$1</li>").replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>");
     resultEl.innerHTML=`<div class="research-ai-text">${txt}</div>`;resultEl.style.display="block";btn.textContent="✓ Analyzováno";
   }catch(err){resultEl.innerHTML=`<span style="color:var(--breaking-c)">Chyba: ${err.message}</span>`;resultEl.style.display="block";btn.textContent="🔍 Analyzovat";btn.disabled=false;}
 }
@@ -1713,6 +1704,15 @@ document.addEventListener("click",function(e){
   card.classList.toggle("exp");
   const h=card.querySelector(".xhint");
   if(h)h.textContent=card.classList.contains("exp")?"▲ collapse":"▼ read more";
+});
+
+// ── KEYBOARD ACTIVATION for role="button" cards ──
+document.addEventListener("keydown",function(e){
+  if(e.key!=="Enter"&&e.key!==" ")return;
+  const el=e.target.closest('[role="button"]');
+  if(!el)return;
+  e.preventDefault();
+  el.click();
 });
 
 // ── OVERLAY ──
@@ -1747,8 +1747,16 @@ function openOverlay(card) {
   repEl.innerHTML = `<span style="color:${repColor}">●</span> ${rep}% důvěryhodnost`;
   document.getElementById("overlay").classList.add("on");
   document.body.style.overflow="hidden";
+  lastFocusedEl = document.activeElement;
+  document.getElementById("ol-close").focus();
 }
-function closeOverlay(){document.getElementById("overlay").classList.remove("on");document.body.style.overflow="";}
+let lastFocusedEl=null;
+function closeOverlay(){
+  document.getElementById("overlay").classList.remove("on");
+  document.body.style.overflow="";
+  if(lastFocusedEl&&typeof lastFocusedEl.focus==="function")lastFocusedEl.focus();
+  lastFocusedEl=null;
+}
 function overlayBgClick(e){if(e.target===document.getElementById("overlay"))closeOverlay();}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeOverlay();});
 
@@ -1771,7 +1779,7 @@ async function runSoWhat() {
     const data=await resp.json();
     if(data.error){el.innerHTML=`<span style="color:var(--breaking-c)">API chyba: ${data.error.message}</span>`;return;}
     if(!data.content||!data.content[0]){el.innerHTML=`<span style="color:var(--breaking-c)">Neočekávaná odpověď API</span>`;return;}
-    const raw=(data.content[0].text||"");
+    const raw=esc(data.content[0].text||"");
     const formatted=raw.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>");
     el.innerHTML=`<div style="line-height:1.75;font-size:13px">${formatted}</div>`;
   } catch(err){el.innerHTML=`<span style="color:var(--breaking-c)">Error: ${err.message}</span>`;}
@@ -1842,7 +1850,7 @@ Shrnutí: ${currentArticleData.desc}`;
     const data=await resp.json();
     if(data.error){el.innerHTML=`<span style="color:var(--breaking-c)">API chyba: ${data.error.message}</span>`;return;}
     if(!data.content||!data.content[0]){el.innerHTML=`<span style="color:var(--breaking-c)">Neočekávaná odpověď API</span>`;return;}
-    let html = (data.content[0].text||"")
+    let html = esc(data.content[0].text||"")
       .replace(/^### (.+)$/gm, '<div class="impact-h2">$1</div>')
       .replace(/^#### (.+)$/gm, '<div class="impact-h3">$1</div>')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -1872,7 +1880,7 @@ async function runTldr() {
     const data=await resp.json();
     if(data.error){el.innerHTML=`<span style="color:var(--breaking-c)">API chyba: ${data.error.message}</span>`;return;}
     if(!data.content||!data.content[0]){el.innerHTML=`<span style="color:var(--breaking-c)">Neočekávaná odpověď API</span>`;return;}
-    el.innerHTML=`<div>${(data.content[0].text||"").replace(/\n/g,"<br>")}</div>`;
+    el.innerHTML=`<div>${esc(data.content[0].text||"").replace(/\n/g,"<br>")}</div>`;
   } catch(err){el.innerHTML=`<span style="color:var(--breaking-c)">Error: ${err.message}</span>`;}
 }
 function switchAiTab(tab,btn) {
@@ -2014,7 +2022,7 @@ buildHeatmap();
 // ── PREFERENCES ─────────────────────────────────────────────────────────────
 const PREFS_KEY = "skoda-digest-prefs";
 const PREFS_DEFAULT = {
-  section: "brief",
+  section: "automotive",
   view: "standard",
   sigThreshold: "all",
   regions: [],       // empty = show all

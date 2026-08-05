@@ -51,8 +51,8 @@ Za ~2 minuty se v repozitáři objeví `motor-desk.html` a web je živý.
 
 ## Automatická aktualizace
 
-GitHub Actions spustí `generate.py` automaticky každý **1. v měsíci v 6:00 UTC**.
-Skript stáhne RSS z 18 zdrojů, vezme max. 5 článků za předchozí měsíc z každého zdroje a přegeneruje `motor-desk.html`.
+GitHub Actions spustí `generate.py` automaticky **2× denně — v 5:00 a 13:00 UTC** (7:00 a 15:00 CET).
+Skript stáhne RSS ze 43 zdrojů, vezme max. 5 článků za posledních 30 dní z každého zdroje a přegeneruje `motor-desk.html` i `archive.html`.
 
 Spustit ručně kdykoliv: **Actions** → `Update Motor Desk` → **Run workflow**
 
@@ -66,8 +66,8 @@ Edituj seznam `SOURCES` v `generate.py`:
 {"name": "Nový zdroj", "url": "https://example.com/rss", "region": "world", "cat": "ev"},
 ```
 
-- `region`: `"world"` nebo `"cz"`
-- `cat`: `"ev"`, `"auto"`, `"autonomy"`, `"policy"`, `"industry"`, `"tech"`
+- `region`: `"world"`, `"europe"`, `"china"`, `"cz"`, `"ctx-world"`, `"ctx-eu"` nebo `"ctx-cz"`
+- `cat`: `"ev"`, `"auto"`, `"autonomy"`, `"policy"`, `"industry"`, `"tech"`, `"ai"`, `"politics"`, `"economy"`, `"culture"` (automaticky přepsáno podle klíčových slov v titulku/popisku)
 
 ## Změna počtu článků na zdroj
 
