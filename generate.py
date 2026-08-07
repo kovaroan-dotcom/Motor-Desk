@@ -792,6 +792,20 @@ def main():
     world_recent = [a for a in (ctx_world + ctx_eu + ctx_cz) if a.get("ts",0) >= cutoff_12h]
     brief_content = generate_brief(auto_recent, world_recent, is_morning)
 
+    # Monthly Digest: in the first week of a new month there isn't enough
+    # current-month data yet to be meaningful, so still show the previous
+    # full calendar month until the new month has accumulated a week of data.
+    if today.day <= 7:
+        digest_dt = (today.replace(day=1) - timedelta(days=1)).replace(day=1)
+    else:
+        digest_dt = today.replace(day=1)
+    digest_articles = [
+        a for a in archive
+        if a.get("region", "") not in ("ctx-world", "ctx-eu", "ctx-cz")
+        and datetime.fromtimestamp(a.get("ts", 0), tz=timezone.utc).year == digest_dt.year
+        and datetime.fromtimestamp(a.get("ts", 0), tz=timezone.utc).month == digest_dt.month
+    ]
+
     output = (
         template
         .replace("{{MONTH_LABEL}}", month_label)
@@ -802,7 +816,7 @@ def main():
         .replace("{{CTX_CONTENT}}", ctx_content)
         .replace("{{CTX_COUNT}}", str(len(ctx_world) + len(ctx_eu) + len(ctx_cz)))
         .replace("{{BRIEF_CONTENT}}", brief_content)
-        .replace("{{MONTHLY_CONTENT}}", generate_monthly_digest([a for a in all_articles if a.get("region","") not in ("ctx-world","ctx-eu","ctx-cz")], today))
+        .replace("{{MONTHLY_CONTENT}}", generate_monthly_digest(digest_articles, digest_dt))
         .replace("{{BRIEF_TITLE}}", brief_type_label)
         .replace("{{BRIEF_NAV_TITLE}}", brief_type_label)
         .replace("{{BRIEF_META}}", f"Top zprávy za posledních 12h · {updated}")
