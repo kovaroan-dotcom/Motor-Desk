@@ -92,6 +92,32 @@ body{background:var(--bg);color:var(--txt);font-family:'Source Serif 4',Georgia,
 .new-counter:hover{opacity:.9;box-shadow:0 4px 12px rgba(14,58,47,.3)}
 .cnt{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.15);padding:4px 11px;margin-left:auto}
 
+/* small non-interactive row labels — orient the visitor before the chips */
+.row-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-right:8px;flex-shrink:0}
+#viewNav{align-items:center;gap:2px}
+
+/* ── FILTERS DROPDOWN (Téma + Semafor + Jazyk zdroje, consolidated) ── */
+.filters-dd{position:relative}
+.filters-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bdr2);border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);transition:all .15s}
+.filters-btn:hover,.filters-btn.on{border-color:var(--acc);color:var(--acc);box-shadow:0 2px 8px rgba(14,58,47,.1)}
+.filters-badge{background:var(--acc);color:var(--bg);border-radius:9px;padding:0 6px;font-size:9px;font-weight:700;line-height:15px;min-width:15px;text-align:center}
+.filters-backdrop{display:none;position:fixed;inset:0;z-index:140}
+.filters-backdrop.on{display:block}
+.filters-popover{display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:141;background:var(--bg2);border:1px solid var(--bdr2);border-radius:10px;box-shadow:0 16px 40px -8px rgba(0,0,0,.22);padding:14px 16px;min-width:340px;max-width:min(420px,86vw)}
+.filters-popover.open{display:block}
+.fp-row{padding:9px 0}
+.fp-row + .fp-row{border-top:1px solid var(--bdr)}
+.fp-row .row-lbl{display:block;margin:0 0 8px}
+.fp-row #tnav,.fp-row #signalFilterBar,.fp-row .lang-filter{display:flex!important;flex-wrap:wrap;gap:4px;margin:0;padding:0;border:none}
+.fp-row .lf{border:1px solid var(--bdr2);border-radius:14px;padding:3px 10px}
+
+/* ── "⋯ MORE" MENU (Archive / Help / Sources / API key) ── */
+.more-dd{position:relative}
+.more-popover{display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:141;background:var(--bg2);border:1px solid var(--bdr2);border-radius:10px;box-shadow:0 16px 40px -8px rgba(0,0,0,.22);padding:8px;min-width:180px}
+.more-popover.open{display:flex;flex-direction:column;gap:2px}
+.more-popover .archive-link,.more-popover .tbtn{border:none;background:none;padding:8px 10px;border-radius:6px;justify-content:flex-start;width:100%;text-align:left}
+.more-popover .archive-link:hover,.more-popover .tbtn:hover{background:var(--bg3)}
+
 /* ── PAGE ── */
 .page{max-width:1320px;margin:0 auto;padding:0 52px 80px;position:relative;z-index:1}
 
@@ -508,16 +534,22 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
       <span class="brand-hub">Intelligence Hub</span>
     </div>
     <div class="mast-right">
-      <a href="archive.html" class="archive-link">📁 Archive</a>
-        <a href="help.html" class="archive-link">? Nápověda</a>
-        <a href="sources.html" class="archive-link">📰 Zdroje</a>
-      <button class="tbtn" id="apiKeyBtn" onclick="showApiDialog()">🔑 API</button>
       <button class="tbtn on" id="imgBtn" onclick="toggleImg()">🖼 Images</button>
       <button class="tbtn" id="themeBtn" onclick="toggleTheme()">🌙 Dark</button>
       <div class="lang-inline">
         <button class="li" data-lang="en" onclick="setLang('en')">EN</button>
         <button class="li on" data-lang="cs" onclick="setLang('cs')">CZ</button>
         <button class="li" data-lang="de" onclick="setLang('de')">DE</button>
+      </div>
+      <div class="more-dd">
+        <button class="tbtn" id="moreBtn" onclick="toggleMoreMenu()">⋯ Více</button>
+        <div class="filters-backdrop" id="moreBackdrop" onclick="toggleMoreMenu()"></div>
+        <div class="more-popover" id="morePopover">
+          <a href="archive.html" class="archive-link">📁 Archive</a>
+          <a href="help.html" class="archive-link">? Nápověda</a>
+          <a href="sources.html" class="archive-link">📰 Zdroje</a>
+          <button class="tbtn" id="apiKeyBtn" onclick="toggleMoreMenu();showApiDialog()">🔑 API klíč</button>
+        </div>
       </div>
       <div class="mast-date"><strong>{{UPDATED}}</strong></div>
     </div>
@@ -604,24 +636,18 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
     </div>
   </div>
 
-  <!-- LAYER 3: View switcher -->
+  <!-- LAYER 3: View switcher (sub-views of the active section above) -->
   <div class="view-nav" id="viewNav">
+    <span class="row-lbl">Pohled</span>
     <button class="vb on" data-v="standard" onclick="switchView('standard',this)">News Feed</button>
     <button class="vb" data-v="exec"        onclick="switchView('exec',this)">Management Summary</button>
     <button class="vb" data-v="trend"       onclick="switchView('trend',this)">Market Pulse</button>
     <button class="vb" data-v="deep"        onclick="switchView('deep',this)">Research</button>
   </div>
-  <!-- Signal filter pills -->
-  <div class="signal-filter-bar" id="signalFilterBar" style="display:none">
-    <button class="sfb on" data-sf="all"         onclick="setSigFilter('all',this)">Vše</button>
-    <button class="sfb" data-sf="threat"      onclick="setSigFilter('threat',this)">🔴 Riziko</button>
-    <button class="sfb" data-sf="opportunity" onclick="setSigFilter('opportunity',this)">🟢 Příležitost</button>
-    <button class="sfb" data-sf="watch"       onclick="setSigFilter('watch',this)">🟡 Sledovat</button>
-    <button class="sfb" data-sf="info"        onclick="setSigFilter('info',this)">🔵 Info</button>
-  </div>
 
-  <!-- LAYER 4: Filters (region + topic + lang) -->
+  <!-- LAYER 4: Region — the one facet that always stays visible; the rest live in the Filtry popover below -->
   <div class="filter-bar" id="filterBar">
+    <span class="row-lbl">Region</span>
     <div id="rnav" style="display:flex;flex-wrap:wrap;gap:0;align-items:center">
       <button class="rb on" data-r="all"    onclick="sR('all')">All</button>
       <button class="rb"    data-r="world"  onclick="sR('world')">Global</button>
@@ -629,28 +655,50 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
       <button class="rb"    data-r="china"  onclick="sR('china')">China</button>
       <button class="rb"    data-r="cz"     onclick="sR('cz')">Czech Republic</button>
     </div>
-    <div class="filter-sep" id="topicSep"></div>
-    <div id="tnav" style="display:flex;flex-wrap:wrap;gap:0;align-items:center">
-      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
-      <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
-      <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
-      <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
-      <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
-      <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
-      <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
-    </div>
-    <div class="lang-filter">
-      <button class="lf on" data-lf="all" onclick="setLangFilter('all')">All</button>
-      <button class="lf"    data-lf="en"  onclick="setLangFilter('en')">EN</button>
-      <button class="lf"    data-lf="cs"  onclick="setLangFilter('cs')">CZ</button>
-      <button class="lf"    data-lf="de"  onclick="setLangFilter('de')">DE</button>
-    </div>
   </div>
 
   <div class="toolbar" id="mainToolbar">
     <div class="sw">
       <input class="si" id="si" type="text" oninput="onSearch(this.value)" data-i18n-placeholder="search_placeholder">
       <button class="sc" id="sc" onclick="clearS()">✕</button>
+    </div>
+    <div class="filters-dd">
+      <button class="filters-btn" id="filtersBtn" onclick="toggleFiltersPopover()">▾ Filtry<span class="filters-badge" id="filtersBadge" style="display:none"></span></button>
+      <div class="filters-backdrop" id="filtersBackdrop" onclick="toggleFiltersPopover()"></div>
+      <div class="filters-popover" id="filtersPopover">
+        <div class="fp-row">
+          <span class="row-lbl">Téma</span>
+          <div class="filter-sep" id="topicSep"></div>
+          <div id="tnav" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+            <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+            <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
+            <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+            <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+            <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+            <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+            <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
+          </div>
+        </div>
+        <div class="fp-row">
+          <span class="row-lbl">Semafor (jen Mgmt Summary &amp; Market Pulse)</span>
+          <div class="signal-filter-bar" id="signalFilterBar" style="display:none">
+            <button class="sfb on" data-sf="all"         onclick="setSigFilter('all',this)">Vše</button>
+            <button class="sfb" data-sf="threat"      onclick="setSigFilter('threat',this)">🔴 Riziko</button>
+            <button class="sfb" data-sf="opportunity" onclick="setSigFilter('opportunity',this)">🟢 Příležitost</button>
+            <button class="sfb" data-sf="watch"       onclick="setSigFilter('watch',this)">🟡 Sledovat</button>
+            <button class="sfb" data-sf="info"        onclick="setSigFilter('info',this)">🔵 Info</button>
+          </div>
+        </div>
+        <div class="fp-row">
+          <span class="row-lbl">Jazyk zdroje</span>
+          <div class="lang-filter">
+            <button class="lf on" data-lf="all" onclick="setLangFilter('all')">All</button>
+            <button class="lf"    data-lf="en"  onclick="setLangFilter('en')">EN</button>
+            <button class="lf"    data-lf="cs"  onclick="setLangFilter('cs')">CZ</button>
+            <button class="lf"    data-lf="de"  onclick="setLangFilter('de')">DE</button>
+          </div>
+        </div>
+      </div>
     </div>
     <button class="new-counter" id="newCounter" onclick="showNewOnly()"></button>
     <button class="heatmap-btn" onclick="toggleHeatmap()">📊 Konkurence</button>
@@ -1178,6 +1226,10 @@ function toggleImg() {
 function setSection(sec, btn) {
   curSection = sec;
   document.querySelectorAll(".snb").forEach(b=>b.classList.toggle("on",b.dataset.sec===sec));
+  // Close any open dropdowns so they don't resurface stale/open behind a hidden toolbar
+  ["filtersPopover","filtersBackdrop","filtersBtn","morePopover","moreBackdrop","moreBtn"].forEach(id=>{
+    const el = document.getElementById(id); if(el){ el.classList.remove("open"); el.classList.remove("on"); }
+  });
   const isAuto    = sec === "automotive";
   const isWorld   = sec === "world";
   const isBrief   = sec === "brief";
@@ -1278,6 +1330,7 @@ function setSection(sec, btn) {
       <button class="fb" data-t="tech"     onclick="sT('tech')">🔋 Battery</button>`;
   }
   aR = "all"; aT = "all";
+  updateFiltersBadge();
   // Preserve current view (News Feed/Mgmt Summary/Pulse/Deep) when switching Automotive<->World
   // Only reset to standard if currently on brief-incompatible state
   const viewToKeep = curView || "standard";
@@ -1290,6 +1343,37 @@ function setLangFilter(lf) {
   curLangFilter = lf;
   document.querySelectorAll(".lf[data-lf]").forEach(b=>b.classList.toggle("on",b.dataset.lf===lf));
   applyFilters();
+  updateFiltersBadge();
+}
+
+// ── FILTRY POPOVER (Téma + Semafor + Jazyk zdroje) ──
+function toggleFiltersPopover() {
+  const p = document.getElementById("filtersPopover");
+  const b = document.getElementById("filtersBackdrop");
+  const btn = document.getElementById("filtersBtn");
+  const open = p.classList.toggle("open");
+  b.classList.toggle("on", open);
+  btn.classList.toggle("on", open);
+}
+function updateFiltersBadge() {
+  let n = 0;
+  if (typeof aT !== "undefined" && aT !== "all") n++;
+  if (typeof curSigFilter !== "undefined" && curSigFilter !== "all") n++;
+  if (typeof curLangFilter !== "undefined" && curLangFilter !== "all") n++;
+  const badge = document.getElementById("filtersBadge");
+  if (!badge) return;
+  badge.textContent = n > 0 ? String(n) : "";
+  badge.style.display = n > 0 ? "" : "none";
+}
+
+// ── "⋯ MORE" MENU ──
+function toggleMoreMenu() {
+  const p = document.getElementById("morePopover");
+  const b = document.getElementById("moreBackdrop");
+  const btn = document.getElementById("moreBtn");
+  const open = p.classList.toggle("open");
+  b.classList.toggle("on", open);
+  btn.classList.toggle("on", open);
 }
 
 // ── VIEW SWITCHER ──
@@ -1300,6 +1384,7 @@ function switchView(v, btn) {
   if (v === "standard" || v === "deep") {
     curSigFilter = "all";
     document.querySelectorAll(".sfb").forEach(b=>b.classList.toggle("on", b.dataset.sf==="all"));
+    updateFiltersBadge();
   }
   // Keep main/ctxMain always in DOM (just visually hidden via viewStandard)
   // Show the right view panel
@@ -1329,7 +1414,7 @@ function switchView(v, btn) {
 
 // ── FILTERS ──
 function sR(r) { aR=r; document.querySelectorAll(".rb").forEach(b=>b.classList.toggle("on",b.dataset.r===r)); applyFilters(); }
-function sT(t) { aT=t; document.querySelectorAll(".fb").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); applyFilters(); }
+function sT(t) { aT=t; document.querySelectorAll(".fb").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); applyFilters(); updateFiltersBadge(); }
 function onSearch(q) { aQ=q.toLowerCase().trim(); document.getElementById("sc").classList.toggle("on",aQ.length>0); applyFilters(); }
 function clearS() { document.getElementById("si").value=""; onSearch(""); }
 
@@ -1971,6 +2056,7 @@ function setSigFilter(sf, btn) {
   curSigFilter = sf;
   document.querySelectorAll(".sfb").forEach(b=>b.classList.toggle("on", b.dataset.sf===sf));
   applyFilters();
+  updateFiltersBadge();
   // Re-render active view to reflect signal filter
   if(curView==="exec")  renderExec();
   if(curView==="trend") renderTrendBoard();
