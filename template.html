@@ -591,7 +591,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
 
       <!-- Výchozí pohled -->
       <div style="margin-bottom:24px">
-        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px">Výchozí pohled (Automotive &amp; S&amp;K)</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px">Výchozí styl reportu (Automotive &amp; S&amp;K)</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="pref-view-btn" data-val="standard" onclick="selectPrefView(this)" style="padding:8px 16px;border-radius:20px;border:1px solid var(--bdr);background:var(--bg3);color:var(--txt);font-size:13px;cursor:pointer;transition:all .15s">News Feed</button>
           <button class="pref-view-btn" data-val="exec"     onclick="selectPrefView(this)" style="padding:8px 16px;border-radius:20px;border:1px solid var(--bdr);background:var(--bg3);color:var(--txt);font-size:13px;cursor:pointer;transition:all .15s">Management Summary</button>
@@ -638,11 +638,12 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
 
   <!-- LAYER 3: View switcher (sub-views of the active section above) -->
   <div class="view-nav" id="viewNav">
-    <span class="row-lbl">Pohled</span>
+    <span class="row-lbl">Styl reportu</span>
     <button class="vb on" data-v="standard" onclick="switchView('standard',this)">News Feed</button>
     <button class="vb" data-v="exec"        onclick="switchView('exec',this)">Management Summary</button>
     <button class="vb" data-v="trend"       onclick="switchView('trend',this)">Market Pulse</button>
     <button class="vb" data-v="deep"        onclick="switchView('deep',this)">Research</button>
+    <button class="vb vb-pr" id="viewPrBtn" data-v="pr" onclick="switchView('pr',this)" style="border-color:var(--acc);color:var(--acc)">📋 Tiskové zprávy</button>
   </div>
 
   <!-- LAYER 4: Region — the one facet that always stays visible; the rest live in the Filtry popover below -->
@@ -679,9 +680,9 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
             <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
           </div>
         </div>
-        <div class="fp-row">
+        <div class="fp-row" id="semaforFpRow" style="display:none">
           <span class="row-lbl">Semafor (jen Mgmt Summary &amp; Market Pulse)</span>
-          <div class="signal-filter-bar" id="signalFilterBar" style="display:none">
+          <div class="signal-filter-bar" id="signalFilterBar">
             <button class="sfb on" data-sf="all"         onclick="setSigFilter('all',this)">Vše</button>
             <button class="sfb" data-sf="threat"      onclick="setSigFilter('threat',this)">🔴 Riziko</button>
             <button class="sfb" data-sf="opportunity" onclick="setSigFilter('opportunity',this)">🟢 Příležitost</button>
@@ -840,7 +841,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
 
     <!-- Sekce: Pohledy -->
     <div style="margin-bottom:40px">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:20px">01 · Pohledy a sekce</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:20px">01 · Styly reportů a sekce</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--bdr)">
 
         <div style="background:var(--bg);padding:24px 28px">
@@ -983,7 +984,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
         <div style="font-family:'Source Serif 4',serif;font-size:13px;color:var(--txt);line-height:1.75">Tlačítko <strong style="color:var(--wh)">⚙️</strong> v navigaci otevře panel pro uložení vlastních preferencí:</div>
         <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
           <div style="font-family:'Source Serif 4',serif;font-size:12px;color:var(--txt);padding:6px 0;border-bottom:1px solid var(--bdr)">📌 Výchozí sekce při otevření (Brief / Automotive / S&amp;K)</div>
-          <div style="font-family:'Source Serif 4',serif;font-size:12px;color:var(--txt);padding:6px 0;border-bottom:1px solid var(--bdr)">📌 Výchozí pohled (News Feed / Mgmt Summary / Market Pulse / Research)</div>
+          <div style="font-family:'Source Serif 4',serif;font-size:12px;color:var(--txt);padding:6px 0;border-bottom:1px solid var(--bdr)">📌 Výchozí styl reportu (News Feed / Mgmt Summary / Market Pulse / Research)</div>
           <div style="font-family:'Source Serif 4',serif;font-size:12px;color:var(--txt);padding:6px 0;border-bottom:1px solid var(--bdr)">📌 Minimální semafor (skrýt Info / zobrazit jen Riziko &amp; Příležitost)</div>
           <div style="font-family:'Source Serif 4',serif;font-size:12px;color:var(--txt);padding:6px 0">📌 Výchozí region &amp; sledovaní konkurenti</div>
         </div>
@@ -1318,8 +1319,7 @@ function setSection(sec, btn) {
       <button class="rb" data-r="world"  onclick="sR('world')">Global</button>
       <button class="rb" data-r="europe" onclick="sR('europe')">Europe</button>
       <button class="rb" data-r="china"  onclick="sR('china')">China</button>
-      <button class="rb" data-r="cz"     onclick="sR('cz')">Czech Republic</button>
-      <button class="rb rb-pr" data-r="pr" onclick="sR('pr')" style="border-color:var(--acc);color:var(--acc)">📋 Tiskové zprávy</button>`;
+      <button class="rb" data-r="cz"     onclick="sR('cz')">Czech Republic</button>`;
     tnavEl.innerHTML = `
       <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
       <button class="fb" data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
@@ -1378,10 +1378,11 @@ function toggleMoreMenu() {
 
 // ── VIEW SWITCHER ──
 function switchView(v, btn) {
+  const wasOrIsPr = v === "pr" || curView === "pr";
   curView = v;
   document.querySelectorAll(".vb").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
   // Reset signal filter when leaving Management Summary/Market Pulse
-  if (v === "standard" || v === "deep") {
+  if (v === "standard" || v === "deep" || v === "pr") {
     curSigFilter = "all";
     document.querySelectorAll(".sfb").forEach(b=>b.classList.toggle("on", b.dataset.sf==="all"));
     updateFiltersBadge();
@@ -1391,24 +1392,26 @@ function switchView(v, btn) {
   // viewStandard stays in DOM always (cards must be queryable)
   // Use visibility+overflow to hide it visually when not active
   const vs = document.getElementById("viewStandard");
-  vs.style.display = v === "standard" ? "block" : "none";
+  vs.style.display = (v === "standard" || v === "pr") ? "block" : "none";
   document.getElementById("viewExec").style.display  = v === "exec"  ? "block" : "none";
   document.getElementById("viewTrend").style.display = v === "trend" ? "block" : "none";
   document.getElementById("viewDeep").style.display  = v === "deep"  ? "block" : "none";
-  // Show/hide region+topic filters — hide for exec, trend, deep
-  const hideTopicRegion = v === "exec" || v === "trend" || v === "deep";
+  // Show/hide region+topic filters — hide for exec, trend, deep, pr (Tiskové zprávy is a curated single list)
+  const hideTopicRegion = v === "exec" || v === "trend" || v === "deep" || v === "pr";
   const rnav = document.getElementById("rnav");
   const tnav = document.getElementById("tnav");
   const sep  = document.getElementById("topicSep");
   if (rnav) rnav.style.display = hideTopicRegion ? "none" : "flex";
   if (tnav) tnav.style.display = hideTopicRegion ? "none" : "flex";
   if (sep)  sep.style.display  = hideTopicRegion ? "none" : "block";
-  // Signal filter bar: only show for Management Summary and Market Pulse
+  // Signal filter row: only show for Management Summary and Market Pulse
   const showSigFilter = v === "exec" || v === "trend";
-  const sfBar = document.getElementById("signalFilterBar");
-  if (sfBar && curSection !== "brief") sfBar.style.display = showSigFilter ? "flex" : "none";
+  const sfRow = document.getElementById("semaforFpRow");
+  if (sfRow && curSection !== "brief") sfRow.style.display = showSigFilter ? "flex" : "none";
   if (v === "exec")  renderExec();
   if (v === "trend") renderTrendBoard();
+  // "Tiskové zprávy" reuses the News Feed panel, filtered to press releases only (data-is-pr="1")
+  if (wasOrIsPr) applyFilters();
   if (v === "deep")  renderDeep();
 }
 
@@ -1426,7 +1429,6 @@ function getActiveCards() {
 function applyFilters() {
   showingNewOnly = false;
   document.getElementById("newCounter").style.background = "";
-  let v=0;
   // Filter in source divs (for exec/trend/deep queries) AND display divs (for visual)
   const allCards = [...document.querySelectorAll(".card")];
   allCards.forEach(c=>{
@@ -1435,10 +1437,13 @@ function applyFilters() {
     const searchOk = aQ===""    || c.dataset.search.includes(aQ);
     const langOk   = curLangFilter==="all" || SOURCE_LANG[c.dataset.source]===curLangFilter;
     const sigOk    = curSigFilter==="all"  || c.dataset.signal===curSigFilter;
-    const ok = regionOk && topicOk && searchOk && langOk && sigOk;
+    const prOk     = curView!=="pr" || c.dataset.isPr==="1";
+    const ok = regionOk && topicOk && searchOk && langOk && sigOk && prOk;
     c.classList.toggle("hidden",!ok);
-    if(ok)v++;
   });
+  // Count only cards in the currently visible section — matching getActiveCards()'s
+  // scoping — so the number shown always matches what's actually scrollable.
+  const v = getActiveCards().filter(c=>!c.classList.contains("hidden")).length;
   const s = v+" article"+(v!==1?"s":"");
   document.getElementById("vc").textContent  = s;
   document.getElementById("cnt").textContent = s;
