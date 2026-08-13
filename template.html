@@ -93,7 +93,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Source Serif 4',Georgia,
 .cnt{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);background:rgba(26,107,74,.06);border:1px solid rgba(26,107,74,.15);padding:4px 11px;margin-left:auto}
 
 /* small non-interactive row labels — orient the visitor before the chips */
-.row-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-right:8px;flex-shrink:0}
+.row-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--txt);margin-right:8px;flex-shrink:0}
 #viewNav{align-items:center;gap:2px}
 
 /* ── FILTERS DROPDOWN (Téma + Semafor + Jazyk zdroje, consolidated) ── */
@@ -263,6 +263,7 @@ body.no-images .grid .card:first-child .xhint{display:inline!important}
 .signal-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bdr);cursor:pointer;transition:background .1s}
 .signal-row:hover{background:var(--bg3);margin:0 -18px;padding:9px 18px}
 .signal-row:last-child{border-bottom:none}
+.signal-row.on{background:var(--bg3);margin:0 -18px;padding:9px 18px;box-shadow:inset 3px 0 0 var(--acc)}
 .signal-emoji{font-size:16px;width:24px;text-align:center;flex-shrink:0}
 .signal-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .signal-count{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-left:auto}
@@ -410,7 +411,7 @@ body.no-images .grid .card:first-child .xhint{display:inline!important}
 .overlay-desc{font-size:14px;color:var(--txt);line-height:1.72;font-weight:300;margin-bottom:18px;font-family:'Source Serif 4',serif}
 .overlay-footer{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
 .overlay-src{font-weight:700;color:var(--txt)}
-.rep-badge{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.08em;color:var(--mut)}
+.rep-badge{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.08em;color:var(--mut);cursor:help}
 .tts-btn{background:var(--bg2);border:1px solid var(--bdr2);border-radius:6px;color:var(--mut);font-size:14px;padding:7px 11px;cursor:pointer;transition:all .15s;margin-left:6px}
 .tts-btn:hover{border-color:var(--acc);color:var(--acc)}
 .overlay-read{margin-left:auto;padding:9px 20px;background:var(--acc);color:var(--bg);border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s;box-shadow:0 2px 8px rgba(14,58,47,.2)}
@@ -1090,6 +1091,7 @@ const I18N = {
     competitor_presence:"📊 Competitor Media Presence — click to filter",
     sources:"📰 Sources", footer_note:"43 sources · Auto-updated twice daily",
     all_sources:"All sources", filter_by_lang:"Filter by source language",
+    no_signal_matches:"No stories with this signal right now.",
   },
   cs: {
     automotive:"Automotive", world_context:"Svět & Kontext",
@@ -1113,6 +1115,7 @@ const I18N = {
     competitor_presence:"📊 Mediální přítomnost konkurence — kliknutím filtrovat",
     sources:"📰 Zdroje", footer_note:"43 zdrojů · Aktualizováno 2× denně",
     all_sources:"Všechny zdroje", filter_by_lang:"Filtrovat dle jazyka zdroje",
+    no_signal_matches:"Aktuálně žádné zprávy s tímto signálem.",
   },
   de: {
     automotive:"Automotive", world_context:"Welt & Kontext",
@@ -1136,6 +1139,7 @@ const I18N = {
     competitor_presence:"📊 Medienpräsenz der Konkurrenz — klicken zum Filtern",
     sources:"📰 Quellen", footer_note:"43 Quellen · 2× täglich aktualisiert",
     all_sources:"Alle Quellen", filter_by_lang:"Nach Quellensprache filtern",
+    no_signal_matches:"Aktuell keine Meldungen mit diesem Signal.",
   }
 };
 
@@ -1444,10 +1448,19 @@ function applyFilters() {
   });
   // Count only cards in the currently visible section — matching getActiveCards()'s
   // scoping — so the number shown always matches what's actually scrollable.
-  const v = getActiveCards().filter(c=>!c.classList.contains("hidden")).length;
+  const activeCards = getActiveCards().filter(c=>!c.classList.contains("hidden"));
+  const v = activeCards.length;
   const s = v+" article"+(v!==1?"s":"");
   document.getElementById("vc").textContent  = s;
   document.getElementById("cnt").textContent = s;
+  // Keep the "New" counter in sync with whatever region/topic/search/etc. filters are currently active,
+  // instead of the one-time count computed at page load. Only shown for returning visitors.
+  if (hasPriorVisit) {
+    const newCount = activeCards.filter(c=>c.querySelector(".badge-new")).length;
+    const newBtn = document.getElementById("newCounter");
+    newBtn.classList.toggle("on", newCount > 0);
+    if (newCount > 0) newBtn.innerHTML = `⚡ ${newCount} new`;
+  }
   document.querySelectorAll(".rsec,.ctx-section").forEach(sec=>{
     sec.style.display=[...sec.querySelectorAll(".card")].some(c=>!c.classList.contains("hidden"))?"":"none";
   });
@@ -1489,17 +1502,13 @@ function updateSourceCounts() {
 }
 
 // ── NEW ARTICLES ──
+// Only show the "New" counter for returning visitors (first-ever visit has nothing to compare
+// against); actual count/label is kept in sync with active filters by applyFilters().
+let hasPriorVisit = false;
 function checkNewArticles() {
   const last = localStorage.getItem("md-last-visit");
   localStorage.setItem("md-last-visit", Date.now());
-  if (!last) return;
-  // Scoped to the default landing view (News Feed, non-PR) so the count matches what's actually visible there.
-  const newCards = [...document.querySelectorAll("#main .card")].filter(c=>c.dataset.isPr!=="1" && c.querySelector(".badge-new"));
-  if (newCards.length > 0) {
-    const btn = document.getElementById("newCounter");
-    btn.innerHTML = `⚡ ${newCards.length} new`;
-    btn.classList.add("on");
-  }
+  hasPriorVisit = !!last;
 }
 function showNewOnly() {
   showingNewOnly = !showingNewOnly;
@@ -1586,14 +1595,13 @@ function filterByComp(name) {
   activeCompFilter = name;
   document.getElementById("si").value = name;
   updateCompResetBtn();
-  // Filter strictly by competitors field, not full text search
+  // Match strictly against the tagged competitors field — this is what buildHeatmap() counted,
+  // so a raw text-search fallback here would show more cards than the bar's own count implied.
   const allCards = document.querySelectorAll(".card");
+  const nameLower = name.toLowerCase();
   allCards.forEach(card => {
     const comps = (card.dataset.competitors||"").toLowerCase();
-    const search = (card.dataset.search||"").toLowerCase();
-    const nameLower = name.toLowerCase();
-    // Match if in competitors list OR if name appears in title/source
-    const match = comps.split(",").some(c=>c.trim()===nameLower) || search.includes(nameLower);
+    const match = comps.split(",").some(c=>c.trim()===nameLower);
     card.classList.toggle("hidden", !match);
   });
   // Update section visibility
@@ -1612,20 +1620,8 @@ function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").
 
 
 // ── EXECUTIVE VIEW ──
-function renderExec() {
-  const sectionRegions = curSection === "world" ? ["ctx-world","ctx-eu","ctx-cz"] : ["world","europe","china","cz"];
-  const cards = ALL_CARDS.filter(a => !a.el.classList.contains("hidden") && sectionRegions.includes(a.region));
-  const counts={threat:0,opportunity:0,watch:0,info:0};
-  cards.forEach(a=>{const s=a.signal||"info";if(counts[s]!==undefined)counts[s]++;});
-  ["threat","opportunity","watch","info"].forEach(s=>{document.getElementById("sig-"+s).textContent=counts[s];});
-  // Sort by date (newest first), signal as visual indicator only
-  execCards=[...cards].sort((a,b)=>{
-    const da=a.el.dataset.ts||"0", db=b.el.dataset.ts||"0";
-    return parseFloat(db)-parseFloat(da);
-  }).slice(0,10);
-  if(!execCards.length) execCards=cards.slice(0,10);
-  document.getElementById("execCount").textContent=execCards.length;
-  document.getElementById("execList").innerHTML=execCards.map((a,idx)=>`
+function execItemHtml(a, idx) {
+  return `
     <div class="exec-item" tabindex="0" role="button" aria-label="${esc(a.title)}" data-signal="${a.signal||'info'}" onclick="openOverlay(execCards[${idx}].el)">
       <span class="exec-signal">${SIG_EMOJI[a.signal||"info"]}</span>
       <div class="exec-body">
@@ -1637,12 +1633,42 @@ function renderExec() {
           ${a.url?`<a class="exec-read" href="${esc(a.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Read →</a>`:""}
         </div>
       </div>
-    </div>`).join("");
+    </div>`;
 }
+let activeSigFilter = null;
+function execSectionCards() {
+  const sectionRegions = curSection === "world" ? ["ctx-world","ctx-eu","ctx-cz"] : ["world","europe","china","cz"];
+  return ALL_CARDS.filter(a => !a.el.classList.contains("hidden") && sectionRegions.includes(a.region));
+}
+function renderExec() {
+  activeSigFilter = null;
+  document.querySelectorAll(".signal-row").forEach(r=>r.classList.remove("on"));
+  const cards = execSectionCards();
+  const counts={threat:0,opportunity:0,watch:0,info:0};
+  cards.forEach(a=>{const s=a.signal||"info";if(counts[s]!==undefined)counts[s]++;});
+  ["threat","opportunity","watch","info"].forEach(s=>{document.getElementById("sig-"+s).textContent=counts[s];});
+  // Sort by date (newest first), signal as visual indicator only
+  execCards=[...cards].sort((a,b)=>{
+    const da=a.el.dataset.ts||"0", db=b.el.dataset.ts||"0";
+    return parseFloat(db)-parseFloat(da);
+  }).slice(0,10);
+  if(!execCards.length) execCards=cards.slice(0,10);
+  document.getElementById("execCount").textContent=execCards.length;
+  document.getElementById("execList").innerHTML=execCards.map(execItemHtml).join("");
+}
+// Signal Overview counts are computed across ALL matching cards in the section, not just the
+// top-10 execList — so filtering must re-query the full set instead of hiding within execList,
+// otherwise clicking e.g. "Threat" shows 0 whenever none of the top-10-by-recency happen to be threats.
 function filterBySignal(sig) {
-  document.querySelectorAll(".exec-item").forEach(item=>{
-    item.style.display=(item.dataset.signal===sig)?"flex":"none";
-  });
+  if (activeSigFilter === sig) { renderExec(); return; }
+  activeSigFilter = sig;
+  document.querySelectorAll(".signal-row").forEach(r=>r.classList.toggle("on", r.classList.contains(sig)));
+  const cards = execSectionCards().filter(a=>(a.signal||"info")===sig);
+  execCards = [...cards].sort((a,b)=>(parseFloat(b.el.dataset.ts)||0)-(parseFloat(a.el.dataset.ts)||0));
+  document.getElementById("execCount").textContent=execCards.length;
+  document.getElementById("execList").innerHTML=execCards.length
+    ? execCards.map(execItemHtml).join("")
+    : `<div style="padding:20px;text-align:center;color:var(--dim);font-size:12px">${esc(I18N[curLang]?.no_signal_matches||"No stories with this signal right now.")}</div>`;
 }
 
 // ── TREND BOARD ──
@@ -1833,6 +1859,7 @@ function openOverlay(card) {
   const repEl = document.getElementById("ol-reputation");
   const repColor = rep>=90?"var(--opportunity)":rep>=80?"var(--info)":"var(--watch)";
   repEl.innerHTML = `<span style="color:${repColor}">●</span> ${rep}% důvěryhodnost`;
+  repEl.title = "Editoriální skóre zdroje (ne algoritmické ověřování jednotlivého článku) — zohledňuje novinářské standardy, transparentnost a track record daného média; nezařazené zdroje mají výchozí 75 %.";
   document.getElementById("overlay").classList.add("on");
   document.body.style.overflow="hidden";
   lastFocusedEl = document.activeElement;

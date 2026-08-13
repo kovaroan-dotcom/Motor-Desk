@@ -48,8 +48,28 @@ def generate_monthly_digest(all_articles: list, month_dt: datetime) -> str:
     month_label_cs = f"{CZ_MONTHS[month_dt.month]} {month_dt.year}"
     signals = Counter(a.get("signal","info") for a in all_articles)
     sig_order = {"threat":0,"opportunity":1,"watch":2,"info":3}
-    top = sorted(all_articles, key=lambda a: sig_order.get(a.get("signal","info"),3))[:10]
     sig_emoji = {"threat":"🔴","opportunity":"🟢","watch":"🟡","info":"🔵"}
+
+    # Pick a balanced mix rather than a pure severity sort — a pure sort put every "threat"
+    # ahead of any "opportunity"/"watch", so whenever a month had >=10 threats the whole
+    # top-10 was risks only, which read as one-sided rather than a real month overview.
+    by_signal = {}
+    for a in all_articles:
+        by_signal.setdefault(a.get("signal","info"), []).append(a)
+    for arts in by_signal.values():
+        arts.sort(key=lambda a: a.get("ts",0), reverse=True)
+    quotas = [("threat",3), ("opportunity",3), ("watch",2), ("info",2)]
+    top, used = [], set()
+    for sig, quota in quotas:
+        for a in by_signal.get(sig, [])[:quota]:
+            top.append(a); used.add(id(a))
+    if len(top) < 10:
+        leftover = sorted(
+            (a for a in all_articles if id(a) not in used),
+            key=lambda a: (sig_order.get(a.get("signal","info"),3), -a.get("ts",0))
+        )
+        top.extend(leftover[:10-len(top)])
+    top = top[:10]
 
     rows = []
     for i, a in enumerate(top):
@@ -341,7 +361,7 @@ SOURCES = [
     {"name": "Euronews",         "url": "https://feeds.feedburner.com/euronews/en/news/",                          "region": "ctx-eu",  "cat": "politics"},
     # Official press releases — Škoda + competitors
     {"name": "Škoda Auto Novinky", "url": "https://www.skoda-auto.cz/novinky/rss",                                  "region": "world",   "cat": "industry", "is_pr": True},
-    {"name": "Škoda Storyboard",   "url": "https://www.skoda-storyboard.com/cs/tiskove-zpravy/feed/",                 "region": "world",   "cat": "industry", "is_pr": True},
+    {"name": "Škoda Storyboard",   "url": "https://www.skoda-storyboard.com/cs/feed/?post_type=press_release",       "region": "world",   "cat": "industry", "is_pr": True},
     {"name": "Volkswagen Newsroom", "url": "https://www.volkswagen-newsroom.com/en/rss",                           "region": "world",   "cat": "industry", "is_pr": True},
     {"name": "Toyota Newsroom",  "url": "https://global.toyota/en/newsroom/rss/",                                  "region": "world",   "cat": "industry", "is_pr": True},
 ]
