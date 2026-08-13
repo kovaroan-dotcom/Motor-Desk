@@ -276,7 +276,7 @@ body.no-images .grid .card:first-child .xhint{display:inline!important}
 
 /* ── TREND BOARD ── */
 .trend-board-header{padding:24px 0 16px;border-bottom:2px solid var(--wh);margin-bottom:20px}
-.trend-board-grid{columns:4 200px;column-gap:2px}
+.trend-board-grid{columns:3 240px;column-gap:16px}
 .trend-card{break-inside:avoid;margin-bottom:12px;background:var(--bg2);cursor:pointer;overflow:hidden;transition:all .2s;display:block;border-left:3px solid transparent;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-top:1px solid var(--bdr);border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
 .trend-sig-badge{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.1em;padding:2px 6px;margin-left:auto;flex-shrink:0}
 .trend-card:hover{background:var(--bg3);transform:translateY(-2px);box-shadow:0 8px 24px -8px rgba(26,23,20,.15)}
@@ -650,7 +650,9 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
     <button class="vb vb-pr" id="viewPrBtn" data-v="pr" onclick="switchView('pr',this)" style="border-color:var(--acc);color:var(--acc)">📋 Tiskové zprávy</button>
   </div>
 
-  <!-- LAYER 4: Region — the one facet that always stays visible; the rest live in the Filtry popover below -->
+  <!-- LAYER 4: Region + Topic — the two primary facets stay always visible (Topic matters just as
+       much as Region in Svět & Kontext, so hiding it in the Filtry popover made that section feel
+       opaque); only the secondary/occasional facets (Semafor threshold, source language) live there. -->
   <div class="filter-bar" id="filterBar">
     <span class="row-lbl">Region</span>
     <div id="rnav" style="display:flex;flex-wrap:wrap;gap:0;align-items:center">
@@ -659,6 +661,19 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
       <button class="rb"    data-r="europe" onclick="sR('europe')">Europe</button>
       <button class="rb"    data-r="china"  onclick="sR('china')">China</button>
       <button class="rb"    data-r="cz"     onclick="sR('cz')">Czech Republic</button>
+    </div>
+  </div>
+  <div class="filter-bar" id="topicBar">
+    <span class="row-lbl">Téma</span>
+    <div class="filter-sep" id="topicSep"></div>
+    <div id="tnav" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+      <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
+      <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
+      <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
+      <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
+      <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
+      <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
     </div>
   </div>
 
@@ -671,19 +686,6 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
       <button class="filters-btn" id="filtersBtn" onclick="toggleFiltersPopover()">▾ Filtry<span class="filters-badge" id="filtersBadge" style="display:none"></span></button>
       <div class="filters-backdrop" id="filtersBackdrop" onclick="toggleFiltersPopover()"></div>
       <div class="filters-popover" id="filtersPopover">
-        <div class="fp-row">
-          <span class="row-lbl">Téma</span>
-          <div class="filter-sep" id="topicSep"></div>
-          <div id="tnav" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
-            <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
-            <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
-            <button class="fb"    data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
-            <button class="fb"    data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
-            <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
-            <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
-            <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
-          </div>
-        </div>
         <div class="fp-row" id="semaforFpRow" style="display:none">
           <span class="row-lbl">Semafor (jen Mgmt Summary &amp; Market Pulse)</span>
           <div class="signal-filter-bar" id="signalFilterBar">
@@ -774,6 +776,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
     <div class="trend-board-header">
       <div class="ed-lbl" data-i18n="trend_board_label">Market Pulse</div>
       <div class="ed-t" style="font-style:italic" data-i18n="resonating_now">Co rezonuje v médiích</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px" data-i18n="pulse_sort_hint">Řazeno: Riziko/Příležitost nejdřív, pak podle data — max. 4 zprávy na jeden zdroj</div>
     </div>
     <div class="trend-board-grid" id="trendBoard"></div>
   </div>
@@ -1095,6 +1098,7 @@ const I18N = {
     sources:"📰 Sources", footer_note:"43 sources · Auto-updated twice daily",
     all_sources:"All sources", filter_by_lang:"Filter by source language",
     no_signal_matches:"No stories with this signal right now.",
+    pulse_sort_hint:"Sorted: Threat/Opportunity first, then by date — max 4 stories per source",
   },
   cs: {
     automotive:"Automotive", world_context:"Svět & Kontext",
@@ -1111,14 +1115,15 @@ const I18N = {
     from_sources:"z 43 zdrojů", key_stories:"klíčových zpráv",
     signal_overview:"Přehled signálů", threat:"Riziko", watch:"Sledovat",
     opportunity:"Příležitost", click_to_filter:"Kliknutím filtrovat",
-    trend_board_label:"Přehled trendů", resonating_now:"Co teď rezonuje",
-    deep_dive_label:"Hloubková analytika", tech_competitive:"Technologie & Konkurenční zpravodajství",
-    exec_label:"Pro management · Škoda Auto",
+    trend_board_label:"Market Pulse", resonating_now:"Co teď rezonuje",
+    deep_dive_label:"Research", tech_competitive:"Technologie & Konkurenční zpravodajství",
+    exec_label:"Management Summary · Škoda Auto",
     exec_subtitle:"Top zprávy seřazené podle dopadu na Škoda Auto",
     competitor_presence:"📊 Mediální přítomnost konkurence — kliknutím filtrovat",
     sources:"📰 Zdroje", footer_note:"43 zdrojů · Aktualizováno 2× denně",
     all_sources:"Všechny zdroje", filter_by_lang:"Filtrovat dle jazyka zdroje",
     no_signal_matches:"Aktuálně žádné zprávy s tímto signálem.",
+    pulse_sort_hint:"Řazeno: Riziko/Příležitost nejdřív, pak podle data — max. 4 zprávy na jeden zdroj",
   },
   de: {
     automotive:"Automotive", world_context:"Welt & Kontext",
@@ -1143,6 +1148,7 @@ const I18N = {
     sources:"📰 Quellen", footer_note:"43 Quellen · 2× täglich aktualisiert",
     all_sources:"Alle Quellen", filter_by_lang:"Nach Quellensprache filtern",
     no_signal_matches:"Aktuell keine Meldungen mit diesem Signal.",
+    pulse_sort_hint:"Sortiert: Bedrohung/Chance zuerst, dann nach Datum — max. 4 Meldungen pro Quelle",
   }
 };
 
@@ -1253,6 +1259,7 @@ function setSection(sec, btn) {
   // Brief section
   if(isBrief) {
     document.getElementById("filterBar").style.display = "none";
+    document.getElementById("topicBar").style.display = "none";
     document.getElementById("viewNav").style.display = "none";
     document.getElementById("signalFilterBar").style.display = "none";
     document.getElementById("mainToolbar").style.display = "none";
@@ -1270,6 +1277,7 @@ function setSection(sec, btn) {
   // Monthly section — clean minimal layout
   if(isMonthly) {
     document.getElementById("filterBar").style.display = "none";
+    document.getElementById("topicBar").style.display = "none";
     document.getElementById("viewNav").style.display = "none";
     document.getElementById("signalFilterBar").style.display = "none";
     document.getElementById("mainToolbar").style.display = "none";
@@ -1285,6 +1293,7 @@ function setSection(sec, btn) {
   const vb = document.getElementById("viewBrief");
   if(vb) vb.style.display = "none";
   document.getElementById("filterBar").style.display = "";
+  document.getElementById("topicBar").style.display = "";
   document.getElementById("viewNav").style.display = isWorld ? "none" : "";
   document.getElementById("signalFilterBar").style.display = "";
   document.getElementById("mainToolbar").style.display = "";
@@ -1353,7 +1362,8 @@ function setLangFilter(lf) {
   updateFiltersBadge();
 }
 
-// ── FILTRY POPOVER (Téma + Semafor + Jazyk zdroje) ──
+// ── FILTRY POPOVER (Semafor + Jazyk zdroje — the secondary/occasional facets;
+// Region and Téma are primary facets and stay always visible in the toolbar) ──
 function toggleFiltersPopover() {
   const p = document.getElementById("filtersPopover");
   const b = document.getElementById("filtersBackdrop");
@@ -1364,7 +1374,6 @@ function toggleFiltersPopover() {
 }
 function updateFiltersBadge() {
   let n = 0;
-  if (typeof aT !== "undefined" && aT !== "all") n++;
   if (typeof curSigFilter !== "undefined" && curSigFilter !== "all") n++;
   if (typeof curLangFilter !== "undefined" && curLangFilter !== "all") n++;
   const badge = document.getElementById("filtersBadge");
@@ -1405,12 +1414,10 @@ function switchView(v, btn) {
   document.getElementById("viewDeep").style.display  = v === "deep"  ? "block" : "none";
   // Show/hide region+topic filters — hide for exec, trend, deep, pr (Tiskové zprávy is a curated single list)
   const hideTopicRegion = v === "exec" || v === "trend" || v === "deep" || v === "pr";
-  const rnav = document.getElementById("rnav");
-  const tnav = document.getElementById("tnav");
-  const sep  = document.getElementById("topicSep");
-  if (rnav) rnav.style.display = hideTopicRegion ? "none" : "flex";
-  if (tnav) tnav.style.display = hideTopicRegion ? "none" : "flex";
-  if (sep)  sep.style.display  = hideTopicRegion ? "none" : "block";
+  const filterBarEl = document.getElementById("filterBar");
+  const topicBarEl  = document.getElementById("topicBar");
+  if (filterBarEl) filterBarEl.style.display = hideTopicRegion ? "none" : "flex";
+  if (topicBarEl)  topicBarEl.style.display  = hideTopicRegion ? "none" : "flex";
   // Signal filter row: only show for Management Summary and Market Pulse
   const showSigFilter = v === "exec" || v === "trend";
   const sfRow = document.getElementById("semaforFpRow");
