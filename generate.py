@@ -210,11 +210,19 @@ def generate_brief(automotive_articles: list, world_articles: list, is_morning: 
             '</div>')
 
 
-def analyze_article(title: str, desc: str, is_automotive: bool = True) -> dict:
-    """Call Anthropic API (Haiku) to get impact signal and competitor tags."""
+def analyze_article(title: str, desc: str, is_automotive: bool = True, translate: bool = False) -> dict:
+    """Call Anthropic API (Haiku) to get impact signal and competitor tags.
+    When translate=True (non-Czech, non-English sources, e.g. German), also asks for a
+    Czech title/summary in the same call so non-German-speaking staff can read it —
+    done server-side so it's available to every visitor, not gated behind a personal API key."""
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     if not api_key:
         return {"signal": "info", "competitors": []}
+
+    translate_field = (
+        ',\n  "title_cs": "Czech translation of the title",\n  "desc_cs": "Czech translation of the summary"'
+        if translate else ""
+    )
 
     if is_automotive:
         prompt = f"""Analyze this automotive news article for Škoda Auto.
@@ -228,13 +236,13 @@ Respond with JSON only, no other text:
 {{
   "signal": "threat|opportunity|watch|info",
   "signal_reason": "one short sentence why",
-  "competitors": ["list", "of", "competitor", "brands", "mentioned"]
+  "competitors": ["list", "of", "competitor", "brands", "mentioned"]{translate_field}
 }}
 
 Signal definitions:
 - threat: directly threatens Škoda's market position, sales or business
 - opportunity: creates opportunity for Škoda
-- watch: relevant trend to monitor, not immediately impactful  
+- watch: relevant trend to monitor, not immediately impactful
 - info: general industry info, low direct impact"""
     else:
         prompt = f"""Analyze this world/context news article for its business impact on Škoda Auto
@@ -247,7 +255,7 @@ Respond with JSON only, no other text:
 {{
   "signal": "threat|opportunity|watch|info",
   "signal_reason": "one short sentence why",
-  "competitors": []
+  "competitors": []{translate_field}
 }}
 
 Signal definitions (think macro: trade, energy, politics, regulation, economy):
@@ -259,7 +267,7 @@ Signal definitions (think macro: trade, energy, politics, regulation, economy):
     try:
         req_data = json.dumps({
             "model": "claude-haiku-4-5",
-            "max_tokens": 200,
+            "max_tokens": 400 if translate else 200,
             "messages": [{"role": "user", "content": prompt}]
         }).encode()
         req = urllib.request.Request(
@@ -311,6 +319,10 @@ SOURCE_REPUTATION = {
 
 def get_reputation(source_name: str) -> int:
     return SOURCE_REPUTATION.get(source_name, 75)  # default for unlisted sources
+
+# Sources publishing in German — not everyone reading the dashboard speaks German (unlike
+# English, which is assumed), so these get an AI-translated Czech title/summary server-side.
+GERMAN_SOURCES = {"Der Spiegel"}
 
 SOURCES = [
     # Global – EV & automotive
@@ -364,6 +376,7 @@ SOURCES = [
     {"name": "Škoda Storyboard",   "url": "https://www.skoda-storyboard.com/cs/feed/?post_type=press_release",       "region": "world",   "cat": "industry", "is_pr": True},
     {"name": "Volkswagen Newsroom", "url": "https://www.volkswagen-newsroom.com/en/rss",                           "region": "world",   "cat": "industry", "is_pr": True},
     {"name": "Toyota Newsroom",  "url": "https://global.toyota/en/newsroom/rss/",                                  "region": "world",   "cat": "industry", "is_pr": True},
+    {"name": "BMW Group PressClub", "url": "https://www.press.bmwgroup.com/global/rss",                             "region": "world",   "cat": "industry", "is_pr": True},
 ]
 
 CAT_COLORS = {
@@ -524,7 +537,7 @@ def fetch_feed(source: dict, month_start: datetime, month_end: datetime) -> list
         if link_el is not None:
             link = (link_el.text or link_el.get("href", "")).strip()
 
-        desc = strip_tags(desc_el.text if desc_el is not None else "")[:300]
+        desc = strip_tags(desc_el.text if desc_el is not None else "")[:500]
 
         from datetime import timedelta as _td
         is_new = (datetime.now(timezone.utc) - pub) < _td(hours=48)
@@ -574,6 +587,8 @@ def fetch_feed(source: dict, month_start: datetime, month_end: datetime) -> list
             "competitors": mentioned,
             "reputation": get_reputation(source["name"]),
             "is_pr":    source.get("is_pr", False),
+            "title_cs": "",
+            "desc_cs":  "",
         })
 
         if len(results) >= ARTICLES_PER_SOURCE:
@@ -646,12 +661,16 @@ def main():
         print(f"Running AI analysis on {len(needs_analysis)} articles (last 24h)...")
         for i, a in enumerate(needs_analysis):
             is_auto = a.get("region") in ("world", "europe", "china", "cz")
-            result = analyze_article(a["title"], a["desc"], is_automotive=is_auto)
+            needs_translation = a.get("source") in GERMAN_SOURCES
+            result = analyze_article(a["title"], a["desc"], is_automotive=is_auto, translate=needs_translation)
             a["signal"] = result.get("signal", "info")
             a["signal_reason"] = result.get("signal_reason", "")
             ai_comps = result.get("competitors", [])
             existing = set(a.get("competitors", []))
             a["competitors"] = list(existing | set(ai_comps))
+            if needs_translation:
+                a["title_cs"] = result.get("title_cs", "")
+                a["desc_cs"]  = result.get("desc_cs", "")
             if (i+1) % 10 == 0:
                 print(f"  Analyzed {i+1}/{len(needs_analysis)}...")
         # save enriched archive
@@ -734,8 +753,13 @@ def main():
         signal = a.get("signal","info")
         signal_reason = html.escape(a.get("signal_reason",""))
         competitors_str = html.escape(",".join(a.get("competitors",[])))
+        title_cs = a.get("title_cs","")
+        desc_cs  = a.get("desc_cs","")
+        cs_translation_html = (
+            f'<div class="ct-cs">🇨🇿 {html.escape(title_cs)}</div>' if title_cs else ""
+        )
         return f"""
-        <div class="card" tabindex="0" role="button" aria-label="{html.escape(a['title'])}" data-region="{html.escape(a['region'])}" data-is-pr="{'1' if a.get('is_pr') else ''}" data-cat="{html.escape(a['cat'])}" data-search="{html.escape(search_str)}" data-source="{html.escape(a['source'])}" data-title="{html.escape(a['title'])}" data-desc="{html.escape(a['desc'])}" data-url="{html.escape(a.get('url',''))}" data-img="{html.escape(img_url)}" data-date="{html.escape(a['date'])}" data-signal="{signal}" data-signal-reason="{signal_reason}" data-competitors="{competitors_str}" data-reputation="{a.get('reputation',75)}" data-ts="{a.get('ts',0)}">
+        <div class="card" tabindex="0" role="button" aria-label="{html.escape(a['title'])}" data-region="{html.escape(a['region'])}" data-is-pr="{'1' if a.get('is_pr') else ''}" data-cat="{html.escape(a['cat'])}" data-search="{html.escape(search_str)}" data-source="{html.escape(a['source'])}" data-title="{html.escape(a['title'])}" data-desc="{html.escape(a['desc'])}" data-title-cs="{html.escape(title_cs)}" data-desc-cs="{html.escape(desc_cs)}" data-url="{html.escape(a.get('url',''))}" data-img="{html.escape(img_url)}" data-date="{html.escape(a['date'])}" data-signal="{signal}" data-signal-reason="{signal_reason}" data-competitors="{competitors_str}" data-reputation="{a.get('reputation',75)}" data-ts="{a.get('ts',0)}">
           {img_block}
           <div class="cb">
             <div class="ccat">
@@ -743,6 +767,7 @@ def main():
               <span class="cat-{a['cat']}">{label}</span>
             </div>
             <div class="ct">{html.escape(a["title"])}</div>
+            {cs_translation_html}
             <div class="cd">{html.escape(a["desc"])}…</div>
             <div class="cf">
               <span class="cs">{html.escape(a["source"])}</span>

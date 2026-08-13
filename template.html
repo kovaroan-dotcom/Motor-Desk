@@ -206,6 +206,7 @@ body.no-images .badge{font-size:9px;padding:2px 8px}
 .ccat{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
 .pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block}
 .ct{font-family:'Playfair Display',serif;font-weight:700;line-height:1.24;margin-bottom:8px;color:var(--wh);transition:color .3s;font-size:16px}
+.ct-cs{font-family:'Source Serif 4',serif;font-style:italic;font-size:12px;line-height:1.35;color:var(--mut);margin:-4px 0 8px}
 .grid .card:first-child .ct{font-size:20px}
 .cd{font-size:13px;color:var(--mut);line-height:1.65;font-weight:300;overflow:hidden;transition:max-height .3s,margin .2s;margin-bottom:0;font-family:'Source Serif 4',serif}
 .card .cd{max-height:0}
@@ -485,7 +486,9 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
     <div class="overlay-body">
       <div class="overlay-cat" id="ol-cat"></div>
       <div class="overlay-title" id="ol-title"></div>
+      <div class="ct-cs" id="ol-title-cs" style="display:none;font-size:14px;margin:-6px 0 10px"></div>
       <div class="overlay-desc" id="ol-desc"></div>
+      <div class="ct-cs" id="ol-desc-cs" style="display:none;margin-top:6px"></div>
       <div class="overlay-footer">
         <span class="overlay-src" id="ol-src"></span>
         <span id="ol-date"></span>
@@ -1836,6 +1839,7 @@ function openOverlay(card) {
     title:card.dataset.title, desc:card.dataset.desc, url:card.dataset.url,
     img:card.dataset.img, source:card.dataset.source, date:card.dataset.date,
     cat:card.dataset.cat, signal:card.dataset.signal, signalReason:card.dataset.signalReason,
+    titleCs:card.dataset.titleCs, descCs:card.dataset.descCs,
     reputation: parseInt(card.dataset.reputation) || 75
   };
   document.getElementById("ai-sowhat-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">"+(I18N[curLang]||I18N.en).sowhat_placeholder+"</span>";
@@ -1851,6 +1855,9 @@ function openOverlay(card) {
   document.getElementById("ol-cat").innerHTML=`<span style="width:6px;height:6px;border-radius:50%;background:${col};display:inline-block;flex-shrink:0"></span><span style="color:${col};font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase">${catLabel(currentArticleData.cat)}</span>${sigBadge}`;
   document.getElementById("ol-title").textContent=currentArticleData.title||"";
   document.getElementById("ol-desc").textContent=(currentArticleData.desc||"")+"…";
+  const titleCsEl=document.getElementById("ol-title-cs"), descCsEl=document.getElementById("ol-desc-cs");
+  if(currentArticleData.titleCs){titleCsEl.textContent="🇨🇿 "+currentArticleData.titleCs;titleCsEl.style.display="";}else{titleCsEl.style.display="none";}
+  if(currentArticleData.descCs){descCsEl.textContent="🇨🇿 "+currentArticleData.descCs+"…";descCsEl.style.display="";}else{descCsEl.style.display="none";}
   document.getElementById("ol-src").textContent=currentArticleData.source||"";
   document.getElementById("ol-date").textContent=currentArticleData.date||"";
   const link=document.getElementById("ol-link");
