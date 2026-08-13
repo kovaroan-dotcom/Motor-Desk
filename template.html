@@ -1427,8 +1427,7 @@ function getActiveCards() {
 }
 
 function applyFilters() {
-  showingNewOnly = false;
-  document.getElementById("newCounter").style.background = "";
+  document.getElementById("newCounter").style.background = showingNewOnly ? "rgba(26,107,74,.2)" : "";
   // Filter in source divs (for exec/trend/deep queries) AND display divs (for visual)
   const allCards = [...document.querySelectorAll(".card")];
   allCards.forEach(c=>{
@@ -1437,8 +1436,10 @@ function applyFilters() {
     const searchOk = aQ===""    || c.dataset.search.includes(aQ);
     const langOk   = curLangFilter==="all" || SOURCE_LANG[c.dataset.source]===curLangFilter;
     const sigOk    = curSigFilter==="all"  || c.dataset.signal===curSigFilter;
-    const prOk     = curView!=="pr" || c.dataset.isPr==="1";
-    const ok = regionOk && topicOk && searchOk && langOk && sigOk && prOk;
+    // PR cards only belong in the dedicated "Tiskové zprávy" view; everywhere else they must be excluded.
+    const prOk     = (c.dataset.isPr==="1") === (curView==="pr");
+    const newOk    = !showingNewOnly || !!c.querySelector(".badge-new");
+    const ok = regionOk && topicOk && searchOk && langOk && sigOk && prOk && newOk;
     c.classList.toggle("hidden",!ok);
   });
   // Count only cards in the currently visible section — matching getActiveCards()'s
@@ -1492,7 +1493,8 @@ function checkNewArticles() {
   const last = localStorage.getItem("md-last-visit");
   localStorage.setItem("md-last-visit", Date.now());
   if (!last) return;
-  const newCards = [...document.querySelectorAll(".card")].filter(c=>c.querySelector(".badge-new"));
+  // Scoped to the default landing view (News Feed, non-PR) so the count matches what's actually visible there.
+  const newCards = [...document.querySelectorAll("#main .card")].filter(c=>c.dataset.isPr!=="1" && c.querySelector(".badge-new"));
   if (newCards.length > 0) {
     const btn = document.getElementById("newCounter");
     btn.innerHTML = `⚡ ${newCards.length} new`;
@@ -1501,11 +1503,7 @@ function checkNewArticles() {
 }
 function showNewOnly() {
   showingNewOnly = !showingNewOnly;
-  const btn = document.getElementById("newCounter");
-  document.querySelectorAll(".card").forEach(c=>{
-    c.classList.toggle("hidden", showingNewOnly && !c.querySelector(".badge-new"));
-  });
-  btn.style.background = showingNewOnly ? "rgba(26,107,74,.2)" : "";
+  applyFilters();
 }
 
 // ── TRENDING ──
