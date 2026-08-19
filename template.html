@@ -212,6 +212,10 @@ body.no-images .badge{font-size:9px;padding:2px 8px}
 .card .cd{max-height:0}
 .card.exp .cd{max-height:300px;margin-bottom:10px}
 .grid .card:first-child .cd{max-height:300px;margin-bottom:10px}
+.card-sowhat{font-size:12px;color:var(--txt);line-height:1.6;font-weight:400;overflow:hidden;max-height:0;transition:max-height .3s,margin .2s;margin-bottom:0;font-family:'Source Serif 4',serif;background:var(--bg3);border-radius:6px;padding:0 10px}
+.card.exp .card-sowhat{max-height:200px;margin-bottom:10px;padding:8px 10px}
+.card-sowhat-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.grid .card:first-child .card-sowhat{max-height:200px;margin-bottom:10px;padding:8px 10px}
 .cf{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 .cs{font-weight:700;color:var(--mut)}.ca{margin-left:auto}
 .cl{color:var(--acc);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
@@ -1950,13 +1954,23 @@ function openOverlay(card) {
     title:card.dataset.title, desc:card.dataset.desc, url:card.dataset.url,
     img:card.dataset.img, source:card.dataset.source, date:card.dataset.date,
     cat:card.dataset.cat, signal:card.dataset.signal, signalReason:card.dataset.signalReason,
-    titleCs:card.dataset.titleCs, descCs:card.dataset.descCs,
+    titleCs:card.dataset.titleCs, descCs:card.dataset.descCs, soWhat:card.dataset.soWhat,
     reputation: parseInt(card.dataset.reputation) || 75
   };
   markRead(card);
   const saveKey = currentArticleData.url || currentArticleData.title || "";
   document.getElementById("ol-save-btn").classList.toggle("on", saveKey && savedKeys.has(saveKey));
-  document.getElementById("ai-sowhat-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">"+(I18N[curLang]||I18N.en).sowhat_placeholder+"</span>";
+  // Pre-generated server-side (same Haiku call as signal tagging) — shown directly, no personal
+  // API key needed. Falls back to the on-demand Generate button only for older articles that
+  // predate this field (outside the 24h AI-analysis window when this shipped).
+  const sowhatWrap = document.getElementById("ai-sowhat-wrap");
+  if (currentArticleData.soWhat) {
+    document.getElementById("ai-sowhat-content").innerHTML = `<div style="line-height:1.75;font-size:13px">${esc(currentArticleData.soWhat)}</div>`;
+    sowhatWrap.querySelector(".ai-trigger").style.display = "none";
+  } else {
+    document.getElementById("ai-sowhat-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">"+(I18N[curLang]||I18N.en).sowhat_placeholder+"</span>";
+    sowhatWrap.querySelector(".ai-trigger").style.display = "";
+  }
   document.getElementById("ai-impact-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">Vygeneruje analýzu dopadů pro Management, R&D, Nákup a Obchod…</span>";
   switchAiTab("sowhat", document.querySelector(".ai-tab"));
 

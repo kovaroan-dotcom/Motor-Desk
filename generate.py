@@ -266,10 +266,13 @@ def generate_brief(automotive_articles: list, world_articles: list, is_morning: 
 
 
 def analyze_article(title: str, desc: str, is_automotive: bool = True, translate: bool = False) -> dict:
-    """Call Anthropic API (Haiku) to get impact signal and competitor tags.
+    """Call Anthropic API (Haiku) to get impact signal, competitor tags, and a plain-language
+    "So What?" takeaway — all in one call, done server-side so every visitor sees it without
+    needing their own Anthropic API key (unlike the on-demand Team Impact Analysis, which stays
+    BYOK: it's a much longer per-department breakdown and pre-generating it for every article
+    would multiply the API cost for comparatively little daily-reading value).
     When translate=True (non-Czech, non-English sources, e.g. German), also asks for a
-    Czech title/summary in the same call so non-German-speaking staff can read it —
-    done server-side so it's available to every visitor, not gated behind a personal API key."""
+    Czech title/summary in the same call so non-German-speaking staff can read it."""
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     if not api_key:
         return {"signal": "info", "competitors": []}
@@ -278,6 +281,7 @@ def analyze_article(title: str, desc: str, is_automotive: bool = True, translate
         ',\n  "title_cs": "Czech translation of the title",\n  "desc_cs": "Czech translation of the summary"'
         if translate else ""
     )
+    so_what_field = ',\n  "so_what": "2-3 sentence plain-language takeaway in Czech for a Škoda Auto employee: what this means and what, if anything, to do about it"'
 
     if is_automotive:
         prompt = f"""Analyze this automotive news article for Škoda Auto.
@@ -291,7 +295,7 @@ Respond with JSON only, no other text:
 {{
   "signal": "threat|opportunity|watch|info",
   "signal_reason": "one short sentence why",
-  "competitors": ["list", "of", "competitor", "brands", "mentioned"]{translate_field}
+  "competitors": ["list", "of", "competitor", "brands", "mentioned"]{so_what_field}{translate_field}
 }}
 
 Signal definitions:
@@ -310,7 +314,7 @@ Respond with JSON only, no other text:
 {{
   "signal": "threat|opportunity|watch|info",
   "signal_reason": "one short sentence why",
-  "competitors": []{translate_field}
+  "competitors": []{so_what_field}{translate_field}
 }}
 
 Signal definitions (think macro: trade, energy, politics, regulation, economy):
@@ -322,7 +326,7 @@ Signal definitions (think macro: trade, energy, politics, regulation, economy):
     try:
         req_data = json.dumps({
             "model": "claude-haiku-4-5",
-            "max_tokens": 400 if translate else 200,
+            "max_tokens": (400 if translate else 200) + 150,
             "messages": [{"role": "user", "content": prompt}]
         }).encode()
         req = urllib.request.Request(
@@ -649,6 +653,7 @@ def fetch_feed(source: dict, month_start: datetime, month_end: datetime) -> list
             "is_pr":    source.get("is_pr", False),
             "title_cs": "",
             "desc_cs":  "",
+            "so_what":  "",
         })
 
         if len(results) >= ARTICLES_PER_SOURCE:
@@ -728,6 +733,7 @@ def main():
             ai_comps = result.get("competitors", [])
             existing = set(a.get("competitors", []))
             a["competitors"] = list(existing | set(ai_comps))
+            a["so_what"] = result.get("so_what", "")
             if needs_translation:
                 a["title_cs"] = result.get("title_cs", "")
                 a["desc_cs"]  = result.get("desc_cs", "")
@@ -815,11 +821,16 @@ def main():
         competitors_str = html.escape(",".join(a.get("competitors",[])))
         title_cs = a.get("title_cs","")
         desc_cs  = a.get("desc_cs","")
+        so_what  = a.get("so_what","")
         cs_translation_html = (
             f'<div class="ct-cs">🇨🇿 {html.escape(title_cs)}</div>' if title_cs else ""
         )
+        so_what_html = (
+            f'<div class="card-sowhat"><span class="card-sowhat-lbl">🧠 So what?</span> {html.escape(so_what)}</div>'
+            if so_what else ""
+        )
         return f"""
-        <div class="card" tabindex="0" role="button" aria-label="{html.escape(a['title'])}" data-region="{html.escape(a['region'])}" data-is-pr="{'1' if a.get('is_pr') else ''}" data-cat="{html.escape(a['cat'])}" data-search="{html.escape(search_str)}" data-source="{html.escape(a['source'])}" data-title="{html.escape(a['title'])}" data-desc="{html.escape(a['desc'])}" data-title-cs="{html.escape(title_cs)}" data-desc-cs="{html.escape(desc_cs)}" data-url="{html.escape(a.get('url',''))}" data-img="{html.escape(img_url)}" data-date="{html.escape(a['date'])}" data-signal="{signal}" data-signal-reason="{signal_reason}" data-competitors="{competitors_str}" data-reputation="{a.get('reputation',75)}" data-ts="{a.get('ts',0)}">
+        <div class="card" tabindex="0" role="button" aria-label="{html.escape(a['title'])}" data-region="{html.escape(a['region'])}" data-is-pr="{'1' if a.get('is_pr') else ''}" data-cat="{html.escape(a['cat'])}" data-search="{html.escape(search_str)}" data-source="{html.escape(a['source'])}" data-title="{html.escape(a['title'])}" data-desc="{html.escape(a['desc'])}" data-title-cs="{html.escape(title_cs)}" data-desc-cs="{html.escape(desc_cs)}" data-so-what="{html.escape(so_what)}" data-url="{html.escape(a.get('url',''))}" data-img="{html.escape(img_url)}" data-date="{html.escape(a['date'])}" data-signal="{signal}" data-signal-reason="{signal_reason}" data-competitors="{competitors_str}" data-reputation="{a.get('reputation',75)}" data-ts="{a.get('ts',0)}">
           {img_block}
           <div class="cb">
             <div class="ccat">
@@ -829,6 +840,7 @@ def main():
             <div class="ct">{html.escape(a["title"])}</div>
             {cs_translation_html}
             <div class="cd">{html.escape(a["desc"])}…</div>
+            {so_what_html}
             <div class="cf">
               <span class="cs">{html.escape(a["source"])}</span>
               <span class="xhint">▼ read more</span>
