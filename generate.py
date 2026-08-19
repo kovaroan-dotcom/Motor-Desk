@@ -3,7 +3,7 @@
 Motor Desk – RSS generator
 Runs twice daily via GitHub Actions (07:00 and 15:00 CET, see .github/workflows/update.yml).
 Fetches up to 5 articles per source published in the last 30 days from each of the
-43 configured feeds, then renders motor-desk.html and archive.html from
+47 configured feeds, then renders motor-desk.html and archive.html from
 template.html / archive_template.html.
 """
 
@@ -302,6 +302,8 @@ SOURCE_URLS = {
     "Auto.cz": "https://www.auto.cz", "AutoRevue.cz": "https://www.autorevue.cz",
     "iDnes Auto": "https://www.idnes.cz/auto", "Autoforum.cz": "https://www.autoforum.cz",
     "EV Magazin CZ": "https://www.evmagazin.cz",
+    "Autocar India": "https://www.autocarindia.com", "MotoFocus.pl": "https://motofocus.pl",
+    "SME.sk Auto": "https://www.sme.sk/auto",
 }
 
 SOURCE_REPUTATION = {
@@ -337,12 +339,15 @@ SOURCES = [
     {"name": "Reuters Autos",     "url": "https://feeds.reuters.com/reuters/businessNews",                          "region": "world", "cat": "industry"},
     {"name": "TechCrunch Transport","url": "https://techcrunch.com/category/transportation/feed/",                  "region": "world", "cat": "autonomy"},
     {"name": "The Verge",         "url": "https://www.theverge.com/rss/index.xml",                                  "region": "world", "cat": "auto"},
+    {"name": "Autocar India",     "url": "https://www.autocarindia.com/rss/all",                                    "region": "world", "cat": "auto"},
     # Europe
     {"name": "Autocar",           "url": "https://www.autocar.co.uk/rss",                                           "region": "europe", "cat": "auto"},
     {"name": "Auto Express",      "url": "https://www.autoexpress.co.uk/rss",                                       "region": "europe", "cat": "auto"},
     {"name": "Autovista24",       "url": "https://autovista24.autovistagroup.com/feed/",                             "region": "europe", "cat": "industry"},
     {"name": "Politico EU Autos", "url": "https://www.politico.eu/section/electric-vehicles/feed/",                  "region": "europe", "cat": "policy"},
     {"name": "Transport & Env.",  "url": "https://www.transportenvironment.org/feed/",                               "region": "europe", "cat": "policy"},
+    {"name": "MotoFocus.pl",      "url": "https://motofocus.pl/feed",                                               "region": "europe", "cat": "auto"},
+    {"name": "SME.sk Auto",       "url": "https://www.sme.sk/auto/rss",                                             "region": "europe", "cat": "auto"},
     # China
     {"name": "CnEVPost",          "url": "https://cnevpost.com/feed/",                                              "region": "china",  "cat": "ev"},
     {"name": "CarNewsChina",      "url": "https://carnewschina.com/feed/",                                          "region": "china",  "cat": "auto"},

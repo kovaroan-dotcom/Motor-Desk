@@ -666,6 +666,9 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
   <div class="filter-bar" id="topicBar">
     <span class="row-lbl">Téma</span>
     <div class="filter-sep" id="topicSep"></div>
+    <!-- Two static button sets, toggled by display (not regenerated via innerHTML) — Automotive and
+         Svět & Kontext have genuinely different topic taxonomies (BEV/Policy/Industry vs
+         Politics/Economy/Culture) and a runtime string-swap here is one extra place a bug can hide. -->
     <div id="tnav" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
       <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
       <button class="fb"    data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
@@ -674,6 +677,14 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
       <button class="fb"    data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
       <button class="fb"    data-t="industry" onclick="sT('industry')">🏭 Industry</button>
       <button class="fb"    data-t="tech"     onclick="sT('tech')">🔋 Battery</button>
+    </div>
+    <div id="tnavWorld" style="display:none;flex-wrap:wrap;gap:4px;align-items:center">
+      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
+      <button class="fb"    data-t="politics" onclick="sT('politics')">🏛 Politics</button>
+      <button class="fb"    data-t="economy"  onclick="sT('economy')">📈 Economy</button>
+      <button class="fb"    data-t="tech"     onclick="sT('tech')">💡 Technology</button>
+      <button class="fb"    data-t="ai"       onclick="sT('ai')">🤖 AI</button>
+      <button class="fb"    data-t="culture"  onclick="sT('culture')">🎭 Culture</button>
     </div>
   </div>
 
@@ -722,7 +733,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
         <div class="ed-lbl">Škoda Intelligence Hub · {{MONTH_LABEL}}</div>
         <div class="ed-t" id="edTitle">{{MONTH_LABEL}} Edition</div>
       </div>
-      <div class="ed-m"><strong id="vc">{{ARTICLE_COUNT}} articles</strong> <span data-i18n="from_sources">from 43 sources</span></div>
+      <div class="ed-m"><strong id="vc">{{ARTICLE_COUNT}} articles</strong> <span data-i18n="from_sources">from 47 sources</span></div>
     </div>
     <div class="ed-rule-double"></div>
     <div id="trending"></div>
@@ -1059,7 +1070,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
 
 <footer>
   <span>ŠKODA INTELLIGENCE HUB · Škoda Auto · {{MONTH_LABEL}}</span>
-  <span data-i18n="footer_note">43 sources · Auto-updated twice daily</span>
+  <span data-i18n="footer_note">47 sources · Auto-updated twice daily</span>
 </footer>
 
 <script>
@@ -1087,7 +1098,7 @@ const I18N = {
     sowhat_placeholder:"Click Generate to analyze for Škoda Auto…",
     search_placeholder:"🔍  Search: Tesla, BYD, tariffs, EU…",
     automotive_intelligence:"Automotive & Mobility Intelligence · Škoda Auto",
-    from_sources:"from 43 sources", key_stories:"key stories",
+    from_sources:"from 47 sources", key_stories:"key stories",
     signal_overview:"Signal Overview", threat:"Threat", watch:"Watch",
     opportunity:"Opportunity", click_to_filter:"Click to filter",
     trend_board_label:"Market Pulse", resonating_now:"Co rezonuje v médiích",
@@ -1095,7 +1106,7 @@ const I18N = {
     exec_label:"Management Summary · Škoda Auto",
     exec_subtitle:"Top stories ranked by impact on Škoda Auto",
     competitor_presence:"📊 Competitor Media Presence — click to filter",
-    sources:"📰 Sources", footer_note:"43 sources · Auto-updated twice daily",
+    sources:"📰 Sources", footer_note:"47 sources · Auto-updated twice daily",
     all_sources:"All sources", filter_by_lang:"Filter by source language",
     no_signal_matches:"No stories with this signal right now.",
     pulse_sort_hint:"Sorted: Threat/Opportunity first, then by date — max 4 stories per source",
@@ -1112,7 +1123,7 @@ const I18N = {
     sowhat_placeholder:"Klikněte pro analýzu dopadu na Škoda Auto…",
     search_placeholder:"🔍  Hledat: Tesla, BYD, cla, EU…",
     automotive_intelligence:"Automotive & Mobilita · Škoda Auto",
-    from_sources:"z 43 zdrojů", key_stories:"klíčových zpráv",
+    from_sources:"z 47 zdrojů", key_stories:"klíčových zpráv",
     signal_overview:"Přehled signálů", threat:"Riziko", watch:"Sledovat",
     opportunity:"Příležitost", click_to_filter:"Kliknutím filtrovat",
     trend_board_label:"Market Pulse", resonating_now:"Co teď rezonuje",
@@ -1120,7 +1131,7 @@ const I18N = {
     exec_label:"Management Summary · Škoda Auto",
     exec_subtitle:"Top zprávy seřazené podle dopadu na Škoda Auto",
     competitor_presence:"📊 Mediální přítomnost konkurence — kliknutím filtrovat",
-    sources:"📰 Zdroje", footer_note:"43 zdrojů · Aktualizováno 2× denně",
+    sources:"📰 Zdroje", footer_note:"47 zdrojů · Aktualizováno 2× denně",
     all_sources:"Všechny zdroje", filter_by_lang:"Filtrovat dle jazyka zdroje",
     no_signal_matches:"Aktuálně žádné zprávy s tímto signálem.",
     pulse_sort_hint:"Řazeno: Riziko/Příležitost nejdřív, pak podle data — max. 4 zprávy na jeden zdroj",
@@ -1137,7 +1148,7 @@ const I18N = {
     sowhat_placeholder:"Klicken um Analyse für Škoda Auto zu generieren…",
     search_placeholder:"🔍  Suchen: Tesla, BYD, Zölle, EU…",
     automotive_intelligence:"Automotive & Mobilität · Škoda Auto",
-    from_sources:"aus 43 Quellen", key_stories:"wichtige Meldungen",
+    from_sources:"aus 47 Quellen", key_stories:"wichtige Meldungen",
     signal_overview:"Signal-Übersicht", threat:"Bedrohung", watch:"Beobachten",
     opportunity:"Chance", click_to_filter:"Klicken zum Filtern",
     trend_board_label:"Trend-Board", resonating_now:"Was gerade resoniert",
@@ -1145,7 +1156,7 @@ const I18N = {
     exec_label:"Management-Übersicht · Škoda Auto",
     exec_subtitle:"Top-Meldungen nach Auswirkung auf Škoda Auto",
     competitor_presence:"📊 Medienpräsenz der Konkurrenz — klicken zum Filtern",
-    sources:"📰 Quellen", footer_note:"43 Quellen · 2× täglich aktualisiert",
+    sources:"📰 Quellen", footer_note:"47 Quellen · 2× täglich aktualisiert",
     all_sources:"Alle Quellen", filter_by_lang:"Nach Quellensprache filtern",
     no_signal_matches:"Aktuell keine Meldungen mit diesem Signal.",
     pulse_sort_hint:"Sortiert: Bedrohung/Chance zuerst, dann nach Datum — max. 4 Meldungen pro Quelle",
@@ -1315,20 +1326,16 @@ function setSection(sec, btn) {
   }
   // Update region nav for world section
   const rnavEl = document.getElementById("rnav");
-  const tnavEl = document.getElementById("tnav");
+  // Topic buttons: two static sets (#tnav = Automotive, #tnavWorld = Svět & Kontext), toggled by
+  // display rather than regenerated — see markup comment for why.
+  document.getElementById("tnav").style.display      = isAuto ? "flex" : "none";
+  document.getElementById("tnavWorld").style.display  = isAuto ? "none" : "flex";
   if (!isAuto) {
     rnavEl.innerHTML = `
       <button class="rb on" data-r="all" onclick="sR('all')">All</button>
       <button class="rb" data-r="ctx-world" onclick="sR('ctx-world')">Global</button>
       <button class="rb" data-r="ctx-eu"    onclick="sR('ctx-eu')">Europe</button>
       <button class="rb" data-r="ctx-cz"    onclick="sR('ctx-cz')">Czech Republic</button>`;
-    tnavEl.innerHTML = `
-      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
-      <button class="fb" data-t="politics"   onclick="sT('politics')">🏛 Politics</button>
-      <button class="fb" data-t="economy"    onclick="sT('economy')">📈 Economy</button>
-      <button class="fb" data-t="tech"       onclick="sT('tech')">💡 Technology</button>
-      <button class="fb" data-t="ai"         onclick="sT('ai')">🤖 AI</button>
-      <button class="fb" data-t="culture"    onclick="sT('culture')">🎭 Culture</button>`;
   } else {
     rnavEl.innerHTML = `
       <button class="rb on" data-r="all" onclick="sR('all')">All</button>
@@ -1336,16 +1343,9 @@ function setSection(sec, btn) {
       <button class="rb" data-r="europe" onclick="sR('europe')">Europe</button>
       <button class="rb" data-r="china"  onclick="sR('china')">China</button>
       <button class="rb" data-r="cz"     onclick="sR('cz')">Czech Republic</button>`;
-    tnavEl.innerHTML = `
-      <button class="fb on" data-t="all"      onclick="sT('all')">All Topics</button>
-      <button class="fb" data-t="ev"       onclick="sT('ev')">⚡ BEV/PHEV</button>
-      <button class="fb" data-t="auto"     onclick="sT('auto')">🚗 Automotive</button>
-      <button class="fb" data-t="autonomy" onclick="sT('autonomy')">🤖 Autonomous</button>
-      <button class="fb" data-t="policy"   onclick="sT('policy')">🏛 Policy</button>
-      <button class="fb" data-t="industry" onclick="sT('industry')">🏭 Industry</button>
-      <button class="fb" data-t="tech"     onclick="sT('tech')">🔋 Battery</button>`;
   }
   aR = "all"; aT = "all";
+  document.querySelectorAll(".fb").forEach(b=>b.classList.toggle("on", b.dataset.t==="all"));
   updateFiltersBadge();
   // Preserve current view (News Feed/Mgmt Summary/Pulse/Deep) when switching Automotive<->World
   // Only reset to standard if currently on brief-incompatible state
