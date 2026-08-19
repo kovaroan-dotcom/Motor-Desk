@@ -575,6 +575,9 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
     <button class="snb" data-sec="world" onclick="setSection('world',this)">
       <span class="snb-dot"></span>Svět &amp; Kontext
     </button>
+    <button class="snb" data-sec="skoda" onclick="setSection('skoda',this)">
+      <span class="snb-dot"></span>Škoda
+    </button>
     <button class="snb" data-sec="monthly" onclick="setSection('monthly',this)">
       <span class="snb-dot"></span>Monthly Digest
     </button>
@@ -746,6 +749,12 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
     <div id="main">{{CONTENT}}</div>
     <div id="ctxMain" style="display:none">{{CTX_CONTENT}}</div>
   <div id="briefMain" style="display:none">{{BRIEF_CONTENT}}</div>
+  <div id="skodaMain" style="display:none">
+    <div class="ed-lbl" style="margin:24px 0 4px">Vše o Škoda Auto</div>
+    <div class="ed-t" style="font-style:italic;margin-bottom:16px">Napříč Automotive i Svět &amp; Kontext — články se mohou opakovat s ostatními sekcemi</div>
+    <div class="grid" id="skodaGrid"></div>
+    <div id="skodaEmpty" style="display:none;padding:40px 0;text-align:center;color:var(--dim);font-size:13px">Zatím žádné zprávy o Škodě v aktuálním okně.</div>
+  </div>
 
   </div>
 
@@ -1308,13 +1317,32 @@ function setSection(sec, btn) {
   const isWorld   = sec === "world";
   const isBrief   = sec === "brief";
   const isMonthly = sec === "monthly";
+  const isSkoda   = sec === "skoda";
 
   // Show/hide main content containers
   document.getElementById("main").style.display      = isAuto  ? "" : "none";
   document.getElementById("ctxMain").style.display   = isWorld ? "" : "none";
   document.getElementById("briefMain").style.display = isBrief ? "" : "none";
+  document.getElementById("skodaMain").style.display = isSkoda ? "" : "none";
   const mm = document.getElementById("monthlyMain");
   if(mm) mm.style.display = isMonthly ? "block" : "none";
+
+  // Škoda section — cross-cutting, pulled from cards already rendered in Automotive/Svět & Kontext
+  // (duplication across sections is intentional, not a bug)
+  if (isSkoda) {
+    document.getElementById("filterBar").style.display = "none";
+    document.getElementById("topicBar").style.display = "none";
+    document.getElementById("viewNav").style.display = "none";
+    document.getElementById("signalFilterBar").style.display = "none";
+    document.getElementById("mainToolbar").style.display = "none";
+    ["viewStandard","viewExec","viewTrend","viewDeep"].forEach(id=>{
+      const el = document.getElementById(id); if(el) el.style.display="none";
+    });
+    const vb = document.getElementById("viewBrief");
+    if(vb) vb.style.display="none";
+    renderSkodaSection();
+    return;
+  }
 
   // Brief section
   if(isBrief) {
@@ -1846,6 +1874,31 @@ function openResearchTopic(id) {
   }).join("");
 }
 function closeResearchDetail(){document.getElementById("researchGrid").style.display="grid";document.getElementById("researchDetail").style.display="none";}
+
+// ── ŠKODA SECTION (cross-cutting — pulls matching cards from Automotive + Svět & Kontext) ──
+function renderSkodaSection(){
+  const seen = new Set();
+  const matches = [];
+  document.querySelectorAll("#main .card, #ctxMain .card").forEach(c=>{
+    const search = (c.dataset.search||"").toLowerCase();
+    const source = (c.dataset.source||"").toLowerCase();
+    if (!(search.includes("škoda") || search.includes("skoda") || source.includes("škoda") || source.includes("skoda"))) return;
+    const key = articleKey(c);
+    if (key) { if (seen.has(key)) return; seen.add(key); }
+    matches.push(c);
+  });
+  matches.sort((a,b)=>(parseFloat(b.dataset.ts)||0)-(parseFloat(a.dataset.ts)||0));
+  const grid = document.getElementById("skodaGrid");
+  const empty = document.getElementById("skodaEmpty");
+  if (!matches.length) { grid.innerHTML=""; empty.style.display=""; return; }
+  empty.style.display = "none";
+  grid.innerHTML = "";
+  matches.forEach(c=>{
+    const clone = c.cloneNode(true);
+    clone.classList.remove("hidden","exp");
+    grid.appendChild(clone);
+  });
+}
 async function analyzeResearchTopic(){
   if(!currentResearchTopic) return;
   const apiKey=localStorage.getItem("md-api-key");
@@ -1878,6 +1931,7 @@ document.addEventListener("click",function(e){
   card.classList.toggle("exp");
   const h=card.querySelector(".xhint");
   if(h)h.textContent=card.classList.contains("exp")?"▲ collapse":"▼ read more";
+  if(card.classList.contains("exp")) markRead(card);
 });
 
 // ── KEYBOARD ACTIVATION for role="button" cards ──
