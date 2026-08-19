@@ -42,7 +42,61 @@ CZ_MONTHS = {
     7: "Červenec", 8: "Srpen", 9: "Září", 10: "Říjen", 11: "Listopad", 12: "Prosinec",
 }
 
-def generate_monthly_digest(all_articles: list, month_dt: datetime) -> str:
+def generate_trend_chart(archive: list, now_utc: datetime, weeks: int = 8) -> str:
+    """8-week rolling trend of signal mix — everything else in the dashboard is a
+    point-in-time snapshot; this is the one view that answers "is this getting worse?"."""
+    from collections import Counter
+    buckets = []
+    for w in range(weeks - 1, -1, -1):
+        end = now_utc.timestamp() - w * 7 * 86400
+        start = end - 7 * 86400
+        week_start_date = datetime.fromtimestamp(start, tz=timezone.utc)
+        arts = [a for a in archive if start <= a.get("ts", 0) < end]
+        c = Counter(a.get("signal", "info") for a in arts)
+        buckets.append({
+            "label": week_start_date.strftime("%-d.%-m."),
+            "threat": c.get("threat", 0), "opportunity": c.get("opportunity", 0),
+            "watch": c.get("watch", 0), "info": c.get("info", 0),
+            "total": len(arts),
+        })
+    max_total = max((b["total"] for b in buckets), default=0) or 1
+
+    def bar(b):
+        segs = "".join(
+            f'<div style="flex:{b[sig]};background:{color}" title="{sig}: {b[sig]}"></div>'
+            for sig, color in [("info", "#94b8a8"), ("watch", "#d97706"), ("opportunity", "#1a6b4a"), ("threat", "#dc2626")]
+            if b[sig] > 0
+        )
+        pct = (b["total"] / max_total * 100) if max_total else 0
+        return (
+            '<div style="display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;min-width:0">'
+            f'<div style="font-size:9px;font-weight:700;color:#495057">{b["total"]}</div>'
+            '<div style="width:100%;height:70px;display:flex;flex-direction:column;justify-content:flex-end;'
+            'background:#f1f3f5;border-radius:3px;overflow:hidden">'
+            f'<div style="height:{pct:.0f}%;display:flex;flex-direction:column-reverse">{segs}</div></div>'
+            f'<div style="font-size:8px;color:#868e96;font-family:monospace;white-space:nowrap">{b["label"]}</div>'
+            '</div>'
+        )
+
+    this_week, last_week = buckets[-1], buckets[-2] if len(buckets) > 1 else buckets[-1]
+    delta = this_week["threat"] - last_week["threat"]
+    trend_word = "více" if delta > 0 else ("méně" if delta < 0 else "stejně")
+    insight = (
+        f'Rizikových zpráv tento týden: <strong>{this_week["threat"]}</strong> '
+        f'({abs(delta)} {trend_word} než týden předtím, {last_week["threat"]})'
+        if len(buckets) > 1 else f'Rizikových zpráv tento týden: <strong>{this_week["threat"]}</strong>'
+    )
+    return (
+        '<div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0e3a2f;margin:32px 0 4px">📈 TREND — POSLEDNÍCH 8 TÝDNŮ</div>'
+        f'<div style="font-size:11px;color:#868e96;margin-bottom:14px">{insight}</div>'
+        f'<div style="display:flex;gap:6px;align-items:flex-end;margin-bottom:8px">{"".join(bar(b) for b in buckets)}</div>'
+        '<div style="display:flex;gap:14px;font-size:9px;color:#868e96">'
+        '<span>🔴 Riziko</span><span>🟢 Příležitost</span><span>🟡 Sledovat</span><span>🔵 Info</span>'
+        '</div>'
+    )
+
+
+def generate_monthly_digest(all_articles: list, month_dt: datetime, archive: list, now_utc: datetime) -> str:
     """Generate Monthly Digest HTML summary."""
     from collections import Counter
     month_label_cs = f"{CZ_MONTHS[month_dt.month]} {month_dt.year}"
@@ -115,6 +169,7 @@ def generate_monthly_digest(all_articles: list, month_dt: datetime) -> str:
         '<th style="padding:8px;text-align:left;font-size:9px;color:#868e96">Datum</th>'
         '</tr></thead>'
         f'<tbody>{"".join(rows)}</tbody></table>'
+        f'{generate_trend_chart(archive, now_utc)}'
     )
 
 
@@ -866,7 +921,7 @@ def main():
         .replace("{{CTX_CONTENT}}", ctx_content)
         .replace("{{CTX_COUNT}}", str(len(ctx_world) + len(ctx_eu) + len(ctx_cz)))
         .replace("{{BRIEF_CONTENT}}", brief_content)
-        .replace("{{MONTHLY_CONTENT}}", generate_monthly_digest(digest_articles, digest_dt))
+        .replace("{{MONTHLY_CONTENT}}", generate_monthly_digest(digest_articles, digest_dt, archive, now_utc))
         .replace("{{BRIEF_TITLE}}", brief_type_label)
         .replace("{{BRIEF_NAV_TITLE}}", brief_type_label)
         .replace("{{BRIEF_META}}", f"Top zprávy za posledních 12h · {updated}")
