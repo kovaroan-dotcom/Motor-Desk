@@ -414,6 +414,10 @@ body.no-images .grid .card:first-child .xhint{display:inline!important}
 .overlay-src{font-weight:700;color:var(--txt)}
 .rep-badge{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.08em;color:var(--mut);cursor:help}
 .tts-btn{background:var(--bg2);border:1px solid var(--bdr2);border-radius:6px;color:var(--mut);font-size:14px;padding:7px 11px;cursor:pointer;transition:all .15s;margin-left:6px}
+.tts-btn.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.card.read{opacity:.62}
+.card.read:hover{opacity:1}
+.card.saved::after{content:"🔖";position:absolute;top:8px;right:8px;z-index:3;font-size:13px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
 .tts-btn:hover{border-color:var(--acc);color:var(--acc)}
 .overlay-read{margin-left:auto;padding:9px 20px;background:var(--acc);color:var(--bg);border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s;box-shadow:0 2px 8px rgba(14,58,47,.2)}
 .overlay-read:hover{box-shadow:0 4px 16px rgba(14,58,47,.3);transform:translateY(-1px)}
@@ -495,6 +499,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
         <span id="ol-reputation" class="rep-badge"></span>
         <a class="overlay-read" id="ol-link" href="#" target="_blank" rel="noopener" data-i18n="read_article">Read full article →</a>
         <button class="tts-btn" onclick="speakArticle()" title="Přečíst nahlas">🔊</button>
+        <button class="tts-btn" id="ol-save-btn" onclick="toggleSaved()" title="Uložit na později">🔖</button>
       </div>
       <div class="overlay-ai">
         <div class="ai-tabs">
@@ -719,6 +724,7 @@ footer{background:var(--head);color:var(--mut);padding:14px 52px;display:flex;ju
       </div>
     </div>
     <button class="new-counter" id="newCounter" onclick="showNewOnly()"></button>
+    <button class="new-counter" id="savedCounter" onclick="showSavedOnly()"></button>
     <button class="heatmap-btn" onclick="toggleHeatmap()">📊 Konkurence</button>
     <span class="cnt" id="cnt">{{ARTICLE_COUNT}} articles</span>
   </div>
@@ -1181,9 +1187,50 @@ const SOURCE_LANG = {
 
 // ── STATE ──
 let aR="all", aT="all", aQ="", curView="standard";
-let curLang="cs", curLangFilter="all", showingNewOnly=false, deepFilter="all";
+let curLang="cs", curLangFilter="all", showingNewOnly=false, showingSavedOnly=false, deepFilter="all";
 let execCards=[], trendCards=[], deepCards=[];
 let currentArticleData=null;
+
+// ── READ / SAVED STATE (localStorage only — no account system exists) ──
+function articleKey(el){ return el.dataset.url || el.dataset.title || ""; }
+let readKeys  = new Set(JSON.parse(localStorage.getItem("md-read")  || "[]"));
+let savedKeys = new Set(JSON.parse(localStorage.getItem("md-saved") || "[]"));
+function markRead(card){
+  const k = articleKey(card);
+  if (!k || readKeys.has(k)) return;
+  readKeys.add(k);
+  localStorage.setItem("md-read", JSON.stringify([...readKeys]));
+  document.querySelectorAll(`.card[data-url="${CSS.escape(k)}"], .card[data-title="${CSS.escape(k)}"]`).forEach(c=>c.classList.add("read"));
+}
+function toggleSaved(){
+  if (!currentArticleData) return;
+  const k = currentArticleData.url || currentArticleData.title || "";
+  if (!k) return;
+  const nowSaved = !savedKeys.has(k);
+  nowSaved ? savedKeys.add(k) : savedKeys.delete(k);
+  localStorage.setItem("md-saved", JSON.stringify([...savedKeys]));
+  document.getElementById("ol-save-btn").classList.toggle("on", nowSaved);
+  document.querySelectorAll(`.card[data-url="${CSS.escape(k)}"], .card[data-title="${CSS.escape(k)}"]`).forEach(c=>c.classList.toggle("saved", nowSaved));
+  updateSavedCounter();
+}
+function updateSavedCounter(){
+  const btn = document.getElementById("savedCounter");
+  if (!btn) return;
+  btn.classList.toggle("on", savedKeys.size > 0);
+  if (savedKeys.size > 0) btn.innerHTML = `🔖 ${savedKeys.size}`;
+}
+function showSavedOnly(){
+  showingSavedOnly = !showingSavedOnly;
+  document.getElementById("savedCounter").style.background = showingSavedOnly ? "rgba(26,107,74,.2)" : "";
+  applyFilters();
+}
+function applyReadSavedMarks(){
+  document.querySelectorAll(".card").forEach(c=>{
+    const k = articleKey(c);
+    c.classList.toggle("read", k && readKeys.has(k));
+    c.classList.toggle("saved", k && savedKeys.has(k));
+  });
+}
 
 // ── INIT ──
 (function(){
@@ -1200,6 +1247,8 @@ let currentArticleData=null;
     document.getElementById("imgBtn").classList.remove("on");
   }
   checkNewArticles();
+  applyReadSavedMarks();
+  updateSavedCounter();
 })();
 
 // ── I18N ──
@@ -1452,8 +1501,9 @@ function applyFilters() {
     const sigOk    = curSigFilter==="all"  || c.dataset.signal===curSigFilter;
     // PR cards only belong in the dedicated "Tiskové zprávy" view; everywhere else they must be excluded.
     const prOk     = (c.dataset.isPr==="1") === (curView==="pr");
-    const newOk    = !showingNewOnly || !!c.querySelector(".badge-new");
-    const ok = regionOk && topicOk && searchOk && langOk && sigOk && prOk && newOk;
+    const newOk    = !showingNewOnly   || !!c.querySelector(".badge-new");
+    const savedOk  = !showingSavedOnly || c.classList.contains("saved");
+    const ok = regionOk && topicOk && searchOk && langOk && sigOk && prOk && newOk && savedOk;
     c.classList.toggle("hidden",!ok);
   });
   // Count only cards in the currently visible section — matching getActiveCards()'s
@@ -1849,6 +1899,9 @@ function openOverlay(card) {
     titleCs:card.dataset.titleCs, descCs:card.dataset.descCs,
     reputation: parseInt(card.dataset.reputation) || 75
   };
+  markRead(card);
+  const saveKey = currentArticleData.url || currentArticleData.title || "";
+  document.getElementById("ol-save-btn").classList.toggle("on", saveKey && savedKeys.has(saveKey));
   document.getElementById("ai-sowhat-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">"+(I18N[curLang]||I18N.en).sowhat_placeholder+"</span>";
   document.getElementById("ai-impact-content").innerHTML="<span style=\"color:var(--dim);font-style:italic\">Vygeneruje analýzu dopadů pro Management, R&D, Nákup a Obchod…</span>";
   switchAiTab("sowhat", document.querySelector(".ai-tab"));
