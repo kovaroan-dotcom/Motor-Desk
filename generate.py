@@ -281,7 +281,11 @@ def analyze_article(title: str, desc: str, is_automotive: bool = True, translate
         ',\n  "title_cs": "Czech translation of the title",\n  "desc_cs": "Czech translation of the summary"'
         if translate else ""
     )
-    so_what_field = ',\n  "so_what": "2-3 sentence plain-language takeaway in Czech for a Škoda Auto employee: what this means and what, if anything, to do about it"'
+    so_what_field = (
+        ',\n  "so_what": "1-2 short plain-language sentences in Czech for a Škoda Auto employee: '
+        'what this means and what, if anything, to do about it. Keep it under 220 characters. '
+        'Do not use double-quote characters inside this string — use single quotes if you need to quote something."'
+    )
 
     if is_automotive:
         prompt = f"""Analyze this automotive news article for Škoda Auto.
@@ -323,10 +327,16 @@ Signal definitions (think macro: trade, energy, politics, regulation, economy):
 - watch: relevant macro trend worth monitoring but no immediate impact
 - info: general news with low direct business relevance (culture, sport, celebrity, routine politics)"""
 
+    text = ""
     try:
         req_data = json.dumps({
             "model": "claude-haiku-4-5",
-            "max_tokens": (400 if translate else 200) + 150,
+            # Generous headroom: the "so_what" free-text field made responses meaningfully
+            # longer than the old signal/reason/competitors-only schema, and a value too tight
+            # here silently truncates the JSON mid-string, which then fails to parse and falls
+            # back to signal="info" for every single article — exactly what happened when this
+            # was only bumped by +150 (350/550 total) instead of given real room.
+            "max_tokens": 600 if translate else 450,
             "messages": [{"role": "user", "content": prompt}]
         }).encode()
         req = urllib.request.Request(
@@ -343,9 +353,14 @@ Signal definitions (think macro: trade, energy, politics, regulation, economy):
         text = data["content"][0]["text"].strip()
         # strip markdown fences if present
         text = re.sub(r"```json|```", "", text).strip()
+        # Tolerate the model wrapping the JSON in stray prose despite "JSON only" — grab the
+        # outermost {...} block instead of assuming the whole response is clean JSON.
+        match = re.search(r"\{.*\}", text, re.S)
+        if match:
+            text = match.group(0)
         return json.loads(text)
     except Exception as e:
-        print(f"  [AI] analyze failed: {e}")
+        print(f"  [AI] analyze failed: {e} | raw response (first 300 chars): {text[:300]!r}")
         return {"signal": "info", "signal_reason": "", "competitors": []}
 
 SOURCE_URLS = {
@@ -718,12 +733,17 @@ def main():
     # ── AI ANALYSIS: signal + competitor enrichment for new articles ──
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     if api_key:
-        cutoff_analyze = now_utc.timestamp() - 86400  # only analyze last 24h articles
-        needs_analysis = [a for a in archive 
-                         if a.get("signal") == "info" 
-                         and not a.get("signal_reason") 
-                         and a.get("ts", 0) >= cutoff_analyze][:150]
-        print(f"Running AI analysis on {len(needs_analysis)} articles (last 24h)...")
+        # 30 days (matches the Monthly Digest / trend-chart window) rather than 24h: a prior bug
+        # (insufficient max_tokens after the so_what field was added) made analyze_article() fail
+        # for 100% of articles from 2026-08-14 through 2026-08-24 — with a 24h retry window those
+        # would have silently aged out and stayed permanently un-analyzed. Wider window catches up
+        # the backlog over the next several runs and is a more resilient default going forward.
+        cutoff_analyze = now_utc.timestamp() - 30 * 86400
+        needs_analysis = [a for a in archive
+                         if a.get("signal") == "info"
+                         and not a.get("signal_reason")
+                         and a.get("ts", 0) >= cutoff_analyze][:400]
+        print(f"Running AI analysis on {len(needs_analysis)} articles (last 30d)...")
         for i, a in enumerate(needs_analysis):
             is_auto = a.get("region") in ("world", "europe", "china", "cz")
             needs_translation = a.get("source") in GERMAN_SOURCES
