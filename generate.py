@@ -3,7 +3,7 @@
 Motor Desk – RSS generator
 Runs twice daily via GitHub Actions (07:00 and 15:00 CET, see .github/workflows/update.yml).
 Fetches up to 5 articles per source published in the last 30 days from each of the
-47 configured feeds, then renders motor-desk.html and archive.html from
+48 configured feeds, then renders motor-desk.html and archive.html from
 template.html / archive_template.html.
 """
 
@@ -377,7 +377,7 @@ SOURCE_URLS = {
     "iDnes Auto": "https://www.idnes.cz/auto", "Autoforum.cz": "https://www.autoforum.cz",
     "EV Magazin CZ": "https://www.evmagazin.cz",
     "Autocar India": "https://www.autocarindia.com", "MotoFocus.pl": "https://motofocus.pl",
-    "SME.sk Auto": "https://www.sme.sk/auto",
+    "SME.sk Auto": "https://www.sme.sk/auto", "Carscoops Škoda": "https://www.carscoops.com/tag/skoda/",
 }
 
 SOURCE_REPUTATION = {
@@ -414,6 +414,7 @@ SOURCES = [
     {"name": "TechCrunch Transport","url": "https://techcrunch.com/category/transportation/feed/",                  "region": "world", "cat": "autonomy"},
     {"name": "The Verge",         "url": "https://www.theverge.com/rss/index.xml",                                  "region": "world", "cat": "auto"},
     {"name": "Autocar India",     "url": "https://www.autocarindia.com/rss/all",                                    "region": "world", "cat": "auto"},
+    {"name": "Carscoops Škoda",   "url": "https://www.carscoops.com/tag/skoda/feed/",                                "region": "world", "cat": "auto"},
     # Europe
     {"name": "Autocar",           "url": "https://www.autocar.co.uk/rss",                                           "region": "europe", "cat": "auto"},
     {"name": "Auto Express",      "url": "https://www.autoexpress.co.uk/rss",                                       "region": "europe", "cat": "auto"},
